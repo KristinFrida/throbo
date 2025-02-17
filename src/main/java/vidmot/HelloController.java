@@ -3,7 +3,7 @@ package vidmot;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class HelloController {
 
@@ -13,8 +13,8 @@ public class HelloController {
      */
     @FXML
     private void handleCellClick(MouseEvent event) {
-        // The clicked node is the StackPane (the grid cell)
-        StackPane cell = (StackPane) event.getSource();
+        // The clicked node is a VBox (the grid cell in hello-view.fxml)
+        VBox cell = (VBox) event.getSource();
 
         // Get the row and column indices from the GridPane layout.
         // (Note: These might be null if not explicitly set, so we default them to 0)
@@ -31,12 +31,14 @@ public class HelloController {
 
         try {
             // Use the cell index to get the corresponding View enum constant.
-            // For example, if cellIndex is 1, then we get View.GRID1.
+            // Example: If cellIndex is 1, then we get View.GRID1, etc.
             View view = View.valueOf("GRID" + cellIndex);
 
             // Switch to the view using your ViewSwitcher class.
             ViewSwitcher.switchTo(view);
+
         } catch (IllegalArgumentException e) {
+            // If there is no matching enum constant, handle it gracefully.
             System.err.println("No view available for cell: " + cellIndex);
         }
     }

@@ -7,6 +7,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="vidmot.HelloController">
+
     <VBox AnchorPane.topAnchor="0.0"
           AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0"
@@ -40,16 +41,20 @@
                                text="Verðhugmynd" />
                         <CheckBox fx:id="fxVerdbil1"
                                   layoutX="14.0" layoutY="91.0"
-                                  mnemonicParsing="false" text="CheckBox" />
+                                  mnemonicParsing="false"
+                                  text="CheckBox" />
                         <CheckBox fx:id="fxVerdbil2"
                                   layoutX="14.0" layoutY="116.0"
-                                  mnemonicParsing="false" text="CheckBox" />
+                                  mnemonicParsing="false"
+                                  text="CheckBox" />
                         <CheckBox fx:id="fxVerdbil3"
                                   layoutX="14.0" layoutY="141.0"
-                                  mnemonicParsing="false" text="CheckBox" />
+                                  mnemonicParsing="false"
+                                  text="CheckBox" />
                         <CheckBox fx:id="fxVerdbil4"
                                   layoutX="14.0" layoutY="166.0"
-                                  mnemonicParsing="false" text="CheckBox" />
+                                  mnemonicParsing="false"
+                                  text="CheckBox" />
                     </children>
                 </AnchorPane>
 
@@ -57,7 +62,8 @@
                 <AnchorPane>
                     <children>
                         <Label fx:id="fxTextiFyrirOfanGrid"
-                               layoutX="14.0" layoutY="5.0"
+                               layoutX="14.0"
+                               layoutY="5.0"
                                prefWidth="395.0"
                                text="Hér er tillaga um hvernig fólk ætti að geta valið" />
                         <GridPane AnchorPane.topAnchor="27.0"
