@@ -1,4 +1,5 @@
-
+Til þess að keyra verkefnið þarf að nota:
+mvn javafx:run
 
 As a user, I want to check what dates are available for the day tours that I’m looking at, to know when I can go.
 
