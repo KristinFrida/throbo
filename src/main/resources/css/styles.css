@@ -1,23 +1,23 @@
 .root {
     -fx-font-family: "Arial";
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #F2F2F2;
 }
 
 #fxLoginTakki {
     -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 14px;
     -fx-padding: 10px;
 }
 
 #fxLeitarvel {
-    -fx-background-color: #e0e0e0;
+    -fx-background-color: #F2F2F2;
     -fx-padding: 5px;
 }
 
 #fxLeitarvelTexti {
-    -fx-background-color: white;
-    -fx-border-color: #ccc;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #333333;
     -fx-border-width: 1px;
     -fx-font-size: 12px;
 }
@@ -28,7 +28,7 @@
 
 #fxLeitarvelTakki {
     -fx-background-color: #2196F3;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 12px;
     -fx-padding: 5px;
 }
@@ -36,11 +36,11 @@
 #fxTextiFyrirOfanVerdHakbox {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333;
+    -fx-text-fill: #333333;
 }
 
 #fxAdalsvaedid {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #FFFFFF;
 }
 
 Button {
@@ -53,20 +53,20 @@ CheckBox {
 
 Label {
     -fx-font-size: 12px;
-    -fx-text-fill: #333;
+    -fx-text-fill: #333333;
 }
 
 GridPane {
-    -fx-background-color: #fafafa;
+    -fx-background-color: #FFFFFF;
     -fx-padding: 10px;
 }
 
 SplitPane {
-    -fx-background-color: #cccccc;
+    -fx-background-color: #F2F2F2;
 }
 
 .grid-cell {
-    -fx-border-color: black;
+    -fx-border-color: #333333;
     -fx-border-width: 1;
     -fx-border-style: solid;
 }
