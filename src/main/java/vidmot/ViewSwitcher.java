@@ -33,17 +33,23 @@ public class ViewSwitcher {
                 System.out.println("Loading from cache");
                 root = cache.get(view);
             } else {
-                System.out.println("Loading from FXML");
-                FXMLLoader loader = new FXMLLoader(ViewSwitcher.class.getResource(view.getFileName()));
+                System.out.println("Loading from FXML: " + view.getFileName());
+                // Check if the resource is null before loading
+                var resource = ViewSwitcher.class.getResource(view.getFileName());
+                if (resource == null) {
+                    System.err.println("Resource not found: " + view.getFileName());
+                    return;
+                }
+                FXMLLoader loader = new FXMLLoader(resource);
                 root = loader.load();
                 cache.put(view, root);
                 controllers.put(view, loader.getController());
-                System.out.println(view);
+                System.out.println("Loaded view: " + view);
             }
             lastView = currentView;
             currentView = view;
             scene.setRoot(root);
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
