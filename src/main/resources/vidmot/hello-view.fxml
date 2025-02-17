@@ -12,24 +12,23 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HelloController">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HelloController">
+    <!-- Anchor the VBox to all edges of the AnchorPane -->
     <children>
-        <VBox prefHeight="700.0" prefWidth="600.0">
+        <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <!-- Top Login Section -->
-                <HBox alignment="CENTER_RIGHT" prefWidth="600.0">
+                <HBox alignment="CENTER_RIGHT">
                     <children>
                         <Button fx:id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Mínar síður/Login" />
                     </children>
                 </HBox>
                 <!-- Search Area -->
-                <HBox fx:id="fxLeitarvel" spacing="10" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="600.0">
+                <HBox fx:id="fxLeitarvel" spacing="10" alignment="CENTER_LEFT">
                     <children>
                         <TextField fx:id="fxLeitarvelTexti" promptText="Search..." HBox.hgrow="ALWAYS" />
                         <DatePicker fx:id="fxDagatal" />
@@ -37,23 +36,24 @@
                     </children>
                 </HBox>
                 <!-- Main Content SplitPane -->
-                <SplitPane dividerPositions="0.29797979797979796" prefHeight="526.0" prefWidth="600.0">
+                <!-- The VBox.vgrow="ALWAYS" makes this SplitPane stretch to fill extra vertical space -->
+                <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.29797979797979796">
                     <items>
                         <!-- Left AnchorPane (e.g., filters) -->
-                        <AnchorPane fx:id="fxAdalsvaedid" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <AnchorPane fx:id="fxAdalsvaedid">
                             <children>
                                 <CheckBox fx:id="fxVerdbil4" layoutX="14.0" layoutY="166.0" mnemonicParsing="false" text="CheckBox" />
                                 <CheckBox fx:id="fxVerdbil1" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" text="CheckBox" />
                                 <CheckBox fx:id="fxVerdbil2" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" text="CheckBox" />
                                 <CheckBox fx:id="fxVerdbil3" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" text="CheckBox" />
-                                <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" prefHeight="18.0" prefWidth="99.0" text="Verðhugmynd" />
+                                <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" text="Verðhugmynd" />
                             </children>
                         </AnchorPane>
                         <!-- Right AnchorPane with GridPane -->
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <AnchorPane>
                             <children>
-                                <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="395.0" text="Hér er tillaga um hvernig fólk ætti að geta valið" />
-                                <GridPane layoutX="3.0" layoutY="27.0" prefHeight="475.0" prefWidth="418.0">
+                                <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefWidth="395.0" text="Hér er tillaga um hvernig fólk ætti að geta valið" />
+                                <GridPane layoutX="3.0" layoutY="27.0">
                                     <!-- Define three columns -->
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -209,4 +209,4 @@
             </children>
         </VBox>
     </children>
-</Pane>
+</AnchorPane>
