@@ -60,9 +60,10 @@
                                layoutX="14.0" layoutY="5.0"
                                prefWidth="395.0"
                                text="Hér er tillaga um hvernig fólk ætti að geta valið" />
-                        <GridPane layoutY="27.0"
+                        <GridPane AnchorPane.topAnchor="27.0"
                                   AnchorPane.leftAnchor="0.0"
-                                  AnchorPane.rightAnchor="0.0">
+                                  AnchorPane.rightAnchor="0.0"
+                                  AnchorPane.bottomAnchor="0.0">
                             <!-- Define Columns -->
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,208 +80,232 @@
 
                             <children>
                                 <!-- Cell 1 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="0"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="0"
+                                      GridPane.columnIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage1" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage1" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample1.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 1" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 1" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 2 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="0"
+                                      GridPane.columnIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage2" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage2" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample2.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 2" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 2" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 3 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="0"
-                                           GridPane.columnIndex="2"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="0"
+                                      GridPane.columnIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage3" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage3" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample3.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 3" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 3" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 4 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="0"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="1"
+                                      GridPane.columnIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage4" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage4" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample4.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 4" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 4" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 5 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="1"
+                                      GridPane.columnIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage5" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage5" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample5.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 5" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 5" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 6 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="1"
-                                           GridPane.columnIndex="2"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="1"
+                                      GridPane.columnIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage6" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage6" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample6.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 6" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 6" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 7 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="0"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="2"
+                                      GridPane.columnIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage7" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage7" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample7.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 7" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 7" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 8 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="1"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="2"
+                                      GridPane.columnIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage8" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage8" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample8.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 8" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 8" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 9 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="2"
-                                           GridPane.columnIndex="2"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="2"
+                                      GridPane.columnIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage9" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage9" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample9.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 9" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 9" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 10 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="0"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="3"
+                                      GridPane.columnIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage10" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage10" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample10.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 10" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 10" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 11 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="1"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="3"
+                                      GridPane.columnIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage11" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage11" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample11.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 11" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 11" />
                                     </children>
-                                </StackPane>
+                                </VBox>
 
                                 <!-- Cell 12 -->
-                                <StackPane onMouseClicked="#handleCellClick"
-                                           styleClass="grid-cell"
-                                           GridPane.rowIndex="3"
-                                           GridPane.columnIndex="2"
-                                           prefWidth="100.0"
-                                           prefHeight="100.0">
+                                <VBox onMouseClicked="#handleCellClick"
+                                      styleClass="grid-cell"
+                                      alignment="CENTER"
+                                      prefWidth="100.0"
+                                      prefHeight="120.0"
+                                      spacing="5"
+                                      GridPane.rowIndex="3"
+                                      GridPane.columnIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage12" fitWidth="80" fitHeight="80">
+                                        <ImageView fx:id="cellImage12" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/sample12.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 12" StackPane.alignment="BOTTOM_CENTER" />
+                                        <Label text="View 12" />
                                     </children>
-                                </StackPane>
+                                </VBox>
                             </children>
                         </GridPane>
                     </children>
