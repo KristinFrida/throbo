@@ -19,7 +19,9 @@
     <children>
         <VBox prefHeight="700.0" prefWidth="600.0">
             <children>
-                <Button id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Login" />
+                <HBox alignment="CENTER_RIGHT" prefWidth="600">
+                    <Button id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Login" />
+                </HBox>
                 <HBox id="fxLeitarvel" prefHeight="50.0" prefWidth="600.0">
                     <children>
                         <TextField id="fxLeitarvelTexti" prefHeight="52.0" prefWidth="188.0" text="Hér er texti" />
