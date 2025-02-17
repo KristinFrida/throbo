@@ -22,6 +22,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         var scene = new Scene(new Pane());
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.START);
         stage.setScene(scene);
