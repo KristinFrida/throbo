@@ -1,4 +1,4 @@
-package is.hi.hbv401g.throunnhugbunadar;
+package vidmot;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
