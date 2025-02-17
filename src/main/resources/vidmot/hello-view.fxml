@@ -1,212 +1,291 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HelloController">
-    <children>
-        <VBox prefHeight="700.0" prefWidth="600.0">
-            <children>
-                <!-- Top Login Section -->
-                <HBox alignment="CENTER_RIGHT" prefWidth="600.0">
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vidmot.HelloController">
+    <VBox AnchorPane.topAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+
+        <!-- Top Login Section -->
+        <HBox alignment="CENTER_RIGHT">
+            <Button fx:id="fxLoginTakki"
+                    mnemonicParsing="false"
+                    prefHeight="30.0"
+                    prefWidth="152.0"
+                    text="Mínar síður/Login" />
+        </HBox>
+
+        <!-- Search Area -->
+        <HBox fx:id="fxLeitarvel" spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="fxLeitarvelTexti" promptText="Search..." HBox.hgrow="ALWAYS" />
+            <DatePicker fx:id="fxDagatal" />
+            <Button fx:id="fxLeitarvelTakki" mnemonicParsing="false" text="Search" />
+        </HBox>
+
+        <!-- Main Content SplitPane -->
+        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.3">
+            <items>
+
+                <!-- Left Pane: Filters -->
+                <AnchorPane fx:id="fxAdalsvaedid">
                     <children>
-                        <Button fx:id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Mínar síður/Login" />
+                        <Label fx:id="fxTextiFyrirOfanVerdHakbox"
+                               layoutX="14.0" layoutY="72.0"
+                               text="Verðhugmynd" />
+                        <CheckBox fx:id="fxVerdbil1"
+                                  layoutX="14.0" layoutY="91.0"
+                                  mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox fx:id="fxVerdbil2"
+                                  layoutX="14.0" layoutY="116.0"
+                                  mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox fx:id="fxVerdbil3"
+                                  layoutX="14.0" layoutY="141.0"
+                                  mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox fx:id="fxVerdbil4"
+                                  layoutX="14.0" layoutY="166.0"
+                                  mnemonicParsing="false" text="CheckBox" />
                     </children>
-                </HBox>
-                <!-- Search Area -->
-                <HBox fx:id="fxLeitarvel" spacing="10" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="600.0">
+                </AnchorPane>
+
+                <!-- Right Pane: Grid of Views -->
+                <AnchorPane>
                     <children>
-                        <TextField fx:id="fxLeitarvelTexti" promptText="Search..." HBox.hgrow="ALWAYS" />
-                        <DatePicker fx:id="fxDagatal" />
-                        <Button fx:id="fxLeitarvelTakki" mnemonicParsing="false" text="Search" />
-                    </children>
-                </HBox>
-                <!-- Main Content SplitPane -->
-                <SplitPane dividerPositions="0.29797979797979796" prefHeight="526.0" prefWidth="600.0">
-                    <items>
-                        <!-- Left AnchorPane (e.g., filters) -->
-                        <AnchorPane fx:id="fxAdalsvaedid" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <Label fx:id="fxTextiFyrirOfanGrid"
+                               layoutX="14.0" layoutY="5.0"
+                               prefWidth="395.0"
+                               text="Hér er tillaga um hvernig fólk ætti að geta valið" />
+                        <GridPane layoutY="27.0"
+                                  AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0">
+                            <!-- Define Columns -->
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <!-- Define Rows -->
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+
                             <children>
-                                <CheckBox fx:id="fxVerdbil4" layoutX="14.0" layoutY="166.0" mnemonicParsing="false" text="CheckBox" />
-                                <CheckBox fx:id="fxVerdbil1" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" text="CheckBox" />
-                                <CheckBox fx:id="fxVerdbil2" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" text="CheckBox" />
-                                <CheckBox fx:id="fxVerdbil3" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" text="CheckBox" />
-                                <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" prefHeight="18.0" prefWidth="99.0" text="Verðhugmynd" />
-                            </children>
-                        </AnchorPane>
-                        <!-- Right AnchorPane with GridPane -->
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                            <children>
-                                <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="395.0" text="Hér er tillaga um hvernig fólk ætti að geta valið" />
-                                <GridPane layoutX="3.0" layoutY="27.0" prefHeight="475.0" prefWidth="418.0">
-                                    <!-- Define three columns -->
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <!-- Define four rows -->
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
+                                <!-- Cell 1 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="0"
+                                           GridPane.columnIndex="0"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
                                     <children>
-                                        <!-- Cell 1 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="0" GridPane.columnIndex="0" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage1" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample1.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 1" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 2 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage2" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample2.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 2" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 3 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="0" GridPane.columnIndex="2" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage3" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample3.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 3" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 4 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="1" GridPane.columnIndex="0" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage4" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample4.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 4" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 5 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage5" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample5.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 5" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 6 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="1" GridPane.columnIndex="2" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage6" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample6.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 6" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 7 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="2" GridPane.columnIndex="0" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage7" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample7.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 7" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 8 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage8" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample8.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 8" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 9 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="2" GridPane.columnIndex="2" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage9" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample9.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 9" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 10 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="3" GridPane.columnIndex="0" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage10" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample10.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 10" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 11 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage11" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample11.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 11" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
-                                        <!-- Cell 12 -->
-                                        <StackPane onMouseClicked="#handleCellClick" styleClass="grid-cell" GridPane.rowIndex="3" GridPane.columnIndex="2" prefWidth="100.0" prefHeight="100.0">
-                                            <children>
-                                                <ImageView fx:id="cellImage12" fitWidth="80" fitHeight="80">
-                                                    <image>
-                                                        <Image url="@../images/sample12.png"/>
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="View 12" StackPane.alignment="BOTTOM_CENTER" />
-                                            </children>
-                                        </StackPane>
+                                        <ImageView fx:id="cellImage1" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample1.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 1" StackPane.alignment="BOTTOM_CENTER" />
                                     </children>
-                                </GridPane>
+                                </StackPane>
+
+                                <!-- Cell 2 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="0"
+                                           GridPane.columnIndex="1"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage2" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample2.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 2" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 3 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="0"
+                                           GridPane.columnIndex="2"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage3" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample3.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 3" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 4 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="1"
+                                           GridPane.columnIndex="0"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage4" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample4.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 4" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 5 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="1"
+                                           GridPane.columnIndex="1"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage5" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample5.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 5" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 6 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="1"
+                                           GridPane.columnIndex="2"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage6" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample6.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 6" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 7 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="2"
+                                           GridPane.columnIndex="0"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage7" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample7.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 7" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 8 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="2"
+                                           GridPane.columnIndex="1"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage8" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample8.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 8" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 9 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="2"
+                                           GridPane.columnIndex="2"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage9" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample9.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 9" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 10 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="3"
+                                           GridPane.columnIndex="0"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage10" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample10.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 10" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 11 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="3"
+                                           GridPane.columnIndex="1"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage11" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample11.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 11" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Cell 12 -->
+                                <StackPane onMouseClicked="#handleCellClick"
+                                           styleClass="grid-cell"
+                                           GridPane.rowIndex="3"
+                                           GridPane.columnIndex="2"
+                                           prefWidth="100.0"
+                                           prefHeight="100.0">
+                                    <children>
+                                        <ImageView fx:id="cellImage12" fitWidth="80" fitHeight="80">
+                                            <image>
+                                                <Image url="@../images/sample12.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="View 12" StackPane.alignment="BOTTOM_CENTER" />
+                                    </children>
+                                </StackPane>
                             </children>
-                        </AnchorPane>
-                    </items>
-                </SplitPane>
-            </children>
-        </VBox>
-    </children>
-</Pane>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </VBox>
+</AnchorPane>
