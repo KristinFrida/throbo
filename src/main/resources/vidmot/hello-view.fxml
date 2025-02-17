@@ -20,13 +20,13 @@
         <VBox prefHeight="700.0" prefWidth="600.0">
             <children>
                 <HBox alignment="CENTER_RIGHT" prefWidth="600">
-                    <Button id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Login" />
+                    <Button id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Mínar síður/Login" />
                 </HBox>
-                <HBox id="fxLeitarvel" prefHeight="50.0" prefWidth="600.0">
+                <HBox id="fxLeitarvel" spacing="10" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="600.0">
                     <children>
-                        <TextField id="fxLeitarvelTexti" prefHeight="52.0" prefWidth="188.0" text="Hér er texti" />
-                        <DatePicker id="fxDagatal" prefHeight="50.0" prefWidth="179.0" />
-                        <Button id="fxLeitarvelTakki" mnemonicParsing="false" prefHeight="60.0" prefWidth="54.0" text="Leita" />
+                        <TextField fx:id="fxLeitarvelTexti" promptText="Search..." HBox.hgrow="ALWAYS" />
+                        <DatePicker fx:id="fxDagatal" />
+                        <Button fx:id="fxLeitarvelTakki" mnemonicParsing="false" text="Search" />
                     </children>
                 </HBox>
                 <SplitPane dividerPositions="0.29797979797979796" prefHeight="526.0" prefWidth="600.0">
