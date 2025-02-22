@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="vidmot.HelloController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vidmot.HelloController">
+
     <children>
-        <Text text="Hér er síða 1!" layoutX="250.0" layoutY="200.0"/>
+        <!-- Title -->
+        <Label alignment="CENTER" layoutX="0" layoutY="20" prefWidth="800.0"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333;"
+               text="The Northern Lights Tour from Reykjavik" />
+
+        <!-- Tour Image -->
+        <ImageView fx:id="tour1Image" fitHeight="300" fitWidth="600" layoutX="100" layoutY="80"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/tour1.png" />
+            </image>
+        </ImageView>
+
+        <!-- Section for Tour Information -->
+        <VBox layoutX="100" layoutY="400" prefWidth="600.0" spacing="20">
+
+            <!-- Introduction Text Over Both Columns -->
+            <TextFlow>
+                <Text style="-fx-font-size: 16px; -fx-fill: #555; -fx-font-weight: bold;"
+                      wrappingWidth="600"
+                      text="Experience the magic of the Northern Lights with our guided tour from Reykjavik." />
+            </TextFlow>
+
+            <!-- Two-Column Layout -->
+            <HBox spacing="40">
+
+                <!-- Left Column: Tour Details -->
+                <VBox spacing="10" prefWidth="250">
+                    <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Location:" />
+                        <Text style="-fx-font-size: 14px;" text="Reykjavik" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Duration:" />
+                        <Text style="-fx-font-size: 14px;" text="3.5 hours" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Minimum age:" />
+                        <Text style="-fx-font-size: 14px;" text="6 years old" />
+                    </HBox>
+
+                    <!-- Book Now Button -->
+                    <Button prefHeight="40" prefWidth="200"
+                            style="-fx-font-size: 18px; -fx-background-color: #28a745; -fx-text-fill: white;"
+                            text="Book Now" />
+                </VBox>
+
+                <!-- Right Column: Description Box -->
+                <TextFlow prefWidth="300">
+                    <Text style="-fx-font-size: 14px; -fx-fill: #333;"
+                          wrappingWidth="300"
+                          text="Jump aboard this affordable bus tour for your chance to see one of nature’s greatest marvels, the Northern Lights. This tour is for those travelling outside of the summer months, who seek to tick ‘seeing the aurora borealis’ off of their bucket list." />
+                </TextFlow>
+
+            </HBox>
+        </VBox>
+
     </children>
 </AnchorPane>

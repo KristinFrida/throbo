@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 
 public class HelloController {
 
+
     /**
      * Called when any grid cell is clicked.
      * Computes which cell was clicked and switches view accordingly.
