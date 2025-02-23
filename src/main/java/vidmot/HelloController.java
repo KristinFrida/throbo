@@ -2,13 +2,16 @@ package vidmot;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class HelloController {
 
-
+    @FXML
+    private Label outputUsername;
     /**
      * Called when any grid cell is clicked.
      * Computes which cell was clicked and switches view accordingly.
@@ -50,10 +53,17 @@ public class HelloController {
         ViewSwitcher.switchTo(View.START);
     }
 
-
-
     @FXML
     private void goToLogin(ActionEvent event){ViewSwitcher.switchTo(View.LOGIN);
     }
+
+
+    // Þessi tekur username sem er sláð inn og birtist það á forsíðunni
+    public void updateLabel(String text){
+        outputUsername.setText("Welcome " + text);
+    }
+
+
+
 
 }
