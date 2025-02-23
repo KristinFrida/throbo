@@ -116,10 +116,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage2" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample2.png" />
+                                                <Image url="@../images/tour2.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 2" />
+                                        <Label text="Whale Watching" />
                                     </children>
                                 </VBox>
 
@@ -135,10 +135,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage3" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample3.png" />
+                                                <Image url="@../images/tour3.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 3" />
+                                        <Label text="Blue Lagoon" />
                                     </children>
                                 </VBox>
 
@@ -154,10 +154,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage4" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample4.png" />
+                                                <Image url="@../images/tour4.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 4" />
+                                        <Label text="Katla Ice Cave" />
                                     </children>
                                 </VBox>
 
@@ -173,10 +173,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage5" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample5.png" />
+                                                <Image url="@../images/tour5.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 5" />
+                                        <Label text="South Coast of Iceland" />
                                     </children>
                                 </VBox>
 
@@ -192,10 +192,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage6" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample6.png" />
+                                                <Image url="@../images/tour6.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 6" />
+                                        <Label text="Golden Circle" />
                                     </children>
                                 </VBox>
 
@@ -211,10 +211,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage7" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample7.png" />
+                                                <Image url="@../images/tour7.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 7" />
+                                        <Label text="Snowmobiling" />
                                     </children>
                                 </VBox>
 
@@ -230,10 +230,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage8" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample8.png" />
+                                                <Image url="@../images/tour8.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 8" />
+                                        <Label text="2-Day Buggy Tour" />
                                     </children>
                                 </VBox>
 

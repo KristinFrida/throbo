@@ -1,5 +1,6 @@
 package vidmot;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -43,4 +44,10 @@ public class HelloController {
             System.err.println("No view available for cell: " + cellIndex);
         }
     }
+
+    @FXML
+    private void goToHome(ActionEvent event) {
+        ViewSwitcher.switchTo(View.START);
+    }
+
 }

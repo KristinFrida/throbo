@@ -71,7 +71,7 @@
                 <!-- Left Column: Tour Details -->
                 <VBox spacing="10" prefWidth="300">
                     <HBox spacing="10">
-                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Location:" />
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Tour starts:" />
                         <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="Reykjavik" />
                     </HBox>
 
@@ -104,6 +104,13 @@
 
             </HBox>
         </VBox>
+
+        <!-- Back to Home Button -->
+        <Button text="← Go Back" onAction="#goToHome"
+                layoutX="100" layoutY="660" prefHeight="35" prefWidth="120"
+                style="-fx-font-size: 14px; -fx-background-color: transparent;
+               -fx-border-color: #bbb; -fx-border-radius: 20px;
+               -fx-text-fill: #333; -fx-padding: 5px;" />
 
     </children>
 </AnchorPane>
