@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="vidmot.HelloController">
 
-    <VBox spacing="15" AnchorPane.topAnchor="0.0"
-          AnchorPane.bottomAnchor="0.0"
+    <VBox spacing="15" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0">
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
 
         <!-- Top Login Section -->
         <HBox alignment="CENTER_RIGHT">
@@ -23,293 +34,190 @@
         </HBox>
 
         <!-- Search Area -->
-        <HBox fx:id="fxLeitarvel" spacing="10" alignment="CENTER_LEFT">
+        <HBox fx:id="fxLeitarvel" alignment="CENTER_LEFT" spacing="10">
             <TextField fx:id="fxLeitarvelTexti" promptText="Search..." HBox.hgrow="ALWAYS" />
             <DatePicker fx:id="fxDagatal" />
             <Button fx:id="fxLeitarvelTakki" mnemonicParsing="false" text="Search" />
         </HBox>
 
         <!-- Main Content SplitPane -->
-        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.3">
+        <SplitPane dividerPositions="0.2" VBox.vgrow="ALWAYS">
             <items>
 
                 <!-- Left Pane: Filters -->
-                <AnchorPane fx:id="fxAdalsvaedid">
+                <AnchorPane fx:id="fxAdalsvaedid" prefWidth="100.0">
                     <children>
-                        <Label fx:id="fxTextiFyrirOfanVerdHakbox"
-                               layoutX="14.0" layoutY="72.0"
-                               text="Verðhugmynd" />
-                        <CheckBox fx:id="fxVerdbil1"
-                                  layoutX="14.0" layoutY="91.0"
-                                  mnemonicParsing="false"
-                                  text="CheckBox" />
-                        <CheckBox fx:id="fxVerdbil2"
-                                  layoutX="14.0" layoutY="116.0"
-                                  mnemonicParsing="false"
-                                  text="CheckBox" />
-                        <CheckBox fx:id="fxVerdbil3"
-                                  layoutX="14.0" layoutY="141.0"
-                                  mnemonicParsing="false"
-                                  text="CheckBox" />
-                        <CheckBox fx:id="fxVerdbil4"
-                                  layoutX="14.0" layoutY="166.0"
-                                  mnemonicParsing="false"
-                                  text="CheckBox" />
+                        <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Verðhugmynd" />
+                        <VBox layoutX="14.0" layoutY="114.0" spacing="10">
+                        <CheckBox fx:id="fxVerdbil1" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox fx:id="fxVerdbil2" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox fx:id="fxVerdbil3" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox fx:id="fxVerdbil4" layoutX="14.0" layoutY="166.0" mnemonicParsing="false" text="CheckBox" />
+                        </VBox>
                     </children>
                 </AnchorPane>
 
                 <!-- Right Pane: Grid of Views -->
                 <AnchorPane>
                     <children>
-                        <Label fx:id="fxTextiFyrirOfanGrid"
-                               layoutX="14.0"
-                               layoutY="5.0"
-                               prefWidth="395.0"
-                               text="Hér er tillaga um hvernig fólk ætti að geta valið" />
-                        <GridPane AnchorPane.topAnchor="27.0"
-                                  AnchorPane.leftAnchor="0.0"
-                                  AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.bottomAnchor="0.0">
+                        <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefWidth="395.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Hér er tillaga um hvernig fólk ætti að geta valið" />
+                        <GridPane hgap="15" vgap="15" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
                             <!-- Define Columns -->
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
                             </columnConstraints>
                             <!-- Define Rows -->
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="120.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="120.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="120.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="120.0" prefHeight="150.0" vgrow="SOMETIMES" />
                             </rowConstraints>
 
                             <children>
                                 <!-- Cell 1 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="0"
-                                      GridPane.columnIndex="0">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8f; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage1" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage1" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour1.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Northern Lights" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Northern Lights" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 2 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="0"
-                                      GridPane.columnIndex="1">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8f; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage2" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage2" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour2.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Whale Watching" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Whale Watching" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 3 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="0"
-                                      GridPane.columnIndex="2">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8f; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="0">
                                     <children>
-                                        <ImageView fx:id="cellImage3" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage3" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour3.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Blue Lagoon" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Blue Lagoon" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 4 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="0">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8f; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage4" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage4" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour4.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Katla Ice Cave" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Katla Ice Cave" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 5 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="1">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage5" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage5" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour5.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="South Coast of Iceland" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="South Coast of Iceland" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 6 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="1"
-                                      GridPane.columnIndex="2">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                     <children>
-                                        <ImageView fx:id="cellImage6" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage6" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour6.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Golden Circle" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Golden Circle" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 7 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="2"
-                                      GridPane.columnIndex="0">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage7" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage7" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour7.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Snowmobiling" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Snowmobiling" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 8 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="2"
-                                      GridPane.columnIndex="1">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage8" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage8" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour8.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="2-Day Buggy Tour" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="2-Day Buggy Tour" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 9 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="2"
-                                      GridPane.columnIndex="2">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="5" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                     <children>
-                                        <ImageView fx:id="cellImage9" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage9" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour9.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Dog Sledding" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Dog Sledding" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 10 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="0">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="3">
                                     <children>
-                                        <ImageView fx:id="cellImage10" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage10" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour10.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Hiking with Huskies Dogs" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Hiking with Huskies Dogs" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 11 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="1">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <children>
-                                        <ImageView fx:id="cellImage11" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage11" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour11.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Skaftafell Glacier Hiking" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Skaftafell Glacier Hiking" />
                                     </children>
                                 </VBox>
 
                                 <!-- Cell 12 -->
-                                <VBox onMouseClicked="#handleCellClick"
-                                      styleClass="grid-cell"
-                                      alignment="CENTER"
-                                      prefWidth="100.0"
-                                      prefHeight="120.0"
-                                      spacing="5"
-                                      GridPane.rowIndex="3"
-                                      GridPane.columnIndex="2">
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10" style="-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;" styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                     <children>
-                                        <ImageView fx:id="cellImage12" fitWidth="80" fitHeight="50" preserveRatio="true">
+                                        <ImageView fx:id="cellImage12" fitHeight="100" fitWidth="160" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/tour12.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="Jökulsárlón Boat Tour" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Jökulsárlón Boat Tour" />
                                     </children>
                                 </VBox>
                             </children>
