@@ -50,4 +50,10 @@ public class HelloController {
         ViewSwitcher.switchTo(View.START);
     }
 
+
+
+    @FXML
+    private void goToLogin(ActionEvent event){ViewSwitcher.switchTo(View.LOGIN);
+    }
+
 }

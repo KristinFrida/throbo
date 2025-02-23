@@ -30,7 +30,8 @@
                     mnemonicParsing="false"
                     prefHeight="30.0"
                     prefWidth="152.0"
-                    text="Mínar síður/Login" />
+                    text="Mínar síður/Login"
+                    onAction="#goToLogin"/>
         </HBox>
 
         <!-- Search Area -->
