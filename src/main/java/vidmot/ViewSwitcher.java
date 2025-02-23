@@ -67,4 +67,7 @@ public class ViewSwitcher {
     public static View getLastView() {
         return lastView;
     }
+
+
+
 }

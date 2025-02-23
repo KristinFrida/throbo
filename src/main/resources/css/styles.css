@@ -74,3 +74,9 @@ SplitPane {
     -fx-font-size: 16px;
     -fx-text-fill: #333;
 }
+.welcome-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}

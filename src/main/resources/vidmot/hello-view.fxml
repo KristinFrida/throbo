@@ -24,13 +24,16 @@
           AnchorPane.rightAnchor="0.0"
           AnchorPane.topAnchor="0.0">
 
+        <HBox alignment="CENTER_LEFT">
+            <Label fx:id="outputUsername" text="Welcome " styleClass="welcome-label"/>
+        </HBox>
         <!-- Top Login Section -->
         <HBox alignment="CENTER_RIGHT">
             <Button fx:id="fxLoginTakki"
                     mnemonicParsing="false"
                     prefHeight="30.0"
                     prefWidth="152.0"
-                    text="Mínar síður/Login"
+                    text="Login"
                     onAction="#goToLogin"/>
         </HBox>
 
