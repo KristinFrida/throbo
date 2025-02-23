@@ -70,3 +70,7 @@ SplitPane {
     -fx-border-width: 1;
     -fx-border-style: solid;
 }
+.label-style {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}

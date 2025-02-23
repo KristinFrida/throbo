@@ -1,13 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane prefHeight="700.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="vidmot.HelloController"
-            prefHeight="400.0" prefWidth="600.0">
+            style="-fx-background-color: #f9f9f9; -fx-padding: 20px;">
+
+    <children>
+        <!-- Title -->
+        <Label layoutX="0" layoutY="10" prefWidth="900.0"
+               style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #222; -fx-alignment: center;"
+               text="Private 3-Hour Dog Sledding Tour in Akureyri" />
+
+        <!-- Image Section with Stacked Images -->
+        <HBox layoutX="100" layoutY="60" spacing="20">
+            <!-- Main Large Image -->
+            <ImageView fx:id="tour9Image" fitHeight="320" fitWidth="500"
+                       style="-fx-border-radius: 15px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);"
+                       pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/tour9.png" />
+                </image>
+            </ImageView>
+
+            <!-- Stacked Small Images -->
+            <VBox spacing="10">
+                <ImageView fitHeight="155" fitWidth="200"
+                           style="-fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.3, 0, 4);"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/tour9-2.png" />
+                    </image>
+                </ImageView>
+
+                <ImageView fitHeight="155" fitWidth="200"
+                           style="-fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.3, 0, 4);"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/tour9-3.png" />
+                    </image>
+                </ImageView>
+            </VBox>
+        </HBox>
+
+        <!-- Main Content Section -->
+        <VBox layoutX="100" layoutY="400" prefWidth="700.0" spacing="20"
+              style="-fx-background-color: #ffffff; -fx-border-color: #ddd; -fx-border-radius: 10px; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.3, 0, 4);">
+
+            <!-- Description Header -->
+            <TextFlow>
+                <Text style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #333;"
+                      wrappingWidth="700"
+                      text="Glide through the snowy landscapes of Akureyri on a private 3-hour dog sledding adventure, led by a team of energetic huskies." />
+            </TextFlow>
+
+            <!-- Two-Column Layout -->
+            <HBox spacing="40">
+
+                <!-- Left Column: Tour Details -->
+                <VBox spacing="10" prefWidth="300">
+                    <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Tour starts:" />
+                        <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="Akureyri" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Duration:" />
+                        <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="3 hours" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Minimum age:" />
+                        <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="None" />
+                    </HBox>
+
+                    <!-- Spacer -->
+                    <Region prefHeight="20" />
+
+                    <!-- Book Now Button -->
+                    <Button prefHeight="45" prefWidth="250"
+                            style="-fx-font-size: 18px; -fx-background-color: #28a745; -fx-background-radius: 25px; -fx-text-fill: white; -fx-font-weight: bold;"
+                            text="Book Now" />
+                </VBox>
+
+                <!-- Right Column: Description Box -->
+                <TextFlow prefWidth="350"
+                          style="-fx-border-color: #ddd; -fx-background-color: #f7f7f7; -fx-border-radius: 10px; -fx-padding: 10px;">
+                    <Text style="-fx-font-size: 14px; -fx-fill: #333;"
+                          wrappingWidth="350"
+                          text="Explore the breathtaking around Akureyri as huskies pull you along by booking this incredible guided excursion. Those who want to see beautiful surroundings during winter in Iceland and get to know these beautiful dogs should book this private tour now." />
+                </TextFlow>
+
+            </HBox>
+        </VBox>
+
+        <!-- Back to Home Button -->
+        <Button text="← Go Back" onAction="#goToHome"
+                layoutX="100" layoutY="660" prefHeight="35" prefWidth="120"
+                style="-fx-font-size: 14px; -fx-background-color: transparent;
+               -fx-border-color: #bbb; -fx-border-radius: 20px;
+               -fx-text-fill: #333; -fx-padding: 5px;" />
+
+    </children>
 </AnchorPane>

@@ -1,11 +1,13 @@
 package vidmot;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class HelloController {
+
 
     /**
      * Called when any grid cell is clicked.
@@ -42,4 +44,16 @@ public class HelloController {
             System.err.println("No view available for cell: " + cellIndex);
         }
     }
+
+    @FXML
+    private void goToHome(ActionEvent event) {
+        ViewSwitcher.switchTo(View.START);
+    }
+
+
+
+    @FXML
+    private void goToLogin(ActionEvent event){ViewSwitcher.switchTo(View.LOGIN);
+    }
+
 }

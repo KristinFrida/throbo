@@ -16,7 +16,8 @@ public enum View {
     GRID9("grid9-view.fxml"),
     GRID10("grid10-view.fxml"),
     GRID11("grid11-view.fxml"),
-    GRID12("grid12-view.fxml");
+    GRID12("grid12-view.fxml"),
+    LOGIN("login-view.fxml");
 
     private final String fileName;
 
