@@ -1,2 +1,4 @@
-package vidmot;public class SearchEngineController {
+package vidmot;
+
+public class SearchEngineController {
 }
