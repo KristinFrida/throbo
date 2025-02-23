@@ -1,22 +1,11 @@
 package vidmot;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import java.io.File;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.util.Objects;
 
 public class HelloApplication extends Application {
     @Override
@@ -26,6 +15,13 @@ public class HelloApplication extends Application {
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.START);
+
+        // Set preferred and minimum size for the window
+        stage.setWidth(1000);
+        stage.setHeight(800);
+        stage.setMinWidth(900);
+        stage.setMinHeight(700);
+
         stage.setScene(scene);
         stage.setTitle("Bókunarsíða");
         stage.show();

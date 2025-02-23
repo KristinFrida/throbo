@@ -8,7 +8,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="vidmot.HelloController">
 
-    <VBox AnchorPane.topAnchor="0.0"
+    <VBox spacing="15" AnchorPane.topAnchor="0.0"
           AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0"
           AnchorPane.rightAnchor="0.0">
@@ -249,10 +249,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage9" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample9.png" />
+                                                <Image url="@../images/tour9.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 9" />
+                                        <Label text="Dog Sledding" />
                                     </children>
                                 </VBox>
 
@@ -268,10 +268,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage10" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample10.png" />
+                                                <Image url="@../images/tour10.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 10" />
+                                        <Label text="Hiking with Huskies Dogs" />
                                     </children>
                                 </VBox>
 
@@ -287,10 +287,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage11" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample11.png" />
+                                                <Image url="@../images/tour11.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 11" />
+                                        <Label text="Skaftafell Glacier Hiking" />
                                     </children>
                                 </VBox>
 
@@ -306,10 +306,10 @@
                                     <children>
                                         <ImageView fx:id="cellImage12" fitWidth="80" fitHeight="50" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/sample12.png" />
+                                                <Image url="@../images/tour12.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text="View 12" />
+                                        <Label text="Jökulsárlón Boat Tour" />
                                     </children>
                                 </VBox>
                             </children>
