@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="vidmot.HelloController"
+            fx:controller="vidmot.UserController"
             stylesheets="/css/styles.css"
             prefHeight="200.0" prefWidth="300.0">
 
@@ -18,11 +18,13 @@
 
 
         <Label text="Username:" styleClass="styles.css" />
-        <TextField fx:id="fxUsername" prefWidth="200"/>
+        <TextField fx:id="fxUsername" prefWidth="200" promptText="Input your username here"/>
 
 
         <Label text="Password:" styleClass="styles.css" />
-        <PasswordField fx:id="passwordField" prefWidth="200" />
+        <PasswordField fx:id="fxPassword" prefWidth="200" promptText="Input your password here" />
+
+        <Button text="Login" onAction="#skraSigInn"/>
 
 
     </VBox>
