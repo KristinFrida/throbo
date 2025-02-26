@@ -15,33 +15,24 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="vidmot.HelloController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HelloController">
+   <VBox prefHeight="200.0" prefWidth="100.0" />
 
-    <VBox spacing="15" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0"
-          AnchorPane.topAnchor="0.0">
+    <VBox spacing="15" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <HBox alignment="CENTER_LEFT">
-            <Label fx:id="outputUsername" text="Welcome " styleClass="welcome-label"/>
+            <Label fx:id="outputUsername" styleClass="welcome-label" text="Welcome " />
         </HBox>
         <!-- Top Login Section -->
         <HBox alignment="CENTER_RIGHT">
-            <Button fx:id="fxLoginTakki"
-                    mnemonicParsing="false"
-                    prefHeight="30.0"
-                    prefWidth="152.0"
-                    text="Login"
-                    onAction="#goToLogin"/>
+            <Button fx:id="fxLoginTakki" mnemonicParsing="false" onAction="#goToLogin" prefHeight="30.0" prefWidth="152.0" text="Login" />
         </HBox>
 
         <!-- Search Area -->
         <HBox fx:id="fxLeitarvel" alignment="CENTER_LEFT" spacing="10">
             <TextField fx:id="fxLeitarvelTexti" promptText="Search..." HBox.hgrow="ALWAYS" />
             <DatePicker fx:id="fxDagatal" />
-            <Button fx:id="fxLeitarvelTakki" mnemonicParsing="false" text="Search" />
+            <Button fx:id="fxLeitarvelTakki" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
         </HBox>
 
         <!-- Main Content SplitPane -->
@@ -65,7 +56,9 @@
                 <AnchorPane>
                     <children>
                         <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefWidth="395.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Hér er tillaga um hvernig fólk ætti að geta valið" />
-                        <GridPane hgap="15" vgap="15" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+                        <VBox fx:id="searchResultsContainer" alignment="CENTER" layoutX="14.0" layoutY="30.0" spacing="10" style="-fx-background-color: yellow; -fx-border-color: red; -fx-border-width: 2px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+                        </VBox>
+                        <GridPane fx:id="fxTourGridPane" hgap="15" vgap="15" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
                             <!-- Define Columns -->
                             <columnConstraints>
                                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
@@ -231,4 +224,5 @@
             </items>
         </SplitPane>
     </VBox>
+   <VBox prefHeight="200.0" prefWidth="100.0" />
 </AnchorPane>
