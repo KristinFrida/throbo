@@ -20,8 +20,6 @@ import vidmot.SearchEngineController;
 import bakendi.Tour;
 import java.io.InputStream;
 import javafx.application.Platform;
-
-
 public class HelloController {
     //Skilgreini instance af SearchEngineController
     private SearchEngineController searchEngineController;
@@ -42,6 +40,10 @@ public class HelloController {
     @FXML
     private VBox searchResultsContainer;
     @FXML
+    /**
+     * Upphafsstillir controllerinn
+     * Tengir <enter> til að triggera searches og að search bar fá focus þegar UI opnast, cursorinn er þar
+     */
     private void initialize() {
         searchEngineController = new SearchEngineController();
 
@@ -52,11 +54,14 @@ public class HelloController {
                     event.consume();
                 }
             });
-
+            //setur cursorinn í leitarvélina
             Platform.runLater(() -> fxLeitarvelTexti.requestFocus());
         }
     }
-
+    /**
+     * Sér um user search queries
+     * Leitar að tour út frá því sem slegið er inn og uppfærir UI skv því
+     */
     @FXML
     private void handleSearch() {
         String query = fxLeitarvelTexti.getText().trim();
@@ -65,91 +70,76 @@ public class HelloController {
         List<Tour> results = searchEngineController.searchToursByName(query);
 
         if (results.size() == 1) {
-            // 🔥 If there's exactly one result, go straight to the details page
             goToTourDetails(results.get(0));
         } else {
-            // Otherwise, update the search results in VBox
             displaySearchResults(results);
         }
     }
 
-
+    /**
+     * Nálgast details view fyrir valinn tour
+     * @param tour Valinn tour
+     */
     private void goToTourDetails(Tour tour) {
-        System.out.println("🔥 Navigating to tour details: " + tour.getName());
-
-        // Switch to details view
         ViewSwitcher.switchTo(View.TOUR_DETAILS);
 
-        // Load the tour details into the controller
         TourDetailsController detailsController = (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
 
         if (detailsController != null) {
             detailsController.loadTour(tour);
-        } else {
-            System.out.println("❌ Error: TourDetailsController is NULL");
         }
     }
-
-
+    /**
+     * Sýnir leitarniðurstöður í searchResultsContainer
+     * @param results Listinn af tours sem matcha valinn tour (sem slegið var inn í leitarvél)
+     */
     private void displaySearchResults(List<Tour> results) {
-        System.out.println("📌 searchResultsContainer: " + searchResultsContainer);
-        System.out.println("⚡ Updating UI with " + results.size() + " search results.");
-
         Platform.runLater(() -> {
             if (searchResultsContainer == null) {
-                System.out.println("❌ searchResultsContainer is NULL! Check FXML bindings.");
                 return;
             }
-
-            // 🔹 Clear previous results
+            // hreinsar previous results
             searchResultsContainer.getChildren().clear();
 
-            // 🔹 Ensure VBox visibility
+            // Setur upp VBox hlutföll og style
             searchResultsContainer.setMinHeight(100);
             searchResultsContainer.setPrefHeight(200);
             searchResultsContainer.setMaxHeight(400);
-            searchResultsContainer.setStyle("-fx-border-color: red; -fx-border-width: 3px; -fx-background-color: lightgrey;");
 
             if (results.isEmpty()) {
-                System.out.println("❌ No search results found.");
                 searchResultsContainer.getChildren().add(new Label("No tours found."));
                 return;
             }
 
-            // 🔹 Display search results in VBox
+            // sýna Display search results í VBox
             for (Tour tour : results) {
                 VBox tourBox = createTourBox(tour);
                 searchResultsContainer.getChildren().add(tourBox);
-                System.out.println("✅ Added tour to UI: " + tour.getName());
             }
-
-            System.out.println("🎯 UI update completed.");
         });
     }
-
-
-
-
+    /**
+     * Býr til VBox element fyrir single tour result
+     * Inniheldur ljósmynd og nafn á tour
+     * @param tour Tour to dislplay
+     * @return VBox sem inniheldur tour details
+     */
     private VBox createTourBox(Tour tour) {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
         String imagePath = tour.getMainImage();
-        ImageView imageView = new ImageView(); // Create an empty ImageView by default
+        ImageView imageView = new ImageView();
 
         try {
-            // Attempt to load the image
             InputStream imageStream = getClass().getResourceAsStream("/" + imagePath);
 
             if (imageStream != null) {
                 Image image = new Image(imageStream);
                 imageView.setImage(image);
-            } else {
-                System.out.println("❌ Image not found: " + imagePath);
             }
         } catch (Exception e) {
-            System.out.println("🚨 Error loading image: " + imagePath);
             e.printStackTrace();
         }
 
@@ -163,12 +153,6 @@ public class HelloController {
         vbox.getChildren().addAll(imageView, label);
         return vbox;
     }
-
-
-
-
-
-    //hingað
     @FXML
     private Label outputUsername;
     /**
