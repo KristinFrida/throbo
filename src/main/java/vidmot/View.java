@@ -17,13 +17,15 @@ public enum View {
     GRID10("grid10-view.fxml"),
     GRID11("grid11-view.fxml"),
     GRID12("grid12-view.fxml"),
-    LOGIN("login-view.fxml");
+    LOGIN("login-view.fxml"),
+    TOUR_DETAILS("/vidmot/tour-details-view.fxml");
 
     private final String fileName;
 
     View(String fileName){
         this.fileName = fileName;
     }
+
     public String getFileName(){
         return fileName;
     }
