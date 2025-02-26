@@ -8,7 +8,6 @@ public class Tour {
     private double duration;
     private int minAge;
 
-    // Constructor
     public Tour(String name, String mainImage, String image2, String image3,
                 String shortDescription, String startLocation, double duration,
                 int minAge, String longDescription) {
@@ -23,7 +22,6 @@ public class Tour {
         this.longDescription = longDescription;
     }
 
-    // Getters
     public String getName() { return name; }
     public String getMainImage() { return mainImage; }
     public String getImage2() { return image2; }
