@@ -1,6 +1,5 @@
 package vidmot;
 import bakendi.TourDatabase;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -10,24 +9,24 @@ import bakendi.Tour;
 import javafx.event.ActionEvent;
 import java.io.InputStream;
 
+/**
+ * Controller til að birta upplýsingar um valinn tour (sem var settur inn í leitarvél)
+ * Sér um að birta ítarlegar upplýsingar um hvern tour; nafn, lýsing, lengd, aldurstakmark og ljósmyndir.
+ * Sækir uppl um tours úr TourDataBase og uppfærir UI skv þeim.
+ */
 public class TourDetailsController {
-
     @FXML private Label tourTitleLabel;
     @FXML private ImageView tourMainImage, tourImage2, tourImage3;
     @FXML private Text tourShortDescription, tourStartLocation, tourDuration, tourMinAge, tourLongDescription;
 
     /**
-     * Loads the selected tour into the UI dynamically.
+     * Hleður selected tour í UI.
+     * @param tour Tour object sem inniheldur uppl um tour
      */
     public void loadTour(Tour tour) {
-        if (tour == null) {
-            System.out.println("❌ Error: Tour is NULL!");
-            return;
-        }
+        if (tour == null) return;
 
-        System.out.println("✅ Loading tour: " + tour.getName());
-
-        // Set text fields
+        //Setur upp texts fields í UI
         tourTitleLabel.setText(tour.getName());
         tourShortDescription.setText(tour.getShortDescription());
         tourStartLocation.setText(tour.getStartLocation());
@@ -35,38 +34,40 @@ public class TourDetailsController {
         tourMinAge.setText(tour.getMinAge() + " years old");
         tourLongDescription.setText(tour.getLongDescription());
 
-        // Load images safely
+        // Hleður inn myndum
         loadImage(tourMainImage, tour.getMainImage());
         loadImage(tourImage2, tour.getImage2());
         loadImage(tourImage3, tour.getImage3());
     }
-
     /**
-     * Loads an image from resources safely.
+     * Hleður myndum frá resources.
+     * @param imageView, ImageView hluturinn sem myndin á að birtast í
+     * @param imagePath nafn á file sem myndin er geymd í
      */
     private void loadImage(ImageView imageView, String imagePath) {
         InputStream stream = getClass().getResourceAsStream("/images/" + imagePath);
         if (stream != null) {
             imageView.setImage(new Image(stream));
-        } else {
-            System.out.println("❌ Image not found: " + imagePath);
         }
     }
-
+    /**
+     * Fer til baka í start view
+     * @param event event triggered af back button
+     */
     @FXML
     private void goBack(ActionEvent event) {
         ViewSwitcher.switchTo(View.START);
     }
-
+    /**
+     * Hleður og sýnir uppl um tour fyrir gefið tour name
+     * @param tourName nafn toursins til að sýna(display)
+     */
     public void goToTourDetails(String tourName) {
         Tour tour = TourDatabase.getTourByName(tourName);
         if (tour != null) {
             TourDetailsController detailsController = (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
             detailsController.loadTour(tour);
             ViewSwitcher.switchTo(View.TOUR_DETAILS);
-        } else {
-            System.out.println("❌ Error: No tour found with name " + tourName);
         }
     }
-
 }
