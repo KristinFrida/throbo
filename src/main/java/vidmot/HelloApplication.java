@@ -12,12 +12,10 @@ import java.net.URL;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
         var scene = new Scene(new Pane());
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.START);
-
         // Set preferred and minimum size for the window
         stage.setWidth(1000);
         stage.setHeight(800);

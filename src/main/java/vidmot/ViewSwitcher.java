@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.stage.Stage;
 
 public class ViewSwitcher {
     private static final Map<View, Parent> cache = new HashMap<>();
@@ -14,10 +15,17 @@ public class ViewSwitcher {
     private static View lastView;
     private static View currentView;
 
+    //heðan
+    private static final Map<View, FXMLLoader> loaders = new HashMap<>();
+    private static Stage mainStage;
+    //hingað
+
     public static void setScene(Scene scene){
         ViewSwitcher.scene = scene;
     }
-
+    public static void setMainStage(Stage stage) {
+        mainStage = stage; // Assign the main stage
+    }
     /**
      * Færir notandann á milli mismunandi valmynda/fxml skráa
      */
@@ -54,6 +62,19 @@ public class ViewSwitcher {
         }
     }
 
+
+    //heðan
+    public static Object getController(View view) {
+        FXMLLoader loader = loaders.get(view);
+        if (loader != null) {
+            return loader.getController();
+        } else {
+            System.out.println("❌ Error: No loader found for " + view);
+            return null;
+        }
+    }
+
+    //hingað
     /**
      * Flettir upp hvaða fxml skrá notandinn er á
      */
