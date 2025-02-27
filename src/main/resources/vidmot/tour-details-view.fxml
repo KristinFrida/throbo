@@ -70,14 +70,17 @@
                 <!-- Left Column: Tour Details -->
                 <VBox spacing="10" prefWidth="300">
                     <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Start Location:" />
                         <Text fx:id="tourStartLocation" style="-fx-font-size: 14px; -fx-fill: #666;" text="Location placeholder" />
                     </HBox>
 
                     <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Duration:" />
                         <Text fx:id="tourDuration" style="-fx-font-size: 14px; -fx-fill: #666;" text="Duration placeholder" />
                     </HBox>
 
                     <HBox spacing="10">
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Minimum age:" />
                         <Text fx:id="tourMinAge" style="-fx-font-size: 14px; -fx-fill: #666;" text="Min age placeholder" />
                     </HBox>
 
