@@ -15,76 +15,57 @@ public class ViewSwitcher {
     private static View lastView;
     private static View currentView;
 
-    //heðan
     private static final Map<View, FXMLLoader> loaders = new HashMap<>();
     private static Stage mainStage;
-    //hingað
 
     public static void setScene(Scene scene){
         ViewSwitcher.scene = scene;
     }
     public static void setMainStage(Stage stage) {
-        mainStage = stage; // Assign the main stage
+        mainStage = stage;
     }
     /**
      * Færir notandann á milli mismunandi valmynda/fxml skráa
      */
     public static void switchTo(View view) {
         if (scene == null) {
-            System.out.println("No scene set");
             return;
         }
 
         try {
             Parent root;
             if (cache.containsKey(view)) {
-                System.out.println("✅ Loading from cache: " + view);
                 root = cache.get(view);
             } else {
-                System.out.println("✅ Loading from FXML: " + view.getFileName());
                 var resource = ViewSwitcher.class.getResource(view.getFileName());
                 if (resource == null) {
-                    System.err.println("❌ Resource not found: " + view.getFileName());
                     return;
                 }
                 FXMLLoader loader = new FXMLLoader(resource);
                 root = loader.load();
                 cache.put(view, root);
                 controllers.put(view, loader.getController());
-                loaders.put(view, loader); // ✅ FIX: Store loader
-                System.out.println("✅ View Loaded: " + view);
+                loaders.put(view, loader);
             }
 
             lastView = currentView;
             currentView = view;
             scene.setRoot(root);
 
-            // Debug: Print controller info
-            Object controller = getController(view);
-            if (controller == null) {
-                System.out.println("❌ Error: Controller is NULL for " + view);
-            } else {
-                System.out.println("✅ Controller found: " + controller.getClass().getSimpleName());
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
-    //heðan
+    /**
+     * Sækir controllerinn sem er tengdur við gefið view
+     * @param view view sem ákveðinn controller þarf
+     * @return controller instance fyrir tiltekið view
+     */
     public static Object getController(View view) {
         FXMLLoader loader = loaders.get(view);
-        if (loader != null) {
-            return loader.getController();
-        } else {
-            System.out.println("❌ Error: No loader found for " + view);
-            return null;
-        }
+        return (loader != null) ? loader.getController() : null;
     }
-
-    //hingað
     /**
      * Flettir upp hvaða fxml skrá notandinn er á
      */

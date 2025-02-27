@@ -25,28 +25,20 @@ public class TourDetailsController {
      */
     public void loadTour(Tour tour) {
         if (tour == null) {
-            System.out.println("❌ Error: tour is NULL!");
             return;
         }
 
-        System.out.println("✅ Loading Tour: " + tour.getName());
-
-        // Debug: Print image paths
-        System.out.println("Main Image: " + tour.getMainImage());
-        System.out.println("Image 2: " + tour.getImage2());
-        System.out.println("Image 3: " + tour.getImage3());
-
-        // Clear previous images before loading new ones
+        // hreinsar eldri myndir áður en nýrri er hlaðað
         tourMainImage.setImage(null);
         tourImage2.setImage(null);
         tourImage3.setImage(null);
 
-        // Load new images
+        // hleður nýum myndum
         loadImage(tourMainImage, tour.getMainImage());
         loadImage(tourImage2, tour.getImage2());
         loadImage(tourImage3, tour.getImage3());
 
-        // Set up text fields
+        // Setur upp text fields
         if (tourTitleLabel != null) tourTitleLabel.setText(tour.getName());
         if (tourShortDescription != null) tourShortDescription.setText(tour.getShortDescription());
         if (tourStartLocation != null) tourStartLocation.setText(tour.getStartLocation());
@@ -55,7 +47,6 @@ public class TourDetailsController {
         if (tourLongDescription != null) tourLongDescription.setText(tour.getLongDescription());
     }
 
-
     /**
      * Hleður myndum frá resources.
      * @param imageView, ImageView hluturinn sem myndin á að birtast í
@@ -63,24 +54,17 @@ public class TourDetailsController {
      */
     private void loadImage(ImageView imageView, String imagePath) {
         if (imagePath == null || imagePath.isEmpty()) {
-            System.out.println("❌ Error: No image path provided for " + imageView);
             return;
         }
 
-        // Ensure the path does not contain an extra "/images/"
+        // rétt format á path
         String correctedPath = imagePath.startsWith("/") ? imagePath : "/images/" + imagePath;
 
         InputStream stream = getClass().getResourceAsStream(correctedPath);
         if (stream != null) {
-            System.out.println("✅ Image loaded successfully: " + correctedPath);
             imageView.setImage(new Image(stream));
-        } else {
-            System.out.println("❌ Error: Image not found at path: " + correctedPath);
         }
     }
-
-
-
     /**
      * Fer til baka í start view
      * @param event event triggered af back button

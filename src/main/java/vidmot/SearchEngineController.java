@@ -10,7 +10,7 @@ public class SearchEngineController {
     public List<Tour> searchTours(String query) {
         if (query == null || query.trim().isEmpty()) return List.of();
 
-        // Normalize query to remove accents (so "reykjavík" and "reykjavik" both match)
+        // leyfir að skrifa íslenska stafi
         String normalizedQuery = removeAccents(query.toLowerCase());
 
         return TourDatabase.getAllTours().stream()

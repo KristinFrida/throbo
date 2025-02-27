@@ -1,5 +1,8 @@
 package bakendi;
 
+/**
+ * Heldur utan um upplýsingar um tours
+ */
 public class Tour {
     private String name;
     private String mainImage, image2, image3;
@@ -8,6 +11,18 @@ public class Tour {
     private double duration;
     private int minAge;
 
+    /**
+     * Smíðir tour hluti
+     * @param name
+     * @param mainImage
+     * @param image2
+     * @param image3
+     * @param shortDescription
+     * @param startLocation
+     * @param duration
+     * @param minAge
+     * @param longDescription
+     */
     public Tour(String name, String mainImage, String image2, String image3,
                 String shortDescription, String startLocation, double duration,
                 int minAge, String longDescription) {

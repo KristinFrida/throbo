@@ -24,11 +24,11 @@ public class TourDatabase {
                 "Explore the stunning Katla Ice Cave, where blue ice and volcanic ash create a breathtaking natural wonder.", "Vík", 3.0, 6,
                 "Join the original Katla Ice Cave tour and experience the magic of ice caving in Iceland like never before. If you’re looking for a hassle-free and thrilling way to explore Iceland’s incredible glaciers, this tour is designed just for you. Unlike Ice Cave tours from the glacier lagoon, this one departs from Vík and doesn’t require traveling to Jökulsárlon, making it a quicker and more accessible option."));
 
-        tours.add(new Tour("South Coast Tour", "/images/tour5.png", "/images/tour5-2.png", "/images/tour5-3.png",
+        tours.add(new Tour("South Coast", "/images/tour5.png", "/images/tour5-2.png", "/images/tour5-3.png",
                 "Discover Iceland’s breathtaking South Coast, where waterfalls, black sand beaches, and glaciers create an unforgettable adventure.", "Reykjavik", 10.0, 6,
                 "Join this small group minibus day tour of Iceland’s South Coast. Witness glaciers, volcanoes, waterfalls and the famous Reynisfjara black sand beach on this trip. This tour is perfect for those wanting the best value tour focused on exploring the best spots along Iceland’s magnificent South Coast."));
 
-        tours.add(new Tour("Golden Circle Tour", "/images/tour6.png", "/images/tour6-2.png", "/images/tour6-3.png",
+        tours.add(new Tour("Golden Circle", "/images/tour6.png", "/images/tour6-2.png", "/images/tour6-3.png",
                 "Journey through Iceland’s iconic Golden Circle, where geysers, waterfalls, and historic landscapes showcase nature’s raw beauty.", "Reykjavik", 8.0, 6,
                 "Hop onboard this small group minibus tour of the Golden Circle - Iceland's most popular travel route. This highly recommended tour starts with a pickup from your hotel in Reykjavik and takes you to see Iceland's most famous attractions, without the rush and hassle of the big buses."));
 
@@ -36,7 +36,7 @@ public class TourDatabase {
                 "Race across the icy expanse of Eyjafjallajökull on a thrilling snowmobiling adventure through Iceland’s breathtaking highlands.", "Hvolsvöllur", 5.0, 17,
                 "Get ready for an exhilarating adventure through Iceland’s winter wilderness on this five-hour snowmobiling tour on the Eyjafjallajokull glacier. This exclusive day tour in Iceland offers a thrilling way to explore the Highlands, complete with a single-rider snowmobile, safety gear, and an expert English-speaking guide."));
 
-        tours.add(new Tour("2-Day Buggy Tour", "/images/tour8.png", "/images/tour8-2.png", "/images/tour8-3.png",
+        tours.add(new Tour("2-Day Buggy", "/images/tour8.png", "/images/tour8-2.png", "/images/tour8-3.png",
                 "Experience the thrill of a two-day buggy adventure through Iceland’s rugged highlands", "Hvolsvöllur", 48.0, 6,
                 "Embark on a thrilling buggy tour in the Icelandic Highlands by booking this incredible two-day guided excursion with buggy gear, meals, and one-night accommodation. Those eager to have an epic adventure and discover the stunning scenery of the Highlands should book this tour now."));
 
@@ -52,7 +52,7 @@ public class TourDatabase {
                 "Hike across the breathtaking ice formations of Skaftafell Glacier on this guided adventure, perfect for nature and thrill seekers alike.", "Skaftafell", 3.0, 8,
                 "Join a glacier hike along Iceland’s awe-inspiring South Coast at Skaftafell. This is the perfect way to add excitement to your holiday by hiking on top of an outlet glacier of Vatnajokull, Europe's largest glacier. This exciting tour is perfect for those traveling the South Coast of Iceland who want to combine incredible landscapes with a thrilling adventure."));
 
-        tours.add(new Tour("Jökulsárlón Boat Tour", "/images/tour12.png", "/images/tour12-2.png", "/images/tour12-3.png",
+        tours.add(new Tour("Jökulsárlón Boat", "/images/tour12.png", "/images/tour12-2.png", "/images/tour12-3.png",
                 "Sail among towering icebergs on the Jökulsárlón Glacier Lagoon Boat Tour, a stunning journey through Iceland’s most famous glacier lagoon.", "Jökulsárlón", 0.58, 0,
                 "Explore one of the world’s most beautiful natural wonders, Jökulsárlón Glacier Lagoon, on this unique boat tour. If you want to get close to mesmerizing icebergs and glide through serene waters as they head to the ocean, this tour is an ideal choice. Book now to secure your spot at an affordable price."));
     }
