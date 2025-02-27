@@ -128,14 +128,20 @@ public class HelloController {
      * @param tour Valinn tour
      */
     private void goToTourDetails(Tour tour) {
+        System.out.println("🔥 Switching to tour details for: " + tour.getName());
+
         ViewSwitcher.switchTo(View.TOUR_DETAILS);
 
         TourDetailsController detailsController = (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
 
         if (detailsController != null) {
+            System.out.println("✅ Loading tour in TourDetailsController: " + tour.getName());
             detailsController.loadTour(tour);
+        } else {
+            System.out.println("❌ Error: TourDetailsController is NULL!");
         }
     }
+
 
     /**
      * Sýnir leitarniðurstöður í searchResultsContainer
