@@ -20,6 +20,7 @@ import vidmot.SearchEngineController;
 import bakendi.Tour;
 import java.io.InputStream;
 import javafx.application.Platform;
+import bakendi.TourDatabase;
 public class HelloController {
     //Skilgreini instance af SearchEngineController
     private SearchEngineController searchEngineController;
@@ -64,17 +65,56 @@ public class HelloController {
      */
     @FXML
     private void handleSearch() {
-        String query = fxLeitarvelTexti.getText().trim();
-        if (query.isEmpty()) return;
+        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
 
-        List<Tour> results = searchEngineController.searchToursByName(query);
+        // If the search bar is empty, reset the UI to show all tours
+        if (query.isEmpty()) {
+            resetTourGrid();
+            return;
+        }
 
-        if (results.size() == 1) {
-            goToTourDetails(results.get(0));
-        } else {
-            displaySearchResults(results);
+        // Get all the tours from TourDatabase
+        List<Tour> allTours = TourDatabase.getAllTours();
+        List<Tour> matchingTours = searchEngineController.searchToursByName(query);
+
+        // Clear the grid before re-adding matching tours
+        fxTourGridPane.getChildren().clear();
+
+        // Re-add only matching tours to the grid
+        int row = 0, col = 0;
+        for (Tour tour : matchingTours) {
+            VBox tourBox = createTourBox(tour);
+            fxTourGridPane.add(tourBox, col, row);
+
+            // Update row and column positions
+            col++;
+            if (col == 3) { // Assuming 3 columns per row
+                col = 0;
+                row++;
+            }
         }
     }
+    private void resetTourGrid() {
+        // Clear the grid
+        fxTourGridPane.getChildren().clear();
+
+        // Reload all tours
+        List<Tour> allTours = TourDatabase.getAllTours();
+        int row = 0, col = 0;
+        for (Tour tour : allTours) {
+            VBox tourBox = createTourBox(tour);
+            fxTourGridPane.add(tourBox, col, row);
+
+            // Update row and column positions
+            col++;
+            if (col == 3) { // Assuming 3 columns per row
+                col = 0;
+                row++;
+            }
+        }
+    }
+
+
 
     /**
      * Nálgast details view fyrir valinn tour
@@ -128,18 +168,19 @@ public class HelloController {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
+        vbox.setOnMouseClicked(event -> goToTourDetails(tour)); // Ensure clicking opens details
 
         String imagePath = tour.getMainImage();
         ImageView imageView = new ImageView();
 
         try {
-            InputStream imageStream = getClass().getResourceAsStream("/" + imagePath);
-
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
             if (imageStream != null) {
                 Image image = new Image(imageStream);
                 imageView.setImage(image);
             }
         } catch (Exception e) {
+            System.out.println("🚨 Error loading image: " + imagePath);
             e.printStackTrace();
         }
 
@@ -153,6 +194,7 @@ public class HelloController {
         vbox.getChildren().addAll(imageView, label);
         return vbox;
     }
+
     @FXML
     private Label outputUsername;
     /**
