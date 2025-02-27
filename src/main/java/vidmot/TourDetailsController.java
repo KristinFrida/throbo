@@ -24,21 +24,40 @@ public class TourDetailsController {
      * @param tour Tour object sem inniheldur uppl um tour
      */
     public void loadTour(Tour tour) {
-        if (tour == null) return;
+        if (tour == null) {
+            System.out.println("❌ Error: tour is NULL!");
+            return;
+        }
 
-        //Setur upp texts fields í UI
-        tourTitleLabel.setText(tour.getName());
-        tourShortDescription.setText(tour.getShortDescription());
-        tourStartLocation.setText(tour.getStartLocation());
-        tourDuration.setText(tour.getDuration() + " hours");
-        tourMinAge.setText(tour.getMinAge() + " years old");
-        tourLongDescription.setText(tour.getLongDescription());
+        System.out.println("✅ Loading Tour: " + tour.getName());
+        System.out.println("Short Description: " + tour.getShortDescription());
+        System.out.println("Start Location: " + tour.getStartLocation());
+        System.out.println("Duration: " + tour.getDuration() + " hours");
+        System.out.println("Min Age: " + tour.getMinAge() + " years old");
+        System.out.println("Long Description: " + tour.getLongDescription());
 
-        // Hleður inn myndum
+        // Debug: Are the FXML elements null?
+        if (tourTitleLabel == null) System.out.println("❌ tourTitleLabel is NULL!");
+        if (tourShortDescription == null) System.out.println("❌ tourShortDescription is NULL!");
+        if (tourStartLocation == null) System.out.println("❌ tourStartLocation is NULL!");
+        if (tourDuration == null) System.out.println("❌ tourDuration is NULL!");
+        if (tourMinAge == null) System.out.println("❌ tourMinAge is NULL!");
+        if (tourLongDescription == null) System.out.println("❌ tourLongDescription is NULL!");
+
+        // Set values (only if they are NOT null)
+        if (tourTitleLabel != null) tourTitleLabel.setText(tour.getName());
+        if (tourShortDescription != null) tourShortDescription.setText(tour.getShortDescription());
+        if (tourStartLocation != null) tourStartLocation.setText(tour.getStartLocation());
+        if (tourDuration != null) tourDuration.setText(tour.getDuration() + " hours");
+        if (tourMinAge != null) tourMinAge.setText(tour.getMinAge() + " years old");
+        if (tourLongDescription != null) tourLongDescription.setText(tour.getLongDescription());
+
+        // Load Images
         loadImage(tourMainImage, tour.getMainImage());
         loadImage(tourImage2, tour.getImage2());
         loadImage(tourImage3, tour.getImage3());
     }
+
     /**
      * Hleður myndum frá resources.
      * @param imageView, ImageView hluturinn sem myndin á að birtast í

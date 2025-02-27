@@ -29,38 +29,48 @@ public class ViewSwitcher {
     /**
      * Færir notandann á milli mismunandi valmynda/fxml skráa
      */
-    public static void switchTo(View view){
-        if (scene == null){
+    public static void switchTo(View view) {
+        if (scene == null) {
             System.out.println("No scene set");
             return;
         }
 
-        try{
+        try {
             Parent root;
-            if (cache.containsKey(view)){
-                System.out.println("Loading from cache");
+            if (cache.containsKey(view)) {
+                System.out.println("✅ Loading from cache: " + view);
                 root = cache.get(view);
             } else {
-                System.out.println("Loading from FXML: " + view.getFileName());
-                // Check if the resource is null before loading
+                System.out.println("✅ Loading from FXML: " + view.getFileName());
                 var resource = ViewSwitcher.class.getResource(view.getFileName());
                 if (resource == null) {
-                    System.err.println("Resource not found: " + view.getFileName());
+                    System.err.println("❌ Resource not found: " + view.getFileName());
                     return;
                 }
                 FXMLLoader loader = new FXMLLoader(resource);
                 root = loader.load();
                 cache.put(view, root);
                 controllers.put(view, loader.getController());
-                System.out.println("Loaded view: " + view);
+                loaders.put(view, loader); // ✅ FIX: Store loader
+                System.out.println("✅ View Loaded: " + view);
             }
+
             lastView = currentView;
             currentView = view;
             scene.setRoot(root);
-        } catch (IOException e){
+
+            // Debug: Print controller info
+            Object controller = getController(view);
+            if (controller == null) {
+                System.out.println("❌ Error: Controller is NULL for " + view);
+            } else {
+                System.out.println("✅ Controller found: " + controller.getClass().getSimpleName());
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     //heðan
