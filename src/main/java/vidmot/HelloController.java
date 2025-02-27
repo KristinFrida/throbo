@@ -67,26 +67,24 @@ public class HelloController {
     private void handleSearch() {
         String query = fxLeitarvelTexti.getText().trim().toLowerCase();
 
-        // If the search bar is empty, reset the UI to show all tours
+        // 🔥 If the search bar is empty, reset the UI to show all tours
         if (query.isEmpty()) {
             resetTourGrid();
             return;
         }
 
-        // Get all the tours from TourDatabase
-        List<Tour> allTours = TourDatabase.getAllTours();
+        // 🔍 Get matching tours
         List<Tour> matchingTours = searchEngineController.searchToursByName(query);
 
-        // Clear the grid before re-adding matching tours
+        // 🔄 Clear the grid and add only the matching tours
         fxTourGridPane.getChildren().clear();
 
-        // Re-add only matching tours to the grid
         int row = 0, col = 0;
         for (Tour tour : matchingTours) {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
 
-            // Update row and column positions
+            // ✅ Update row/column positions
             col++;
             if (col == 3) { // Assuming 3 columns per row
                 col = 0;
@@ -94,18 +92,19 @@ public class HelloController {
             }
         }
     }
+
     private void resetTourGrid() {
-        // Clear the grid
+        // 🗑️ Clear the grid
         fxTourGridPane.getChildren().clear();
 
-        // Reload all tours
+        // 🔄 Load all tours from the database
         List<Tour> allTours = TourDatabase.getAllTours();
         int row = 0, col = 0;
         for (Tour tour : allTours) {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
 
-            // Update row and column positions
+            // ✅ Update row/column positions
             col++;
             if (col == 3) { // Assuming 3 columns per row
                 col = 0;
@@ -113,7 +112,6 @@ public class HelloController {
             }
         }
     }
-
 
 
     /**
@@ -194,6 +192,7 @@ public class HelloController {
         vbox.getChildren().addAll(imageView, label);
         return vbox;
     }
+
 
     @FXML
     private Label outputUsername;
