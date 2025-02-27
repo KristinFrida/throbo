@@ -166,7 +166,7 @@ public class HelloController {
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
-        // Set click event to open the correct tour details
+        // Set click event til að opna rétt tour details
         vbox.setOnMouseClicked(event -> goToTourDetails(tour));
 
         String imagePath = tour.getMainImage();
