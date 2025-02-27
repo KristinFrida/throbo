@@ -1,5 +1,4 @@
 package vidmot;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-//hingað
 import javafx.application.Platform;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Button;
@@ -24,15 +22,10 @@ import bakendi.TourDatabase;
 public class HelloController {
     //Skilgreini instance af SearchEngineController
     private SearchEngineController searchEngineController;
-
-    //Tengi við fx:id í FXML
     @FXML
     private TextField fxLeitarvelTexti;
     @FXML
     private Button fxLeitarvelTakki;
-
-
-    //Tengi við tour grid í FXML
     @FXML
     private GridPane fxTourGridPane;
 
@@ -41,15 +34,17 @@ public class HelloController {
     @FXML
     private VBox searchResultsContainer;
     /**
-     * Upphafsstillir controllerinn
-     * Tengir <enter> til að triggera searches og að search bar fá focus þegar UI opnast, cursorinn er þar
+     * Upphafsstillir UI
+     * Tengir <enter> til að triggera searches
+     * Hleður öllum tours þegar UI opnast
+     * Setur focus á search glugga
      */
     @FXML
     private void initialize() {
         searchEngineController = new SearchEngineController();
 
         if (fxLeitarvelTexti != null) {
-            // 🔥 Trigger search on Enter
+            // Enter takki triggerar search
             fxLeitarvelTexti.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     handleSearch();
@@ -57,36 +52,32 @@ public class HelloController {
                 }
             });
 
-            // 🔥 Trigger search instantly when typing
-            fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> {
-                handleSearch(); // Call handleSearch() whenever text changes
-            });
+            // Uppfærir leitarniðurstöðum while typing
+            fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
 
-            // 🔥 Load all tours when UI starts
+            // Hleður öllum tours á startup
             Platform.runLater(() -> {
                 fxLeitarvelTexti.requestFocus();
-                resetTourGrid(); // Ensure all tours load on startup
+                resetTourGrid();
             });
         }
     }
     /**
      * Sér um user search queries
      * Leitar að tour út frá því sem slegið er inn og uppfærir UI skv því
+     * Ef search bar er tómur, eru allir tours til sýnis
      */
     @FXML
     private void handleSearch() {
         String query = fxLeitarvelTexti.getText().trim().toLowerCase();
 
-        // 🔥 If search bar is empty, reset the UI to show all tours
         if (query.isEmpty()) {
-            resetTourGrid();  // Restore all tours
+            resetTourGrid();
             return;
         }
 
-        // 🔍 Get matching tours (by Name OR Location)
         List<Tour> matchingTours = searchEngineController.searchTours(query);
 
-        // 🔄 Clear the grid and add only the matching tours
         fxTourGridPane.getChildren().clear();
 
         int row = 0, col = 0;
@@ -94,56 +85,47 @@ public class HelloController {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
 
-            // ✅ Update row/column positions
             col++;
-            if (col == 3) { // Assuming 3 columns per row
+            if (col == 3) {
                 col = 0;
                 row++;
             }
         }
     }
 
+    /**
+     * Endurraðar tourgrid til að tours séu samþjappaðir jafnóðum skv innslætti
+     */
+
     private void resetTourGrid() {
-        // 🗑️ Clear the grid
         fxTourGridPane.getChildren().clear();
 
-        // 🔄 Load all tours from the database
         List<Tour> allTours = TourDatabase.getAllTours();
         int row = 0, col = 0;
         for (Tour tour : allTours) {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
 
-            // ✅ Update row/column positions
             col++;
-            if (col == 3) { // Assuming 3 columns per row
+            if (col == 3) {
                 col = 0;
                 row++;
             }
         }
     }
-
-
     /**
      * Nálgast details view fyrir valinn tour
      * @param tour Valinn tour
      */
     private void goToTourDetails(Tour tour) {
-        System.out.println("🔥 Switching to tour details for: " + tour.getName());
-
         ViewSwitcher.switchTo(View.TOUR_DETAILS);
 
         TourDetailsController detailsController = (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
 
         if (detailsController != null) {
-            System.out.println("✅ Loading tour in TourDetailsController: " + tour.getName());
             detailsController.loadTour(tour);
-        } else {
-            System.out.println("❌ Error: TourDetailsController is NULL!");
         }
     }
-
-
     /**
      * Sýnir leitarniðurstöður í searchResultsContainer
      * @param results Listinn af tours sem matcha valinn tour (sem slegið var inn í leitarvél)
@@ -184,11 +166,8 @@ public class HelloController {
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
-        // Set click event so that it opens the correct tour details
-        vbox.setOnMouseClicked(event -> {
-            System.out.println("🖱️ Clicked on: " + tour.getName()); // Debugging
-            goToTourDetails(tour);  // ✅ Pass the correct tour!
-        });
+        // Set click event to open the correct tour details
+        vbox.setOnMouseClicked(event -> goToTourDetails(tour));
 
         String imagePath = tour.getMainImage();
         ImageView imageView = new ImageView();
@@ -200,7 +179,6 @@ public class HelloController {
                 imageView.setImage(image);
             }
         } catch (Exception e) {
-            System.out.println("🚨 Error loading image: " + imagePath);
             e.printStackTrace();
         }
 
@@ -214,8 +192,6 @@ public class HelloController {
         vbox.getChildren().addAll(imageView, label);
         return vbox;
     }
-
-
     @FXML
     private Label outputUsername;
     /**
