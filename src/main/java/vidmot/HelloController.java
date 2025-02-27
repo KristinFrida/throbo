@@ -83,8 +83,8 @@ public class HelloController {
             return;
         }
 
-        // 🔍 Get matching tours
-        List<Tour> matchingTours = searchEngineController.searchToursByName(query);
+        // 🔍 Get matching tours (by Name OR Location)
+        List<Tour> matchingTours = searchEngineController.searchTours(query);
 
         // 🔄 Clear the grid and add only the matching tours
         fxTourGridPane.getChildren().clear();
@@ -102,6 +102,7 @@ public class HelloController {
             }
         }
     }
+
     private void resetTourGrid() {
         // 🗑️ Clear the grid
         fxTourGridPane.getChildren().clear();
