@@ -40,23 +40,33 @@ public class HelloController {
     private DatePicker fxDagatal;
     @FXML
     private VBox searchResultsContainer;
-    @FXML
     /**
      * Upphafsstillir controllerinn
      * Tengir <enter> til að triggera searches og að search bar fá focus þegar UI opnast, cursorinn er þar
      */
+    @FXML
     private void initialize() {
         searchEngineController = new SearchEngineController();
 
         if (fxLeitarvelTexti != null) {
+            // 🔥 Trigger search on Enter
             fxLeitarvelTexti.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     handleSearch();
                     event.consume();
                 }
             });
-            //setur cursorinn í leitarvélina
-            Platform.runLater(() -> fxLeitarvelTexti.requestFocus());
+
+            // 🔥 Trigger search instantly when typing
+            fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> {
+                handleSearch(); // Call handleSearch() whenever text changes
+            });
+
+            // 🔥 Load all tours when UI starts
+            Platform.runLater(() -> {
+                fxLeitarvelTexti.requestFocus();
+                resetTourGrid(); // Ensure all tours load on startup
+            });
         }
     }
     /**
@@ -67,9 +77,9 @@ public class HelloController {
     private void handleSearch() {
         String query = fxLeitarvelTexti.getText().trim().toLowerCase();
 
-        // 🔥 If the search bar is empty, reset the UI to show all tours
+        // 🔥 If search bar is empty, reset the UI to show all tours
         if (query.isEmpty()) {
-            resetTourGrid();
+            resetTourGrid();  // Restore all tours
             return;
         }
 
@@ -92,7 +102,6 @@ public class HelloController {
             }
         }
     }
-
     private void resetTourGrid() {
         // 🗑️ Clear the grid
         fxTourGridPane.getChildren().clear();
@@ -127,6 +136,7 @@ public class HelloController {
             detailsController.loadTour(tour);
         }
     }
+
     /**
      * Sýnir leitarniðurstöður í searchResultsContainer
      * @param results Listinn af tours sem matcha valinn tour (sem slegið var inn í leitarvél)
@@ -166,7 +176,12 @@ public class HelloController {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
-        vbox.setOnMouseClicked(event -> goToTourDetails(tour)); // Ensure clicking opens details
+
+        // Set click event so that it opens the correct tour details
+        vbox.setOnMouseClicked(event -> {
+            System.out.println("🖱️ Clicked on: " + tour.getName()); // Debugging
+            goToTourDetails(tour);  // ✅ Pass the correct tour!
+        });
 
         String imagePath = tour.getMainImage();
         ImageView imageView = new ImageView();
