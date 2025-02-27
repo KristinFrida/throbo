@@ -30,33 +30,31 @@ public class TourDetailsController {
         }
 
         System.out.println("✅ Loading Tour: " + tour.getName());
-        System.out.println("Short Description: " + tour.getShortDescription());
-        System.out.println("Start Location: " + tour.getStartLocation());
-        System.out.println("Duration: " + tour.getDuration() + " hours");
-        System.out.println("Min Age: " + tour.getMinAge() + " years old");
-        System.out.println("Long Description: " + tour.getLongDescription());
 
-        // Debug: Are the FXML elements null?
-        if (tourTitleLabel == null) System.out.println("❌ tourTitleLabel is NULL!");
-        if (tourShortDescription == null) System.out.println("❌ tourShortDescription is NULL!");
-        if (tourStartLocation == null) System.out.println("❌ tourStartLocation is NULL!");
-        if (tourDuration == null) System.out.println("❌ tourDuration is NULL!");
-        if (tourMinAge == null) System.out.println("❌ tourMinAge is NULL!");
-        if (tourLongDescription == null) System.out.println("❌ tourLongDescription is NULL!");
+        // Debug: Print image paths
+        System.out.println("Main Image: " + tour.getMainImage());
+        System.out.println("Image 2: " + tour.getImage2());
+        System.out.println("Image 3: " + tour.getImage3());
 
-        // Set values (only if they are NOT null)
+        // Clear previous images before loading new ones
+        tourMainImage.setImage(null);
+        tourImage2.setImage(null);
+        tourImage3.setImage(null);
+
+        // Load new images
+        loadImage(tourMainImage, tour.getMainImage());
+        loadImage(tourImage2, tour.getImage2());
+        loadImage(tourImage3, tour.getImage3());
+
+        // Set up text fields
         if (tourTitleLabel != null) tourTitleLabel.setText(tour.getName());
         if (tourShortDescription != null) tourShortDescription.setText(tour.getShortDescription());
         if (tourStartLocation != null) tourStartLocation.setText(tour.getStartLocation());
         if (tourDuration != null) tourDuration.setText(tour.getDuration() + " hours");
         if (tourMinAge != null) tourMinAge.setText(tour.getMinAge() + " years old");
         if (tourLongDescription != null) tourLongDescription.setText(tour.getLongDescription());
-
-        // Load Images
-        loadImage(tourMainImage, tour.getMainImage());
-        loadImage(tourImage2, tour.getImage2());
-        loadImage(tourImage3, tour.getImage3());
     }
+
 
     /**
      * Hleður myndum frá resources.
@@ -64,11 +62,25 @@ public class TourDetailsController {
      * @param imagePath nafn á file sem myndin er geymd í
      */
     private void loadImage(ImageView imageView, String imagePath) {
-        InputStream stream = getClass().getResourceAsStream("/images/" + imagePath);
+        if (imagePath == null || imagePath.isEmpty()) {
+            System.out.println("❌ Error: No image path provided for " + imageView);
+            return;
+        }
+
+        // Ensure the path does not contain an extra "/images/"
+        String correctedPath = imagePath.startsWith("/") ? imagePath : "/images/" + imagePath;
+
+        InputStream stream = getClass().getResourceAsStream(correctedPath);
         if (stream != null) {
+            System.out.println("✅ Image loaded successfully: " + correctedPath);
             imageView.setImage(new Image(stream));
+        } else {
+            System.out.println("❌ Error: Image not found at path: " + correctedPath);
         }
     }
+
+
+
     /**
      * Fer til baka í start view
      * @param event event triggered af back button
