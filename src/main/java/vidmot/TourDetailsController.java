@@ -17,8 +17,7 @@ import java.io.InputStream;
 public class TourDetailsController {
     @FXML private Label tourTitleLabel;
     @FXML private ImageView tourMainImage, tourImage2, tourImage3;
-    @FXML private Text tourShortDescription, tourStartLocation, tourDuration, tourMinAge, tourLongDescription;
-
+    @FXML private Text tourShortDescription, tourStartLocation, tourDuration, tourMinAge, tourLongDescription, tourPriceRange;
     /**
      * Hleður selected tour í UI.
      * @param tour Tour object sem inniheldur uppl um tour
@@ -45,6 +44,8 @@ public class TourDetailsController {
         if (tourDuration != null) tourDuration.setText(tour.getDuration() + " hours");
         if (tourMinAge != null) tourMinAge.setText(tour.getMinAge() + " years old");
         if (tourLongDescription != null) tourLongDescription.setText(tour.getLongDescription());
+        if (tourPriceRange!=null) tourPriceRange.setText(String.format("%.0f ISK", tour.getVerdBilCheck()));
+
     }
 
     /**
