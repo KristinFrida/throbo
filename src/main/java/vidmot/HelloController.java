@@ -6,11 +6,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -65,51 +61,84 @@ public class HelloController {
                 }
             });
 
-            // Uppfærir leitarniðurstöðum while typing
+            // Uppfærir leitarniðurstöður while typing
             fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
 
             // Hleður öllum tours á startup og setur focus á search glugga
             Platform.runLater(() -> {
                 fxLeitarvelTexti.requestFocus();
-                resetTourGrid();
+                updateDisplayedTours();  // sýna alla tours í byrjun
             });
         }
     }
 
     /**
-     * Sér um user search queries.
-     * Ef search bar er tómur, eru allir tours til sýnis.
+     * Meðhöndlar bæði texta-leit og verð-filter og birtir niðurstöðu.
+     * Kallast frá handleSearch() og handleFilterChange().
      */
-    @FXML
-    private void handleSearch() {
-        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
+    private void updateDisplayedTours() {
+        // 1. Byrjum með alla tours
+        List<Tour> allTours = TourDatabase.getAllTours();
 
+        // 2. Sía út frá textaleit, ef notandi hefur slegið inn eitthvað
+        String query = (fxLeitarvelTexti != null) ? fxLeitarvelTexti.getText().trim().toLowerCase() : "";
+        List<Tour> searchFiltered;
         if (query.isEmpty()) {
-            resetTourGrid();
-            return;
+            // Ef leit er tóm, notum alla tours
+            searchFiltered = allTours;
+        } else {
+            // Notum searchEngineController til að finna viðeigandi tours
+            searchFiltered = searchEngineController.searchTours(query);
         }
 
-        List<Tour> matchingTours = searchEngineController.searchTours(query);
-
-        fxTourGridPane.getChildren().clear();
-        int row = 0, col = 0;
-        for (Tour tour : matchingTours) {
-            VBox tourBox = createTourBox(tour);
-            fxTourGridPane.add(tourBox, col, row);
-            col++;
-            if (col == 3) {
-                col = 0;
-                row++;
-            }
+        // 3. Safna saman verðbilum (checkbox filters)
+        List<Predicate<Tour>> priceConditions = new ArrayList<>();
+        if (fxVerdbil1.isSelected()) {
+            // 0 - 5000 ISK
+            priceConditions.add(t -> t.getVerdBilCheck() >= 0 && t.getVerdBilCheck() <= 5000);
         }
+        if (fxVerdbil2.isSelected()) {
+            // 5001 - 10000 ISK
+            priceConditions.add(t -> t.getVerdBilCheck() >= 5001 && t.getVerdBilCheck() <= 10000);
+        }
+        if (fxVerdbil3.isSelected()) {
+            // 10001 - 20000 ISK
+            priceConditions.add(t -> t.getVerdBilCheck() >= 10001 && t.getVerdBilCheck() <= 20000);
+        }
+        if (fxVerdbil4.isSelected()) {
+            // 20001+
+            priceConditions.add(t -> t.getVerdBilCheck() >= 20001);
+        }
+        // Ef engin checkbox eru valin => leyfum öll verð
+        if (priceConditions.isEmpty()) {
+            priceConditions.add(t -> true);
+        }
+
+        // 4. "OR" logic fyrir verðbil, en "AND" við textaleit
+        List<Tour> finalFiltered = searchFiltered.stream()
+                .filter(tour -> priceConditions.stream().anyMatch(cond -> cond.test(tour)))
+                .collect(Collectors.toList());
+
+        // 5. Uppfærum GridPane með loka-niðurstöðunni
+        updateGridPane(finalFiltered);
     }
 
     /**
-     * Endurraðar tourgrid til að sýna alla tours.
+     * Sér um user search queries.
+     * Kallar á sameiginlegt updateDisplayedTours() svo verðcheckbox og leit séu samstillt.
+     */
+    @FXML
+    private void handleSearch() {
+        updateDisplayedTours();
+    }
+
+    /**
+     * Endurraðar tourgrid til að sýna alla tours (ef þú vilt hafa þetta áfram).
+     * Hér gætirðu líka einfaldlega kallað á updateDisplayedTours()
+     * með tómu query og engum verðbilum.
      */
     private void resetTourGrid() {
-        List<Tour> allTours = TourDatabase.getAllTours();
-        updateGridPane(allTours);
+        updateDisplayedTours();
     }
 
     /**
@@ -145,7 +174,7 @@ public class HelloController {
     }
 
     /**
-     * Sýnir leitarniðurstöður í searchResultsContainer.
+     * Sýnir leitarniðurstöður í searchResultsContainer (ef þú notar þetta umfram GridPane).
      *
      * @param results Listi af tours sem passa við leitina.
      */
@@ -254,41 +283,10 @@ public class HelloController {
 
     /**
      * Sér um breytingar á verð-bilum.
-     * Ef checkboxes eru valin, eru aðeins tours sem passa við þau sýnd.
+     * Kallar á sama updateDisplayedTours() og leitin, svo þær virki saman.
      */
     @FXML
     private void handleFilterChange() {
-        // 1. Safna notendavalnum verðbilum
-        List<Predicate<Tour>> priceConditions = new ArrayList<>();
-        if (fxVerdbil1.isSelected()) {
-            // 0 - 5000
-            priceConditions.add(t -> t.getVerdBilCheck() >= 0 && t.getVerdBilCheck() <= 5000);
-        }
-        if (fxVerdbil2.isSelected()) {
-            // 5001 - 10000
-            priceConditions.add(t -> t.getVerdBilCheck() >= 5001 && t.getVerdBilCheck() <= 10000);
-        }
-        if (fxVerdbil3.isSelected()) {
-            // 10001 - 20000
-            priceConditions.add(t -> t.getVerdBilCheck() >= 10001 && t.getVerdBilCheck() <= 20000);
-        }
-        if (fxVerdbil4.isSelected()) {
-            // 20001+
-            priceConditions.add(t -> t.getVerdBilCheck() >= 20001);
-        }
-
-        // Ef engin checkboxes eru valin, birtum við ALLA tours
-        if (priceConditions.isEmpty()) {
-            priceConditions.add(t -> true);
-        }
-
-        // 2. Sía tours út frá vali (OR logic)
-        List<Tour> allTours = TourDatabase.getAllTours();
-        List<Tour> filteredTours = allTours.stream()
-                .filter(tour -> priceConditions.stream().anyMatch(cond -> cond.test(tour)))
-                .collect(Collectors.toList());
-
-        // 3. Uppfærum GridPane með síaðri niðurstöðu
-        updateGridPane(filteredTours);
+        updateDisplayedTours();
     }
 }
