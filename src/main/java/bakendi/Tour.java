@@ -27,7 +27,7 @@ public class Tour {
      */
     public Tour(String name, String mainImage, String image2, String image3,
                 String shortDescription, String startLocation, double duration,
-                int minAge, String longDescription, double verdBilCheck) {
+                int minAge, String longDescription, int verdBilCheck) {
         this.name = name;
         this.mainImage = mainImage;
         this.image2 = image2;
