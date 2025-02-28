@@ -9,34 +9,24 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="vidmot.UserController"
-            stylesheets="/css/styles.css"
+            stylesheets="@../css/styles.css"
+            styleClass="anchor-root"
             prefHeight="200.0" prefWidth="300.0">
 
-
     <VBox fx:id="loginBox" spacing="15" alignment="CENTER" prefWidth="400" prefHeight="300"
-          AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
+          AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"
+          styleClass="login-box">
 
+        <Label text="Username:" styleClass="label-text" />
+        <TextField fx:id="fxUsername" prefWidth="200" promptText="Input your username here" styleClass="input-field" />
 
-        <Label text="Username:" styleClass="styles.css" />
-        <TextField fx:id="fxUsername" prefWidth="200" promptText="Input your username here"/>
+        <Label text="Password:" styleClass="label-text" />
+        <PasswordField fx:id="fxPassword" prefWidth="200" promptText="Input your password here" styleClass="input-field" />
 
-
-        <Label text="Password:" styleClass="styles.css" />
-        <PasswordField fx:id="fxPassword" prefWidth="200" promptText="Input your password here" />
-
-        <Button text="Login" onAction="#skraSigInn"/>
-
-
+        <Button text="Login" onAction="#skraSigInn" styleClass="login-button" />
     </VBox>
-
-
-
 
     <Button text="← Go Back" onAction="#goToHome"
             layoutX="100" layoutY="660" prefHeight="35" prefWidth="120"
-            style="-fx-font-size: 14px; -fx-background-color: transparent;
-               -fx-border-color: #bbb; -fx-border-radius: 20px;
-               -fx-text-fill: #333; -fx-padding: 5px;" />
-
-
+            styleClass="back-button" />
 </AnchorPane>
