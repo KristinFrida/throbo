@@ -10,7 +10,7 @@ public class Tour {
     private String startLocation;
     private double duration;
     private int minAge;
-    private double verdBilCheck;
+    private int verdBilCheck;
 
     /**
      * Smíðir tour hluti
