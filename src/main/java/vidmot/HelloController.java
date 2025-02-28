@@ -2,6 +2,8 @@ package vidmot;
 
 import bakendi.Tour;
 import bakendi.TourDatabase;
+import bakendi.TourFilter;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class HelloController {
 
@@ -37,75 +36,44 @@ public class HelloController {
     private VBox searchResultsContainer;
     @FXML
     private Label outputUsername;
+
+    // Verðbil checkboxes
     @FXML
-    private CheckBox fxVerdbil1;
+    private CheckBox fxVerdbil1; // "0 - 5000 ISK"
     @FXML
-    private CheckBox fxVerdbil2;
+    private CheckBox fxVerdbil2; // "5001 - 10000 ISK"
     @FXML
-    private CheckBox fxVerdbil3;
+    private CheckBox fxVerdbil3; // "10001 - 20000 ISK"
     @FXML
-    private CheckBox fxVerdbil4;
+    private CheckBox fxVerdbil4; // "20001+ ISK"
 
     @FXML
     private void initialize() {
         searchEngineController = new SearchEngineController();
 
         if (fxLeitarvelTexti != null) {
-            // Enter takki triggerar search
+            // ENTER takki triggerar leit
             fxLeitarvelTexti.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     handleSearch();
                     event.consume();
                 }
             });
-            // Uppfærir leitarniðurstöður while typing
+
+            // Uppfærir leit-niðurstöður meðan notandi skrifar
             fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
-            // Hleður öllum tours á startup og setur focus á search glugga
+
+            // Hleður öllum tours á startup
             Platform.runLater(() -> {
                 fxLeitarvelTexti.requestFocus();
-                updateDisplayedTours();  // sýna alla tours í byrjun
+                updateDisplayedTours();
             });
         }
     }
 
     /**
-     * Meðhöndlar bæði texta-leit og verð-filter og birtir niðurstöðu.
-     * Kallast frá handleSearch() og handleFilterChange().
-     */
-    private void updateDisplayedTours() {
-        List<Tour> allTours = TourDatabase.getAllTours();
-        String query = (fxLeitarvelTexti != null) ? fxLeitarvelTexti.getText().trim().toLowerCase() : "";
-        List<Tour> searchFiltered;
-        if (query.isEmpty()) {
-            searchFiltered = allTours;
-        } else {
-            searchFiltered = searchEngineController.searchTours(query);
-        }
-        List<Predicate<Tour>> priceConditions = new ArrayList<>();
-        if (fxVerdbil1.isSelected()) {
-            priceConditions.add(t -> t.getVerdBilCheck() >= 0 && t.getVerdBilCheck() <= 5000);
-        }
-        if (fxVerdbil2.isSelected()) {
-            priceConditions.add(t -> t.getVerdBilCheck() >= 5001 && t.getVerdBilCheck() <= 10000);
-        }
-        if (fxVerdbil3.isSelected()) {
-            priceConditions.add(t -> t.getVerdBilCheck() >= 10001 && t.getVerdBilCheck() <= 20000);
-        }
-        if (fxVerdbil4.isSelected()) {
-            priceConditions.add(t -> t.getVerdBilCheck() >= 20001);
-        }
-        if (priceConditions.isEmpty()) {
-            priceConditions.add(t -> true);
-        }
-        List<Tour> finalFiltered = searchFiltered.stream()
-                .filter(tour -> priceConditions.stream().anyMatch(cond -> cond.test(tour)))
-                .collect(Collectors.toList());
-        updateGridPane(finalFiltered);
-    }
-
-    /**
-     * Sér um user search queries.
-     * Kallar á sameiginlegt updateDisplayedTours() svo verðcheckbox og leit séu samstillt.
+     * Kallast þegar notandi breytir leitartexta
+     * eða þegar ýtt er á Search takka.
      */
     @FXML
     private void handleSearch() {
@@ -113,22 +81,43 @@ public class HelloController {
     }
 
     /**
-     * Endurraðar tourgrid til að sýna alla tours (ef þú vilt hafa þetta áfram).
-     * Hér gætirðu líka einfaldlega kallað á updateDisplayedTours()
-     * með tómu query og engum verðbilum.
+     * Kallast þegar notandi breytir verðbil-checkboxes.
      */
-    private void resetTourGrid() {
+    @FXML
+    private void handleFilterChange() {
         updateDisplayedTours();
     }
 
     /**
-     * Uppfærir GridPane til að sýna tiltekna lista af tours.
-     *
-     * @param tours Listi af tours sem eiga að birtast.
+     * Kallar á TourFilter til að sía út frá texta og verðbilum og birtir niðurstöður.
+     */
+    private void updateDisplayedTours() {
+        List<Tour> allTours = TourDatabase.getAllTours();
+
+        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
+
+        List<Tour> searchFiltered = query.isEmpty()
+                ? allTours
+                : searchEngineController.searchTours(query);
+
+        List<java.util.function.Predicate<Tour>> priceConditions = TourFilter.buildPriceConditions(
+                fxVerdbil1.isSelected(),
+                fxVerdbil2.isSelected(),
+                fxVerdbil3.isSelected(),
+                fxVerdbil4.isSelected()
+        );
+
+        List<Tour> finalFiltered = TourFilter.filterByPrice(searchFiltered, priceConditions);
+        updateGridPane(finalFiltered);
+    }
+
+    /**
+     * Uppfærir GridPane miðað við gefinn lista af Tours.
      */
     private void updateGridPane(List<Tour> tours) {
         fxTourGridPane.getChildren().clear();
         int row = 0, col = 0;
+
         for (Tour tour : tours) {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
@@ -140,55 +129,6 @@ public class HelloController {
         }
     }
 
-    /**
-     * Nálgast details view fyrir valinn tour.
-     *
-     * @param tour Valinn tour.
-     */
-    private void goToTourDetails(Tour tour) {
-        ViewSwitcher.switchTo(View.TOUR_DETAILS);
-        TourDetailsController detailsController = (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
-        if (detailsController != null) {
-            detailsController.loadTour(tour);
-        }
-    }
-
-    /**
-     * Sýnir leitarniðurstöður í searchResultsContainer (ef þú notar þetta umfram GridPane).
-     *
-     * @param results Listi af tours sem passa við leitina.
-     */
-    private void displaySearchResults(List<Tour> results) {
-        Platform.runLater(() -> {
-            if (searchResultsContainer == null) {
-                return;
-            }
-            // Hreinsar fyrri niðurstöður.
-            searchResultsContainer.getChildren().clear();
-            searchResultsContainer.setMinHeight(100);
-            searchResultsContainer.setPrefHeight(200);
-            searchResultsContainer.setMaxHeight(400);
-
-            if (results.isEmpty()) {
-                searchResultsContainer.getChildren().add(new Label("No tours found."));
-                return;
-            }
-
-            // Býr til og bætir við VBox fyrir hvern tour.
-            for (Tour tour : results) {
-                VBox tourBox = createTourBox(tour);
-                searchResultsContainer.getChildren().add(tourBox);
-            }
-        });
-    }
-
-    /**
-     * Býr til VBox element fyrir einn tour.
-     * Inniheldur ljósmynd og nafn á tour.
-     *
-     * @param tour Tour til að birta.
-     * @return VBox sem inniheldur tour upplýsingar.
-     */
     private VBox createTourBox(Tour tour) {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
@@ -218,10 +158,15 @@ public class HelloController {
         return vbox;
     }
 
-    /**
-     * Called when any grid cell is clicked.
-     * Reiknar út hvaða reit var smellt á og skiptar um view.
-     */
+    private void goToTourDetails(Tour tour) {
+        ViewSwitcher.switchTo(View.TOUR_DETAILS);
+        TourDetailsController detailsController =
+                (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
+        if (detailsController != null) {
+            detailsController.loadTour(tour);
+        }
+    }
+
     @FXML
     private void handleCellClick(MouseEvent event) {
         VBox cell = (VBox) event.getSource();
@@ -249,21 +194,7 @@ public class HelloController {
         ViewSwitcher.switchTo(View.LOGIN);
     }
 
-    /**
-     * Þessi tekur username sem er slegið inn og birtir það á forsíðunni.
-     *
-     * @param text Username til að sýna.
-     */
     public void updateLabel(String text) {
         outputUsername.setText("Welcome " + text);
-    }
-
-    /**
-     * Sér um breytingar á verð-bilum.
-     * Kallar á sama updateDisplayedTours() og leitin, svo þær virki saman.
-     */
-    @FXML
-    private void handleFilterChange() {
-        updateDisplayedTours();
     }
 }
