@@ -41,14 +41,12 @@
                 <!-- Left Pane: Filters -->
                 <AnchorPane fx:id="fxAdalsvaedid" prefWidth="100.0">
                     <children>
-                        <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0"
-                               style="-fx-font-weight: bold; -fx-font-size: 14px;"
-                               text="Verðhugmynd" />
+                        <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" text="Verðhugmynd" styleClass="filter-label" />
                         <VBox layoutX="14.0" layoutY="114.0" spacing="10">
-                            <CheckBox fx:id="fxVerdbil1" mnemonicParsing="false" text="CheckBox" />
-                            <CheckBox fx:id="fxVerdbil2" mnemonicParsing="false" text="CheckBox" />
-                            <CheckBox fx:id="fxVerdbil3" mnemonicParsing="false" text="CheckBox" />
-                            <CheckBox fx:id="fxVerdbil4" mnemonicParsing="false" text="CheckBox" />
+                            <CheckBox fx:id="fxVerdbil1" text="CheckBox" />
+                            <CheckBox fx:id="fxVerdbil2" text="CheckBox" />
+                            <CheckBox fx:id="fxVerdbil3" text="CheckBox" />
+                            <CheckBox fx:id="fxVerdbil4" text="CheckBox" />
                         </VBox>
                     </children>
                 </AnchorPane>
@@ -56,13 +54,10 @@
                 <!-- Right Pane: Grid of Views -->
                 <AnchorPane>
                     <children>
-                        <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefWidth="395.0"
-                               style="-fx-font-weight: bold; -fx-font-size: 16px;" text="" />
-                        <VBox fx:id="searchResultsContainer" alignment="CENTER" layoutX="14.0" layoutY="30.0"
-                              spacing="10"
-                              style="-fx-background-color: yellow; -fx-border-color: red; -fx-border-width: 2px;"
-                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
-                        </VBox>
+                        <Label fx:id="fxTextiFyrirOfanGrid" layoutX="14.0" layoutY="5.0" prefWidth="395.0" text="" styleClass="grid-header" />
+                        <VBox fx:id="searchResultsContainer" alignment="CENTER" layoutX="14.0" layoutY="30.0" spacing="10"
+                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0"
+                              styleClass="search-results-container" />
                         <GridPane fx:id="fxTourGridPane" hgap="15" vgap="15"
                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
                             <!-- Define Columns -->
@@ -88,7 +83,7 @@
                                                 <Image url="@../images/tour1.png" />
                                             </image>
                                         </ImageView>
-                                        <Label styleClass="cell-title" text="Northern Lights" />
+                                        <Label text="Northern Lights" styleClass="cell-title" />
                                     </children>
                                 </VBox>
 
@@ -101,7 +96,7 @@
                                                 <Image url="@../images/tour2.png" />
                                             </image>
                                         </ImageView>
-                                        <Label styleClass="cell-title" text="Whale Watching" />
+                                        <Label text="Whale Watching" styleClass="cell-title" />
                                     </children>
                                 </VBox>
 
@@ -114,11 +109,126 @@
                                                 <Image url="@../images/tour3.png" />
                                             </image>
                                         </ImageView>
-                                        <Label styleClass="cell-title" text="Blue Lagoon" />
+                                        <Label text="Blue Lagoon" styleClass="cell-title" />
                                     </children>
                                 </VBox>
 
-                                <!-- Additional cells go here -->
+                                <!-- Cell 4 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <children>
+                                        <ImageView fx:id="cellImage4" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour4.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Katla Ice Cave" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 5 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <children>
+                                        <ImageView fx:id="cellImage5" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour5.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="South Coast of Iceland" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 6 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <children>
+                                        <ImageView fx:id="cellImage6" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour6.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Golden Circle" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 7 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                    <children>
+                                        <ImageView fx:id="cellImage7" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour7.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Snowmobiling" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 8 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <children>
+                                        <ImageView fx:id="cellImage8" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour8.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="2-Day Buggy Tour" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 9 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="5"
+                                      styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <children>
+                                        <ImageView fx:id="cellImage9" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour9.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Dog Sledding" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 10 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                    <children>
+                                        <ImageView fx:id="cellImage10" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour10.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Hiking with Huskies Dogs" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 11 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <children>
+                                        <ImageView fx:id="cellImage11" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour11.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Skaftafell Glacier Hiking" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Cell 12 -->
+                                <VBox alignment="CENTER" onMouseClicked="#handleCellClick" prefHeight="150.0" prefWidth="180.0" spacing="10"
+                                      styleClass="grid-cell" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                    <children>
+                                        <ImageView fx:id="cellImage12" fitHeight="100" fitWidth="160" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/tour12.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Jökulsárlón Boat Tour" styleClass="cell-title" />
+                                    </children>
+                                </VBox>
                             </children>
                         </GridPane>
                     </children>
