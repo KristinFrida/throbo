@@ -83,7 +83,7 @@ Label {
     -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #222;
-    -fx-alignment: center; /* center horizontally */
+    -fx-alignment: center;
 }
 
 /* Another label style example */
@@ -140,13 +140,12 @@ SplitPane {
  * GRID / CELLS
  */
 .grid-cell {
-    -fx-background-color: #f8f8f8; /* valid 6-digit hex */
+    -fx-background-color: #f8f8f8;
     -fx-border-color: #ddd;
     -fx-border-radius: 5px;
-    /* -fx-spacing: 10;  only applies if this is a Pane supporting spacing, e.g. VBox */
 }
 
-/* Extra heading used in grids? */
+/* Extra heading used in grids */
 .grid-heading {
     -fx-font-size: 16px;
     -fx-font-weight: bold;

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -14,21 +15,19 @@
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="vidmot.TourDetailsController"
-            fx:id="rootPane"
-            styleClass="anchor-root"
-            stylesheets="@../css/styles.css">
+            stylesheets="@../css/styles.css"
+            styleClass="anchor-root">
 
     <children>
         <!-- Title -->
-        <Label layoutX="0" layoutY="10" prefWidth="900.0"
+        <Label fx:id="tourTitleLabel" layoutX="0" layoutY="10" prefWidth="900.0"
                styleClass="title-label"
-               text="The Northern Lights Tour from Reykjavik" />
+               text="Tour Title Placeholder" />
 
         <!-- Image Section with Stacked Images -->
         <HBox layoutX="100" layoutY="60" spacing="20">
-
             <!-- Main Large Image -->
-            <ImageView fitHeight="320" fitWidth="500"
+            <ImageView fx:id="tourMainImage" fitHeight="320" fitWidth="500"
                        styleClass="main-image"
                        pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -38,7 +37,7 @@
 
             <!-- Stacked Small Images -->
             <VBox spacing="10">
-                <ImageView fitHeight="155" fitWidth="200"
+                <ImageView fx:id="tourImage2" fitHeight="155" fitWidth="200"
                            styleClass="small-image"
                            pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -46,7 +45,7 @@
                     </image>
                 </ImageView>
 
-                <ImageView fitHeight="155" fitWidth="200"
+                <ImageView fx:id="tourImage3" fitHeight="155" fitWidth="200"
                            styleClass="small-image"
                            pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -62,30 +61,28 @@
 
             <!-- Description Header -->
             <TextFlow>
-                <Text styleClass="description-title"
-                      wrappingWidth="700"
-                      text="Experience the magic of the Northern Lights with our guided tour from Reykjavik." />
+                <Text fx:id="tourShortDescription" wrappingWidth="700"
+                      styleClass="description-title"
+                      text="Tour short description placeholder" />
             </TextFlow>
 
             <!-- Two-Column Layout -->
             <HBox spacing="40">
-
                 <!-- Left Column: Tour Details -->
                 <VBox spacing="10" prefWidth="300">
-
                     <HBox spacing="10">
-                        <Text styleClass="info-label" text="Tour starts:" />
-                        <Text styleClass="info-value" text="Reykjavik" />
+                        <Text text="Start Location:" styleClass="info-label" />
+                        <Text fx:id="tourStartLocation" text="Location placeholder" styleClass="info-value" />
                     </HBox>
 
                     <HBox spacing="10">
-                        <Text styleClass="info-label" text="Duration:" />
-                        <Text styleClass="info-value" text="3.5 hours" />
+                        <Text text="Duration:" styleClass="info-label" />
+                        <Text fx:id="tourDuration" text="Duration placeholder" styleClass="info-value" />
                     </HBox>
 
                     <HBox spacing="10">
-                        <Text styleClass="info-label" text="Minimum age:" />
-                        <Text styleClass="info-value" text="6 years old" />
+                        <Text text="Minimum age:" styleClass="info-label" />
+                        <Text fx:id="tourMinAge" text="Min age placeholder" styleClass="info-value" />
                     </HBox>
 
                     <!-- Spacer -->
@@ -93,26 +90,22 @@
 
                     <!-- Book Now Button -->
                     <Button prefHeight="45" prefWidth="250"
-                            styleClass="book-button"
-                            text="Book Now" />
+                            text="Book Now"
+                            styleClass="book-button" />
                 </VBox>
 
                 <!-- Right Column: Description Box -->
                 <TextFlow prefWidth="350"
                           styleClass="description-box">
-                    <Text styleClass="body-text"
-                          wrappingWidth="350"
-                          text="Jump aboard this affordable bus tour for your chance to see one of nature’s greatest marvels... " />
+                    <Text fx:id="tourLongDescription" wrappingWidth="350"
+                          text="Tour long description placeholder" styleClass="body-text" />
                 </TextFlow>
-
             </HBox>
         </VBox>
 
         <!-- Back Button -->
         <Button text="← Go Back" onAction="#goBack"
-                layoutX="100" layoutY="660"
-                prefHeight="35" prefWidth="120"
+                layoutX="100" layoutY="660" prefHeight="35" prefWidth="120"
                 styleClass="back-button" />
-
     </children>
 </AnchorPane>

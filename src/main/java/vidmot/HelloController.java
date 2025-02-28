@@ -1,14 +1,15 @@
 package vidmot;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-//hingað
 import javafx.application.Platform;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Button;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,19 +18,14 @@ import vidmot.SearchEngineController;
 import bakendi.Tour;
 import java.io.InputStream;
 import javafx.application.Platform;
-import javafx.scene.Node;
+import bakendi.TourDatabase;
 public class HelloController {
     //Skilgreini instance af SearchEngineController
     private SearchEngineController searchEngineController;
-
-    //Tengi við fx:id í FXML
     @FXML
     private TextField fxLeitarvelTexti;
     @FXML
     private Button fxLeitarvelTakki;
-
-
-    //Tengi við tour grid í FXML
     @FXML
     private GridPane fxTourGridPane;
 
@@ -37,45 +33,86 @@ public class HelloController {
     private DatePicker fxDagatal;
     @FXML
     private VBox searchResultsContainer;
-    @FXML
-    private CheckBox fxVerdbil1, fxVerdbil2, fxVerdbil3, fxVerdbil4;
-    @FXML
     /**
-     * Upphafsstillir controllerinn
-     * Tengir <enter> til að triggera searches og að search bar fá focus þegar UI opnast, cursorinn er þar
+     * Upphafsstillir UI
+     * Tengir <enter> til að triggera searches
+     * Hleður öllum tours þegar UI opnast
+     * Setur focus á search glugga
      */
+    @FXML
     private void initialize() {
         searchEngineController = new SearchEngineController();
 
         if (fxLeitarvelTexti != null) {
+            // Enter takki triggerar search
             fxLeitarvelTexti.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     handleSearch();
                     event.consume();
                 }
             });
-            //setur cursorinn í leitarvélina
-            Platform.runLater(() -> fxLeitarvelTexti.requestFocus());
+
+            // Uppfærir leitarniðurstöðum while typing
+            fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
+
+            // Hleður öllum tours á startup
+            Platform.runLater(() -> {
+                fxLeitarvelTexti.requestFocus();
+                resetTourGrid();
+            });
         }
     }
     /**
      * Sér um user search queries
      * Leitar að tour út frá því sem slegið er inn og uppfærir UI skv því
+     * Ef search bar er tómur, eru allir tours til sýnis
      */
     @FXML
     private void handleSearch() {
-        String query = fxLeitarvelTexti.getText().trim();
-        if (query.isEmpty()) return;
+        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
 
-        List<Tour> results = searchEngineController.searchToursByName(query);
+        if (query.isEmpty()) {
+            resetTourGrid();
+            return;
+        }
 
-        if (results.size() == 1) {
-            goToTourDetails(results.get(0));
-        } else {
-            displaySearchResults(results);
+        List<Tour> matchingTours = searchEngineController.searchTours(query);
+
+        fxTourGridPane.getChildren().clear();
+
+        int row = 0, col = 0;
+        for (Tour tour : matchingTours) {
+            VBox tourBox = createTourBox(tour);
+            fxTourGridPane.add(tourBox, col, row);
+
+            col++;
+            if (col == 3) {
+                col = 0;
+                row++;
+            }
         }
     }
 
+    /**
+     * Endurraðar tourgrid til að tours séu samþjappaðir jafnóðum skv innslætti
+     */
+
+    private void resetTourGrid() {
+        fxTourGridPane.getChildren().clear();
+
+        List<Tour> allTours = TourDatabase.getAllTours();
+        int row = 0, col = 0;
+        for (Tour tour : allTours) {
+            VBox tourBox = createTourBox(tour);
+            fxTourGridPane.add(tourBox, col, row);
+
+            col++;
+            if (col == 3) {
+                col = 0;
+                row++;
+            }
+        }
+    }
     /**
      * Nálgast details view fyrir valinn tour
      * @param tour Valinn tour
@@ -129,12 +166,14 @@ public class HelloController {
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
+        // Set click event til að opna rétt tour details
+        vbox.setOnMouseClicked(event -> goToTourDetails(tour));
+
         String imagePath = tour.getMainImage();
         ImageView imageView = new ImageView();
 
         try {
-            InputStream imageStream = getClass().getResourceAsStream("/" + imagePath);
-
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
             if (imageStream != null) {
                 Image image = new Image(imageStream);
                 imageView.setImage(image);
@@ -204,62 +243,6 @@ public class HelloController {
     // Þessi tekur username sem er sláð inn og birtist það á forsíðunni
     public void updateLabel(String text){
         outputUsername.setText("Welcome " + text);
-    }
-    @FXML
-    private void filterTours() {
-        // Check which price-range checkboxes are selected:
-        boolean range1 = fxVerdbil1.isSelected();  // 0–5000
-        boolean range2 = fxVerdbil2.isSelected();  // 5001–10000
-        boolean range3 = fxVerdbil3.isSelected();  // 10001–20000
-        boolean range4 = fxVerdbil4.isSelected();  // 20001+
-
-        // Go through each cell in the GridPane:
-        for (Node node : fxTourGridPane.getChildren()) {
-            if (node instanceof VBox cell) {
-                // Suppose you've stored the Tour data on the VBox via setUserData() earlier:
-                Tour tour = (Tour) cell.getUserData();
-
-                // Get the price in ISK (make sure your Tour object has such a field or method)
-                double priceISK = tour.getVerdATour();
-
-                // Does this price fall within any of the *selected* ranges?
-                boolean matches = matchesSelectedRange(priceISK, range1, range2, range3, range4);
-
-                // Show/hide the cell depending on whether it matches:
-                cell.setVisible(matches);
-                cell.setManaged(matches);
-                // setManaged(false) removes the node from layout calculations, so no empty space is left.
-            }
-        }
-    }
-
-    private boolean matchesSelectedRange(double priceISK,
-                                         boolean r1, boolean r2, boolean r3, boolean r4) {
-        // If NONE of the checkboxes are selected, you might choose to show everything or hide everything.
-        // For demonstration, let's show all if none are selected:
-        if (!r1 && !r2 && !r3 && !r4) {
-            return true;  // Show all tours if no filter is selected
-        }
-
-        // 0–5000
-        if (r1 && priceISK >= 0 && priceISK <= 5000) {
-            return true;
-        }
-        // 5001–10000
-        if (r2 && priceISK > 5000 && priceISK <= 10000) {
-            return true;
-        }
-        // 10001–20000
-        if (r3 && priceISK > 10000 && priceISK <= 20000) {
-            return true;
-        }
-        // 20001+
-        if (r4 && priceISK > 20000) {
-            return true;
-        }
-
-        // If it didn’t match any *selected* range, return false
-        return false;
     }
 
 
