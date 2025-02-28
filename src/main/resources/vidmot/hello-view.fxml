@@ -43,10 +43,10 @@
                     <children>
                         <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" text="Verðhugmynd" styleClass="filter-label" />
                         <VBox layoutX="14.0" layoutY="114.0" spacing="10">
-                            <CheckBox fx:id="fxVerdbil1" text="CheckBox" />
-                            <CheckBox fx:id="fxVerdbil2" text="CheckBox" />
-                            <CheckBox fx:id="fxVerdbil3" text="CheckBox" />
-                            <CheckBox fx:id="fxVerdbil4" text="CheckBox" />
+                            <CheckBox fx:id="fxVerdbil1" text="0 - 5000 ISK" />
+                            <CheckBox fx:id="fxVerdbil2" text="5001 - 10 000 ISK" />
+                            <CheckBox fx:id="fxVerdbil3" text="10 001 - 20 000 ISK" />
+                            <CheckBox fx:id="fxVerdbil4" text="20 001+ ISK" />
                         </VBox>
                     </children>
                 </AnchorPane>

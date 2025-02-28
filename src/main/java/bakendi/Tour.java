@@ -10,6 +10,7 @@ public class Tour {
     private String startLocation;
     private double duration;
     private int minAge;
+    private int verdBilCheck;
 
     /**
      * Smíðir tour hluti
@@ -22,10 +23,11 @@ public class Tour {
      * @param duration
      * @param minAge
      * @param longDescription
+     * @param verdBilCheck
      */
     public Tour(String name, String mainImage, String image2, String image3,
                 String shortDescription, String startLocation, double duration,
-                int minAge, String longDescription) {
+                int minAge, String longDescription, int verdBilCheck) {
         this.name = name;
         this.mainImage = mainImage;
         this.image2 = image2;
@@ -35,6 +37,7 @@ public class Tour {
         this.duration = duration;
         this.minAge = minAge;
         this.longDescription = longDescription;
+        this.verdBilCheck = verdBilCheck;
     }
 
     public String getName() { return name; }
@@ -46,4 +49,5 @@ public class Tour {
     public double getDuration() { return duration; }
     public int getMinAge() { return minAge; }
     public String getLongDescription() { return longDescription; }
+    public double getVerdBilCheck() {return verdBilCheck;}
 }

@@ -22,7 +22,7 @@
         <!-- Title -->
         <Label fx:id="tourTitleLabel" layoutX="0" layoutY="10" prefWidth="900.0"
                styleClass="title-label"
-               text="Tour Title Placeholder" />
+               text="Northern Lights" />
 
         <!-- Image Section with Stacked Images -->
         <HBox layoutX="100" layoutY="60" spacing="20">
@@ -63,7 +63,7 @@
             <TextFlow>
                 <Text fx:id="tourShortDescription" wrappingWidth="700"
                       styleClass="description-title"
-                      text="Tour short description placeholder" />
+                      text="Experience the magic of the Northern Lights with our guided tour from Reykjavik." />
             </TextFlow>
 
             <!-- Two-Column Layout -->
@@ -72,17 +72,22 @@
                 <VBox spacing="10" prefWidth="300">
                     <HBox spacing="10">
                         <Text text="Start Location:" styleClass="info-label" />
-                        <Text fx:id="tourStartLocation" text="Location placeholder" styleClass="info-value" />
+                        <Text fx:id="tourStartLocation" text="Reykjavik" styleClass="info-value" />
                     </HBox>
 
                     <HBox spacing="10">
                         <Text text="Duration:" styleClass="info-label" />
-                        <Text fx:id="tourDuration" text="Duration placeholder" styleClass="info-value" />
+                        <Text fx:id="tourDuration" text="3.5 hours" styleClass="info-value" />
                     </HBox>
 
                     <HBox spacing="10">
                         <Text text="Minimum age:" styleClass="info-label" />
-                        <Text fx:id="tourMinAge" text="Min age placeholder" styleClass="info-value" />
+                        <Text fx:id="tourMinAge" text="6" styleClass="info-value" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Text text="Price:" styleClass="info-label" />
+                        <Text fx:id="tourPriceRange" text="4500 ISK" styleClass="info-value" />
                     </HBox>
 
                     <!-- Spacer -->
@@ -98,7 +103,8 @@
                 <TextFlow prefWidth="350"
                           styleClass="description-box">
                     <Text fx:id="tourLongDescription" wrappingWidth="350"
-                          text="Tour long description placeholder" styleClass="body-text" />
+                          text="Jump aboard this affordable bus tour for your chance to see one of nature’s greatest marvels, the Northern Lights. This tour is for those travelling outside of the summer months, who seek to tick ‘seeing the aurora borealis’ off of their bucket list."
+                          styleClass="body-text" />
                 </TextFlow>
             </HBox>
         </VBox>
