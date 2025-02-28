@@ -24,11 +24,11 @@ public class TourDatabase {
                 "Explore the stunning Katla Ice Cave, where blue ice and volcanic ash create a breathtaking natural wonder.", "Vík", 3.0, 6,
                 "Join the original Katla Ice Cave tour and experience the magic of ice caving in Iceland like never before. If you’re looking for a hassle-free and thrilling way to explore Iceland’s incredible glaciers, this tour is designed just for you. Unlike Ice Cave tours from the glacier lagoon, this one departs from Vík and doesn’t require traveling to Jökulsárlon, making it a quicker and more accessible option."));
 
-        tours.add(new Tour("South Coast Tour", "/images/tour5.png", "/images/tour5-2.png", "/images/tour5-3.png",
+        tours.add(new Tour("South Coast of Iceland", "/images/tour5.png", "/images/tour5-2.png", "/images/tour5-3.png",
                 "Discover Iceland’s breathtaking South Coast, where waterfalls, black sand beaches, and glaciers create an unforgettable adventure.", "Reykjavik", 10.0, 6,
                 "Join this small group minibus day tour of Iceland’s South Coast. Witness glaciers, volcanoes, waterfalls and the famous Reynisfjara black sand beach on this trip. This tour is perfect for those wanting the best value tour focused on exploring the best spots along Iceland’s magnificent South Coast."));
 
-        tours.add(new Tour("Golden Circle Tour", "/images/tour6.png", "/images/tour6-2.png", "/images/tour6-3.png",
+        tours.add(new Tour("Golden Circle", "/images/tour6.png", "/images/tour6-2.png", "/images/tour6-3.png",
                 "Journey through Iceland’s iconic Golden Circle, where geysers, waterfalls, and historic landscapes showcase nature’s raw beauty.", "Reykjavik", 8.0, 6,
                 "Hop onboard this small group minibus tour of the Golden Circle - Iceland's most popular travel route. This highly recommended tour starts with a pickup from your hotel in Reykjavik and takes you to see Iceland's most famous attractions, without the rush and hassle of the big buses."));
 
@@ -44,7 +44,7 @@ public class TourDatabase {
                 "Glide through the snowy landscapes of Akureyri on a private 3-hour dog sledding adventure, led by a team of energetic huskies.", "Akureyri", 3.0, 0,
                 "Explore the breathtaking around Akureyri as huskies pull you along by booking this incredible guided excursion. Those who want to see beautiful surroundings during winter in Iceland and get to know these beautiful dogs should book this private tour now."));
 
-        tours.add(new Tour("Hiking with Huskies", "/images/tour10.png", "/images/tour10-2.png", "/images/tour10-3.png",
+        tours.add(new Tour("Hiking with Huskies Dogs", "/images/tour10.png", "/images/tour10-2.png", "/images/tour10-3.png",
                 "Explore the scenic trails of Akureyri on a private 2-hour hiking tour, accompanied by friendly and energetic husky dogs.", "Akureyri", 2.0, 0,
                 "Experience the beauty of North Iceland on a private husky hiking tour in Akureyri. This two-hour experience through a stunning woodland combines the joy of being pulled by friendly huskies with breathtaking views of Eyjafjörður, private guides, free photos, and refreshments."));
 

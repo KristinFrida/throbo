@@ -24,28 +24,43 @@ public class TourDetailsController {
      * @param tour Tour object sem inniheldur uppl um tour
      */
     public void loadTour(Tour tour) {
-        if (tour == null) return;
+        if (tour == null) {
+            return;
+        }
 
-        //Setur upp texts fields í UI
-        tourTitleLabel.setText(tour.getName());
-        tourShortDescription.setText(tour.getShortDescription());
-        tourStartLocation.setText(tour.getStartLocation());
-        tourDuration.setText(tour.getDuration() + " hours");
-        tourMinAge.setText(tour.getMinAge() + " years old");
-        tourLongDescription.setText(tour.getLongDescription());
+        // hreinsar eldri myndir áður en nýrri er hlaðað
+        tourMainImage.setImage(null);
+        tourImage2.setImage(null);
+        tourImage3.setImage(null);
 
-        // Hleður inn myndum
+        // hleður nýum myndum
         loadImage(tourMainImage, tour.getMainImage());
         loadImage(tourImage2, tour.getImage2());
         loadImage(tourImage3, tour.getImage3());
+
+        // Setur upp text fields
+        if (tourTitleLabel != null) tourTitleLabel.setText(tour.getName());
+        if (tourShortDescription != null) tourShortDescription.setText(tour.getShortDescription());
+        if (tourStartLocation != null) tourStartLocation.setText(tour.getStartLocation());
+        if (tourDuration != null) tourDuration.setText(tour.getDuration() + " hours");
+        if (tourMinAge != null) tourMinAge.setText(tour.getMinAge() + " years old");
+        if (tourLongDescription != null) tourLongDescription.setText(tour.getLongDescription());
     }
+
     /**
      * Hleður myndum frá resources.
      * @param imageView, ImageView hluturinn sem myndin á að birtast í
      * @param imagePath nafn á file sem myndin er geymd í
      */
     private void loadImage(ImageView imageView, String imagePath) {
-        InputStream stream = getClass().getResourceAsStream("/images/" + imagePath);
+        if (imagePath == null || imagePath.isEmpty()) {
+            return;
+        }
+
+        // rétt format á path
+        String correctedPath = imagePath.startsWith("/") ? imagePath : "/images/" + imagePath;
+
+        InputStream stream = getClass().getResourceAsStream(correctedPath);
         if (stream != null) {
             imageView.setImage(new Image(stream));
         }

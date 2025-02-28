@@ -1,5 +1,4 @@
 package vidmot;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-//hingað
 import javafx.application.Platform;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Button;
@@ -20,18 +18,14 @@ import vidmot.SearchEngineController;
 import bakendi.Tour;
 import java.io.InputStream;
 import javafx.application.Platform;
+import bakendi.TourDatabase;
 public class HelloController {
     //Skilgreini instance af SearchEngineController
     private SearchEngineController searchEngineController;
-
-    //Tengi við fx:id í FXML
     @FXML
     private TextField fxLeitarvelTexti;
     @FXML
     private Button fxLeitarvelTakki;
-
-
-    //Tengi við tour grid í FXML
     @FXML
     private GridPane fxTourGridPane;
 
@@ -39,43 +33,86 @@ public class HelloController {
     private DatePicker fxDagatal;
     @FXML
     private VBox searchResultsContainer;
-    @FXML
     /**
-     * Upphafsstillir controllerinn
-     * Tengir <enter> til að triggera searches og að search bar fá focus þegar UI opnast, cursorinn er þar
+     * Upphafsstillir UI
+     * Tengir <enter> til að triggera searches
+     * Hleður öllum tours þegar UI opnast
+     * Setur focus á search glugga
      */
+    @FXML
     private void initialize() {
         searchEngineController = new SearchEngineController();
 
         if (fxLeitarvelTexti != null) {
+            // Enter takki triggerar search
             fxLeitarvelTexti.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     handleSearch();
                     event.consume();
                 }
             });
-            //setur cursorinn í leitarvélina
-            Platform.runLater(() -> fxLeitarvelTexti.requestFocus());
+
+            // Uppfærir leitarniðurstöðum while typing
+            fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
+
+            // Hleður öllum tours á startup
+            Platform.runLater(() -> {
+                fxLeitarvelTexti.requestFocus();
+                resetTourGrid();
+            });
         }
     }
     /**
      * Sér um user search queries
      * Leitar að tour út frá því sem slegið er inn og uppfærir UI skv því
+     * Ef search bar er tómur, eru allir tours til sýnis
      */
     @FXML
     private void handleSearch() {
-        String query = fxLeitarvelTexti.getText().trim();
-        if (query.isEmpty()) return;
+        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
 
-        List<Tour> results = searchEngineController.searchToursByName(query);
+        if (query.isEmpty()) {
+            resetTourGrid();
+            return;
+        }
 
-        if (results.size() == 1) {
-            goToTourDetails(results.get(0));
-        } else {
-            displaySearchResults(results);
+        List<Tour> matchingTours = searchEngineController.searchTours(query);
+
+        fxTourGridPane.getChildren().clear();
+
+        int row = 0, col = 0;
+        for (Tour tour : matchingTours) {
+            VBox tourBox = createTourBox(tour);
+            fxTourGridPane.add(tourBox, col, row);
+
+            col++;
+            if (col == 3) {
+                col = 0;
+                row++;
+            }
         }
     }
 
+    /**
+     * Endurraðar tourgrid til að tours séu samþjappaðir jafnóðum skv innslætti
+     */
+
+    private void resetTourGrid() {
+        fxTourGridPane.getChildren().clear();
+
+        List<Tour> allTours = TourDatabase.getAllTours();
+        int row = 0, col = 0;
+        for (Tour tour : allTours) {
+            VBox tourBox = createTourBox(tour);
+            fxTourGridPane.add(tourBox, col, row);
+
+            col++;
+            if (col == 3) {
+                col = 0;
+                row++;
+            }
+        }
+    }
     /**
      * Nálgast details view fyrir valinn tour
      * @param tour Valinn tour
@@ -129,12 +166,14 @@ public class HelloController {
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
+        // Set click event til að opna rétt tour details
+        vbox.setOnMouseClicked(event -> goToTourDetails(tour));
+
         String imagePath = tour.getMainImage();
         ImageView imageView = new ImageView();
 
         try {
-            InputStream imageStream = getClass().getResourceAsStream("/" + imagePath);
-
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
             if (imageStream != null) {
                 Image image = new Image(imageStream);
                 imageView.setImage(image);

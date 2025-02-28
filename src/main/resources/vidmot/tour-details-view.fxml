@@ -19,16 +19,16 @@
 
     <children>
         <!-- Title -->
-        <Label layoutX="0" layoutY="10" prefWidth="900.0"
+        <Label fx:id="tourTitleLabel" layoutX="0" layoutY="10" prefWidth="900.0"
                style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #222; -fx-alignment: center;"
-               text="The Northern Lights Tour from Reykjavik" />
+               text="Tour Title Placeholder" />
 
         <!-- Image Section with Stacked Images -->
         <HBox layoutX="100" layoutY="60" spacing="20">
             <!-- Main Large Image -->
-            <ImageView fitHeight="320" fitWidth="500"
+            <ImageView fx:id="tourMainImage" fitHeight="320" fitWidth="500"
                        style="-fx-border-radius: 15px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);"
-                       pickOnBounds="true" preserveRatio="true">
+                       pickOnBounds="true" preserveRatio="true" >
                 <image>
                     <Image url="@../images/tour1.png" />
                 </image>
@@ -36,18 +36,18 @@
 
             <!-- Stacked Small Images -->
             <VBox spacing="10">
-                <ImageView fitHeight="155" fitWidth="200"
+                <ImageView fx:id="tourImage2" fitHeight="155" fitWidth="200"
                            style="-fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.3, 0, 4);"
-                           pickOnBounds="true" preserveRatio="true">
+                           pickOnBounds="true" preserveRatio="true" >
                     <image>
                         <Image url="@../images/tour1-2.png" />
                     </image>
                 </ImageView>
 
-                <ImageView fitHeight="155" fitWidth="200"
+                <ImageView fx:id="tourImage3" fitHeight="155" fitWidth="200"
                            style="-fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.3, 0, 4);"
-                           pickOnBounds="true" preserveRatio="true">
-                    <image>
+                           pickOnBounds="true" preserveRatio="true" >
+                <image>
                         <Image url="@../images/tour1-3.png" />
                     </image>
                 </ImageView>
@@ -60,9 +60,8 @@
 
             <!-- Description Header -->
             <TextFlow>
-                <Text style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #333;"
-                      wrappingWidth="700"
-                      text="Experience the magic of the Northern Lights with our guided tour from Reykjavik." />
+                <Text fx:id="tourShortDescription" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #333;"
+                      wrappingWidth="700" text="Tour short description placeholder" />
             </TextFlow>
 
             <!-- Two-Column Layout -->
@@ -71,18 +70,18 @@
                 <!-- Left Column: Tour Details -->
                 <VBox spacing="10" prefWidth="300">
                     <HBox spacing="10">
-                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Tour starts:" />
-                        <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="Reykjavik" />
+                        <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Start Location:" />
+                        <Text fx:id="tourStartLocation" style="-fx-font-size: 14px; -fx-fill: #666;" text="Location placeholder" />
                     </HBox>
 
                     <HBox spacing="10">
                         <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Duration:" />
-                        <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="3.5 hours" />
+                        <Text fx:id="tourDuration" style="-fx-font-size: 14px; -fx-fill: #666;" text="Duration placeholder" />
                     </HBox>
 
                     <HBox spacing="10">
                         <Text style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: #444;" text="Minimum age:" />
-                        <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="6 years old" />
+                        <Text fx:id="tourMinAge" style="-fx-font-size: 14px; -fx-fill: #666;" text="Min age placeholder" />
                     </HBox>
 
                     <!-- Spacer -->
@@ -97,9 +96,8 @@
                 <!-- Right Column: Description Box -->
                 <TextFlow prefWidth="350"
                           style="-fx-border-color: #ddd; -fx-background-color: #f7f7f7; -fx-border-radius: 10px; -fx-padding: 10px;">
-                    <Text style="-fx-font-size: 14px; -fx-fill: #333;"
-                          wrappingWidth="350"
-                          text="Jump aboard this affordable bus tour for your chance to see one of nature’s greatest marvels, the Northern Lights. This tour is for those travelling outside of the summer months, who seek to tick ‘seeing the aurora borealis’ off of their bucket list." />
+                    <Text fx:id="tourLongDescription" style="-fx-font-size: 14px; -fx-fill: #333;"
+                          wrappingWidth="350" text="Tour long description placeholder" />
                 </TextFlow>
 
             </HBox>
