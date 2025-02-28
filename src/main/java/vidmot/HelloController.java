@@ -37,16 +37,14 @@ public class HelloController {
     private VBox searchResultsContainer;
     @FXML
     private Label outputUsername;
-
-    // FXML reitir fyrir verðbil checkboxes
     @FXML
-    private CheckBox fxVerdbil1; // "0 - 5000 ISK"
+    private CheckBox fxVerdbil1;
     @FXML
-    private CheckBox fxVerdbil2; // "5001 - 10000 ISK"
+    private CheckBox fxVerdbil2;
     @FXML
-    private CheckBox fxVerdbil3; // "10001 - 20000 ISK"
+    private CheckBox fxVerdbil3;
     @FXML
-    private CheckBox fxVerdbil4; // "20001+ ISK"
+    private CheckBox fxVerdbil4;
 
     @FXML
     private void initialize() {
@@ -60,10 +58,8 @@ public class HelloController {
                     event.consume();
                 }
             });
-
             // Uppfærir leitarniðurstöður while typing
             fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
-
             // Hleður öllum tours á startup og setur focus á search glugga
             Platform.runLater(() -> {
                 fxLeitarvelTexti.requestFocus();
@@ -77,49 +73,33 @@ public class HelloController {
      * Kallast frá handleSearch() og handleFilterChange().
      */
     private void updateDisplayedTours() {
-        // 1. Byrjum með alla tours
         List<Tour> allTours = TourDatabase.getAllTours();
-
-        // 2. Sía út frá textaleit, ef notandi hefur slegið inn eitthvað
         String query = (fxLeitarvelTexti != null) ? fxLeitarvelTexti.getText().trim().toLowerCase() : "";
         List<Tour> searchFiltered;
         if (query.isEmpty()) {
-            // Ef leit er tóm, notum alla tours
             searchFiltered = allTours;
         } else {
-            // Notum searchEngineController til að finna viðeigandi tours
             searchFiltered = searchEngineController.searchTours(query);
         }
-
-        // 3. Safna saman verðbilum (checkbox filters)
         List<Predicate<Tour>> priceConditions = new ArrayList<>();
         if (fxVerdbil1.isSelected()) {
-            // 0 - 5000 ISK
             priceConditions.add(t -> t.getVerdBilCheck() >= 0 && t.getVerdBilCheck() <= 5000);
         }
         if (fxVerdbil2.isSelected()) {
-            // 5001 - 10000 ISK
             priceConditions.add(t -> t.getVerdBilCheck() >= 5001 && t.getVerdBilCheck() <= 10000);
         }
         if (fxVerdbil3.isSelected()) {
-            // 10001 - 20000 ISK
             priceConditions.add(t -> t.getVerdBilCheck() >= 10001 && t.getVerdBilCheck() <= 20000);
         }
         if (fxVerdbil4.isSelected()) {
-            // 20001+
             priceConditions.add(t -> t.getVerdBilCheck() >= 20001);
         }
-        // Ef engin checkbox eru valin => leyfum öll verð
         if (priceConditions.isEmpty()) {
             priceConditions.add(t -> true);
         }
-
-        // 4. "OR" logic fyrir verðbil, en "AND" við textaleit
         List<Tour> finalFiltered = searchFiltered.stream()
                 .filter(tour -> priceConditions.stream().anyMatch(cond -> cond.test(tour)))
                 .collect(Collectors.toList());
-
-        // 5. Uppfærum GridPane með loka-niðurstöðunni
         updateGridPane(finalFiltered);
     }
 
@@ -212,10 +192,8 @@ public class HelloController {
     private VBox createTourBox(Tour tour) {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        // Notum CSS klasa úr styles.css í stað þess að setja stíla beint
         vbox.getStyleClass().add("grid-cell");
 
-        // Set click event til að opna rétt tour details
         vbox.setOnMouseClicked(event -> goToTourDetails(tour));
 
         String imagePath = tour.getMainImage();
@@ -234,7 +212,6 @@ public class HelloController {
         imageView.setPreserveRatio(true);
 
         Label label = new Label(tour.getName());
-        // Bætum við CSS klasa fyrir titil texta
         label.getStyleClass().add("cell-title");
 
         vbox.getChildren().addAll(imageView, label);
