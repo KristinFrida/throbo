@@ -9,21 +9,28 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="vidmot.UserController"
-            prefHeight="400.0" prefWidth="600.0">
+            stylesheets="@../css/styles.css"
+            prefHeight="200.0" prefWidth="300.0">
 
-    <HBox>
+    <VBox alignment="CENTER" spacing="10.0">
 
-        <Label text="username"/>
-        <TextField fx:id="newUsername"/>
-        <Label text="password"/>
-        <TextField fx:id="newPassword"/>
-        <Label text="email"/>
-        <TextField fx:id="newEmail"/>
-        <Button onAction="#newSignUp"/>
+        <Label text="Sign up"/>
 
-        <Label fx:id="MissingInputDataForNewUser"/>
+        <GridPane hgap="10" vgap="10">
+            <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="newUsername" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
+            <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="newPassword" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="newEmail" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
 
-    </HBox>
+        <Button text="Sign up" onAction="#newSignUp"/>
 
+        <Label fx:id="MissingInputDataForNewUser" styleClass="error-label"/>
+
+        <Button layoutX="250.0" layoutY="343.0" onAction="#goToLoginFromSignUP" prefHeight="33.0" prefWidth="204.0" text="Cancel" />
+
+    </VBox>
 </AnchorPane>

@@ -30,7 +30,7 @@
             <Button layoutX="250.0" layoutY="343.0" onAction="#goToHome" prefHeight="33.0" prefWidth="204.0" text="Cancel" />
 
 
-            <Button onAction="#goToSignUp"/>
+            <Button onAction="#goToSignUp" text="Dont have an account? Sign up here"/>
         </VBox>
     </HBox>
 </AnchorPane>

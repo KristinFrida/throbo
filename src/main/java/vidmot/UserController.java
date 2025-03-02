@@ -125,4 +125,10 @@ public class UserController {
 
 
     }
+
+    //Takki til að fara til baka án þess að skrá sig endilega inn, alveg eins method í helloController
+    public void goToLoginFromSignUP(ActionEvent event) {
+        ViewSwitcher.switchTo(View.LOGIN);
+
+    }
 }

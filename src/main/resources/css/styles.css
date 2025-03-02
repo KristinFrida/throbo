@@ -219,3 +219,13 @@ SplitPane {
     -fx-border-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.3, 0, 4);
 }
+
+
+
+/*
+* Sign up
+*/
+.error-label{
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
