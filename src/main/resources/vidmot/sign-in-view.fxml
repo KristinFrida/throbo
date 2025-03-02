@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="vidmot.UserController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <HBox>
+
+        <Label text="username"/>
+        <TextField fx:id="newUsername"/>
+        <Label text="password"/>
+        <TextField fx:id="newPassword"/>
+        <Label text="email"/>
+        <TextField fx:id="newEmail"/>
+        <Button onAction="#newSignUp"/>
+
+        <Label fx:id="MissingInputDataForNewUser"/>
+
+
+    </HBox>
+
+</AnchorPane>

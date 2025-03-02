@@ -18,6 +18,7 @@ public enum View {
     GRID11("grid11-view.fxml"),
     GRID12("grid12-view.fxml"),
     LOGIN("login-view.fxml"),
+    SIGNUP("sign-in-view.fxml"),
     TOUR_DETAILS("/vidmot/tour-details-view.fxml");
 
     private final String fileName;
