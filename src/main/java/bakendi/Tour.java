@@ -1,5 +1,8 @@
 package bakendi;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * Heldur utan um upplýsingar um tours
  */
@@ -11,6 +14,7 @@ public class Tour {
     private double duration;
     private int minAge;
     private int verdBilCheck;
+    private List<LocalDate> availableDates;
 
     /**
      * Smíðir tour hluti
@@ -27,7 +31,7 @@ public class Tour {
      */
     public Tour(String name, String mainImage, String image2, String image3,
                 String shortDescription, String startLocation, double duration,
-                int minAge, String longDescription, int verdBilCheck) {
+                int minAge, String longDescription, int verdBilCheck, List<LocalDate> availableDates) {
         this.name = name;
         this.mainImage = mainImage;
         this.image2 = image2;
@@ -38,6 +42,7 @@ public class Tour {
         this.minAge = minAge;
         this.longDescription = longDescription;
         this.verdBilCheck = verdBilCheck;
+        this.availableDates = availableDates;
     }
 
     public String getName() { return name; }
@@ -50,4 +55,6 @@ public class Tour {
     public int getMinAge() { return minAge; }
     public String getLongDescription() { return longDescription; }
     public double getVerdBilCheck() {return verdBilCheck;}
+    public List<LocalDate> getAvailableDates() { return availableDates; }
+    public boolean isAvailableOn(LocalDate date) { return availableDates.contains(date);}
 }
