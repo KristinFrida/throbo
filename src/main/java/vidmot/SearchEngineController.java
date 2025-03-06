@@ -4,6 +4,7 @@ import bakendi.TourDatabase;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.text.Normalizer;
+import java.time.LocalDate;
 
 public class SearchEngineController {
 
@@ -16,8 +17,16 @@ public class SearchEngineController {
         return TourDatabase.getAllTours().stream()
                 .filter(tour ->
                         removeAccents(tour.getName().toLowerCase()).contains(normalizedQuery) ||
-                                removeAccents(tour.getStartLocation().toLowerCase()).contains(normalizedQuery) // 🔥 Match Name OR Location
+                                removeAccents(tour.getStartLocation().toLowerCase()).contains(normalizedQuery)
                 )
+                .collect(Collectors.toList());
+    }
+
+    public List<Tour> filterToursByDate(LocalDate selectedDate) {
+        if (selectedDate == null) return TourDatabase.getAllTours();
+
+        return TourDatabase.getAllTours().stream()
+                .filter(tour -> tour.isAvailableOn(selectedDate))
                 .collect(Collectors.toList());
     }
 
