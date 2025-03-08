@@ -94,9 +94,11 @@
                     <Region prefHeight="20" />
 
                     <!-- Book Now Button -->
-                    <Button prefHeight="45" prefWidth="250"
+                    <Button fx:id="bookNowButton"
+                            prefHeight="45" prefWidth="250"
                             text="Book Now"
-                            styleClass="book-button" />
+                            styleClass="book-button"
+                            onAction="#onBookNowClicked"/>
                 </VBox>
 
                 <!-- Right Column: Description Box -->

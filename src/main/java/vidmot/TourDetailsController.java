@@ -1,12 +1,21 @@
 package vidmot;
 import bakendi.TourDatabase;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import bakendi.Tour;
 import javafx.event.ActionEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -16,16 +25,24 @@ import java.io.InputStream;
  */
 public class TourDetailsController {
     @FXML private Label tourTitleLabel;
+    @FXML private Button bookNowButton;
     @FXML private ImageView tourMainImage, tourImage2, tourImage3;
     @FXML private Text tourShortDescription, tourStartLocation, tourDuration, tourMinAge, tourLongDescription, tourPriceRange;
+
+    private Tour selectedTour;
+
     /**
      * Hleður selected tour í UI.
      * @param tour Tour object sem inniheldur uppl um tour
      */
     public void loadTour(Tour tour) {
         if (tour == null) {
+            System.out.println("loadTour() kallað með null tour");
             return;
         }
+
+        this.selectedTour = tour;
+        System.out.println("Tour valinn fyrir bókun: " + tour.getName()); // Debug
 
         // hreinsar eldri myndir áður en nýrri er hlaðað
         tourMainImage.setImage(null);
@@ -44,7 +61,13 @@ public class TourDetailsController {
         if (tourDuration != null) tourDuration.setText(tour.getDuration() + " hours");
         if (tourMinAge != null) tourMinAge.setText(tour.getMinAge() + " years old");
         if (tourLongDescription != null) tourLongDescription.setText(tour.getLongDescription());
-        if (tourPriceRange!=null) tourPriceRange.setText(String.format("%.0f ISK", tour.getVerdBilCheck()));
+        if (tourPriceRange!=null) {
+            double price = tour.getPrice();
+            tourPriceRange.setText(String.format("%,.0f ISK", price));
+        }
+        if (bookNowButton != null) {
+            bookNowButton.setDisable(false);
+        }
 
     }
 
@@ -66,6 +89,50 @@ public class TourDetailsController {
             imageView.setImage(new Image(stream));
         }
     }
+
+    /**
+     * Kveikir á Booking Dialog þegar ýtt er á "Book Now".
+     */
+    @FXML
+    private void onBookNowClicked() {
+        System.out.println("Book Now takki virkar!"); // Debug prentun
+
+        if (selectedTour == null) {
+            System.out.println("Enginn tour valinn í onBookNowClicked()");
+            return;
+        }
+
+        try {
+            // Hleður booking-dialog.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vidmot/booking-dialog.fxml"));
+            Pane pane = loader.load();
+
+            // Sækir controller fyrir booking-dialog
+            BookingDialogController controller = loader.getController();
+            controller.setTour(selectedTour);
+
+            // Setur upp nýjan glugga
+            Stage stage = new Stage();
+            stage.setTitle("Book Tour");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(pane));
+
+            System.out.println("Bókunargluggi opnaður."); // Debug prentun
+            stage.showAndWait();
+        } catch (IOException e) {
+            System.err.println("Gat ekki hlaðið booking-dialog.fxml");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Setur valinn túr fyrir bókun.
+     */
+    public void setSelectedTour(Tour tour) {
+        this.selectedTour = tour;
+        System.out.println("Valdi túr: " + tour.getName());
+    }
+
     /**
      * Fer til baka í start view
      * @param event event triggered af back button
@@ -74,16 +141,5 @@ public class TourDetailsController {
     private void goBack(ActionEvent event) {
         ViewSwitcher.switchTo(View.START);
     }
-    /**
-     * Hleður og sýnir uppl um tour fyrir gefið tour name
-     * @param tourName nafn toursins til að sýna(display)
-     */
-    public void goToTourDetails(String tourName) {
-        Tour tour = TourDatabase.getTourByName(tourName);
-        if (tour != null) {
-            TourDetailsController detailsController = (TourDetailsController) ViewSwitcher.getController(View.TOUR_DETAILS);
-            detailsController.loadTour(tour);
-            ViewSwitcher.switchTo(View.TOUR_DETAILS);
-        }
-    }
+
 }

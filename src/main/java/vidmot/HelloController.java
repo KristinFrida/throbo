@@ -29,8 +29,6 @@ public class HelloController {
     @FXML
     private TextField fxLeitarvelTexti;
     @FXML
-    private Button fxLeitarvelTakki;
-    @FXML
     private GridPane fxTourGridPane;
     @FXML
     private DatePicker datePicker;
@@ -38,6 +36,7 @@ public class HelloController {
     private VBox searchResultsContainer;
     @FXML
     private Label outputUsername;
+
 
     // Verðbil checkboxes
     @FXML
@@ -48,6 +47,7 @@ public class HelloController {
     private CheckBox fxVerdbil3; // "10000 - 19999 ISK"
     @FXML
     private CheckBox fxVerdbil4; // "+20000 ISK"
+
 
     @FXML
     private void initialize() {
@@ -108,9 +108,9 @@ public class HelloController {
         List<Tour> searchFiltered = query.isEmpty()
                 ? dateFiltered
                 : searchEngineController.searchTours(query)
-                        .stream()
-                        .filter(dateFiltered::contains)
-                        .collect(Collectors.toList());
+                .stream()
+                .filter(dateFiltered::contains)
+                .collect(Collectors.toList());
 
         // Sía út frá verðbili
         List<java.util.function.Predicate<Tour>> priceConditions = TourFilter.buildPriceConditions(
@@ -122,6 +122,10 @@ public class HelloController {
 
         List<Tour> finalFiltered = TourFilter.filterByPrice(searchFiltered, priceConditions);
         updateGridPane(finalFiltered);
+    }
+
+    private Tour getCurrentlyViewedTour() {
+        return (Tour) searchResultsContainer.getChildren().get(0).getUserData();
     }
 
     /**
