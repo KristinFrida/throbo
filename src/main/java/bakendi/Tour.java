@@ -1,5 +1,8 @@
 package bakendi;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * Heldur utan um upplýsingar um tours
  */
@@ -10,7 +13,8 @@ public class Tour {
     private String startLocation;
     private double duration;
     private int minAge;
-    private int verdBilCheck;
+    private double price;
+    private List<LocalDate> availableDates;
 
     /**
      * Smíðir tour hluti
@@ -23,11 +27,10 @@ public class Tour {
      * @param duration
      * @param minAge
      * @param longDescription
-     * @param verdBilCheck
      */
     public Tour(String name, String mainImage, String image2, String image3,
                 String shortDescription, String startLocation, double duration,
-                int minAge, String longDescription, int verdBilCheck) {
+                int minAge, String longDescription, double price, List<LocalDate> availableDates) {
         this.name = name;
         this.mainImage = mainImage;
         this.image2 = image2;
@@ -37,7 +40,8 @@ public class Tour {
         this.duration = duration;
         this.minAge = minAge;
         this.longDescription = longDescription;
-        this.verdBilCheck = verdBilCheck;
+        this.price = price;
+        this.availableDates = availableDates;
     }
 
     public String getName() { return name; }
@@ -49,5 +53,16 @@ public class Tour {
     public double getDuration() { return duration; }
     public int getMinAge() { return minAge; }
     public String getLongDescription() { return longDescription; }
-    public double getVerdBilCheck() {return verdBilCheck;}
+    public double getPrice() { return this.price; }
+    public List<LocalDate> getAvailableDates() { return availableDates; }
+    public boolean isAvailableOn(LocalDate date) { return availableDates.contains(date);}
+
+    // Útreikna verðbil út frá price
+    public int getVerdBilCheck() {
+        if (price >= 0 && price <= 5000) return 1;
+        if (price >= 5001 && price <= 10000) return 2;
+        if (price >= 10001 && price <= 20000) return 3;
+        if (price >= 20001) return 4;
+        return 0; // Óþekkt verð
+    }
 }

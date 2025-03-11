@@ -19,67 +19,68 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelloController {
 
     // Skilgreini instance af SearchEngineController
-    private SearchEngineController searchEngineController;
+    private SearchEngineController searchEngineController = new SearchEngineController();
 
     @FXML
     private TextField fxLeitarvelTexti;
     @FXML
-    private Button fxLeitarvelTakki;
-    @FXML
     private GridPane fxTourGridPane;
     @FXML
-    private DatePicker fxDagatal;
+    private DatePicker datePicker;
     @FXML
     private VBox searchResultsContainer;
     @FXML
     private Label outputUsername;
 
+
     // Verðbil checkboxes
     @FXML
-    private CheckBox fxVerdbil1; // "0 - 5000 ISK"
+    private CheckBox fxVerdbil1; // "0 - 4999 ISK"
     @FXML
-    private CheckBox fxVerdbil2; // "5001 - 10000 ISK"
+    private CheckBox fxVerdbil2; // "5000 - 9999 ISK"
     @FXML
-    private CheckBox fxVerdbil3; // "10001 - 20000 ISK"
+    private CheckBox fxVerdbil3; // "10000 - 19999 ISK"
     @FXML
-    private CheckBox fxVerdbil4; // "20001+ ISK"
+    private CheckBox fxVerdbil4; // "+20000 ISK"
+
 
     @FXML
     private void initialize() {
+        assert datePicker != null : "Datepicker is not injected";
+        assert fxLeitarvelTexti != null : "Leitarveltexti is not injected";
+
         searchEngineController = new SearchEngineController();
 
         if (fxLeitarvelTexti != null) {
             // ENTER takki triggerar leit
             fxLeitarvelTexti.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
-                    handleSearch();
+                    onSearchClicked();
                     event.consume();
                 }
             });
 
-            // Uppfærir leit-niðurstöður meðan notandi skrifar
-            fxLeitarvelTexti.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
-
             // Hleður öllum tours á startup
-            Platform.runLater(() -> {
-                fxLeitarvelTexti.requestFocus();
-                updateDisplayedTours();
-            });
+            Platform.runLater(() -> updateDisplayedTours(null));
         }
     }
 
     /**
-     * Kallast þegar notandi breytir leitartexta
-     * eða þegar ýtt er á Search takka.
+     * Keyrist þegar ýtt er á "Search" takkann
+     * Tekur bæði leitarorð og valda dagsetningu
+     * og birtir niðurstöður.
      */
     @FXML
-    private void handleSearch() {
-        updateDisplayedTours();
+    private void onSearchClicked() {
+        LocalDate selectedDate = datePicker.getValue();
+        updateDisplayedTours(selectedDate);
     }
 
     /**
@@ -87,21 +88,33 @@ public class HelloController {
      */
     @FXML
     private void handleFilterChange() {
-        updateDisplayedTours();
+        LocalDate selectedDate = datePicker.getValue();
+        updateDisplayedTours(selectedDate);
     }
 
     /**
-     * Kallar á TourFilter til að sía út frá texta og verðbilum og birtir niðurstöður.
+     * Uppfærir forsíðuna með túrum sem passa við leit, verðbil og dagsetningu.
      */
-    private void updateDisplayedTours() {
+    private void updateDisplayedTours(LocalDate selectedDate) {
         List<Tour> allTours = TourDatabase.getAllTours();
 
-        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
-
-        List<Tour> searchFiltered = query.isEmpty()
+        // Ef engin dagsetning er valin, sýnum alla túra
+        List<Tour> dateFiltered = (selectedDate == null)
                 ? allTours
-                : searchEngineController.searchTours(query);
+                : allTours.stream()
+                .filter(tour -> tour.isAvailableOn(selectedDate))
+                .collect(Collectors.toList());
 
+        // Sía út frá leit
+        String query = fxLeitarvelTexti.getText().trim().toLowerCase();
+        List<Tour> searchFiltered = query.isEmpty()
+                ? dateFiltered
+                : searchEngineController.searchTours(query)
+                .stream()
+                .filter(dateFiltered::contains)
+                .collect(Collectors.toList());
+
+        // Sía út frá verðbili
         List<java.util.function.Predicate<Tour>> priceConditions = TourFilter.buildPriceConditions(
                 fxVerdbil1.isSelected(),
                 fxVerdbil2.isSelected(),
@@ -113,8 +126,12 @@ public class HelloController {
         updateGridPane(finalFiltered);
     }
 
+    private Tour getCurrentlyViewedTour() {
+        return (Tour) searchResultsContainer.getChildren().get(0).getUserData();
+    }
+
     /**
-     * Uppfærir GridPane miðað við gefinn lista af Tours.
+     * Uppfærir forsíðuna með réttum túrum.
      */
     private void updateGridPane(List<Tour> tours) {
         fxTourGridPane.getChildren().clear();

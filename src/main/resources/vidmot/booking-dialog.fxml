@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vidmot.BookingDialogController"
+            stylesheets="@../css/styles.css"
+            styleClass="booking-dialog">
+
+    <children>
+        <VBox spacing="15" alignment="CENTER" layoutX="20" layoutY="20" prefWidth="300">
+
+            <!-- Titill -->
+            <Label fx:id="tourNameLabel" text="Bókun: Tour Name" styleClass="booking-title" />
+
+            <!-- Fjöldi fólks val -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Fjöldi fólks:" />
+                <Spinner fx:id="peopleSpinner" styleClass="spinner" />
+            </HBox>
+
+            <!-- Verð -->
+            <Label fx:id="priceLabel" text="Heildarverð: 0 ISK" styleClass="booking-price" />
+
+            <!-- Hnappar -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Greiða &amp; Bóka" onAction="#confirmBooking" styleClass="booking-button" />
+                <Button text="Hætta við" onAction="#closeDialog" styleClass="cancel-button" />
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>

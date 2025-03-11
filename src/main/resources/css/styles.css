@@ -229,3 +229,50 @@ SplitPane {
     -fx-text-fill: red;
     -fx-font-weight: bold;
 }
+.booking-button:hover {
+    -fx-background-color: #005f87;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #ced4da;
+}
+
+.booking-dialog {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 5);
+}
+
+/* Spinner útlit */
+.spinner {
+    -fx-pref-width: 80px;
+    -fx-font-size: 14px;
+}
+
+.button-container {
+    -fx-alignment: center;
+    -fx-padding: 15px 0px 5px 0px;
+}
+
+.booking-button, .cancel-button {
+    -fx-min-width: 150px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+}
+
+.booking-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0077b6;
+}
+
+.booking-price {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #028090;
+}
+
