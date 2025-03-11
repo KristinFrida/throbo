@@ -1,5 +1,6 @@
 package vidmot;
 
+import bakendi.UserRespository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,7 +21,6 @@ public class UserController {
     @FXML
     private TextField fxPassword;
 
-
     //From Sign-in-view
     @FXML
     private TextField newUsername;
@@ -31,22 +31,14 @@ public class UserController {
     @FXML
     private Label MissingInputDataForNewUser;
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/users_for_website";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "1234";
-
-
 
     @FXML
     private void skraSigInn(ActionEvent event){
-        //ef notendanafn og lykilorð passa sama id??? þá fara yfir í hello-view.fxml annar gefa villu að þau pössuðu ekki
-        //saman svo halda sé enn í
 
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
-
-        if(validateLogin(username,password)){
+        if(UserRespository.validateLogin(username,password)){
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         }else{
@@ -58,28 +50,6 @@ public class UserController {
     @FXML
     private void goToHome(ActionEvent event) {
         ViewSwitcher.switchTo(View.START);
-    }
-
-
-
-    private boolean validateLogin(String username, String password) {
-        //return username.equals("admin") && password.equals("1234");
-        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
-
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-
-            ResultSet rs = stmt.executeQuery();
-            return rs.next(); // ef user er til þá skila true
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Database Error", "Could not connect to the database.");
-            return false;
-        }
     }
 
 
@@ -104,31 +74,36 @@ public class UserController {
             String upperCaseText = text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
             helloController.updateLabel(upperCaseText);
         }else {
-            System.err.println("");
+            System.err.println(" ");
         }
     }
 
 
     // verið að ná í upplýsingar frá nýskráðum og setja það yfir í töflu fyrir gagnagrunninn
     public void newSignUp(ActionEvent event) {
+        String username = newUsername.getText();
+        String password = newPassword.getText();
+        String email = newEmail.getText();
+
         if (newUsername.getText().isBlank() || newPassword.getText().isBlank() || newEmail.getText().isBlank()){
             MissingInputDataForNewUser.setText("Missing input data");
-        }else {
-            JavaPostgreSql.writeToDatabase(newUsername.getText(), newPassword.getText(), newEmail.getText());
         }
 
+        boolean sucess = UserRespository.addUser(username,email,password);
+        if(sucess){
+            showAlert("Success", "Account created!");
+        }else {
+            showAlert("Sign up failed", "Input missing || Username or email already exists");
+        }
     }
 
     //Skipta yfir í fxml skrá þar sem hægt er að búa til aðgang
     public void goToSignUp(ActionEvent event) {
         ViewSwitcher.switchTo(View.SIGNUP);
-
-
     }
 
     //Takki til að fara til baka án þess að skrá sig endilega inn, alveg eins method í helloController
     public void goToLoginFromSignUP(ActionEvent event) {
         ViewSwitcher.switchTo(View.LOGIN);
-
     }
 }
