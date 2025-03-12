@@ -3,10 +3,7 @@ package vidmot;
 import bakendi.BookingManager;
 import bakendi.Tour;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class BookingDialogController {
@@ -17,6 +14,8 @@ public class BookingDialogController {
     private Spinner<Integer> peopleSpinner;
     @FXML
     private Label priceLabel;
+    @FXML
+    private CheckBox hotelPickupCheckBox;
     @FXML
     private TextField cardHolderName;
     @FXML
@@ -67,10 +66,13 @@ public class BookingDialogController {
         }
 
         int people = peopleSpinner.getValue();
-        // Það þarf að útvega betri "payment" valmöguleika
-        System.out.println("Payment processed for " + people + " people.");
-        BookingManager.addBooking(selectedTour);
-        System.out.println("Booking confirmed for: " + selectedTour.getName() + ".");
+        boolean hotelPickup = hotelPickupCheckBox.isSelected();
+
+        System.out.println("Booking confirmed for: " + selectedTour.getName());
+        System.out.println("People: " + people);
+        System.out.println("Hotel Pickup: " + (hotelPickup ? "Yes" : "No"));
+
+        BookingManager.addBooking(selectedTour, people, hotelPickup);
 
         closeDialog();
     }
