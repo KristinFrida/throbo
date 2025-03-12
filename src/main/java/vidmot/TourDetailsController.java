@@ -1,5 +1,6 @@
 package vidmot;
 import bakendi.TourDatabase;
+import bakendi.UserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -97,8 +98,15 @@ public class TourDetailsController {
     private void onBookNowClicked() {
         System.out.println("Book Now takki virkar!"); // Debug prentun
 
+        // Athugar hvort notandi er innskráður
+        if(!UserRepository.isUserLoggedIn()) {
+            System.out.println("Notandi er ekki innskráður, vísa á innskráningu.");
+            ViewSwitcher.switchTo(View.LOGIN);
+            return;
+        }
+
         if (selectedTour == null) {
-            System.out.println("Enginn tour valinn í onBookNowClicked()");
+            System.out.println("Villa: Enginn tour valinn í onBookNowClicked()");
             return;
         }
 

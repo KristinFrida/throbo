@@ -1,16 +1,11 @@
 package vidmot;
 
-import bakendi.UserRespository;
+import bakendi.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class UserController {
 
@@ -38,7 +33,10 @@ public class UserController {
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
-        if(UserRespository.validateLogin(username,password)){
+        if(UserRepository.validateLogin(username,password)){
+            UserRepository.loginUser(username);
+            System.out.println("Notandi " + username + " skráði sig inn.");
+
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         }else{
@@ -89,7 +87,7 @@ public class UserController {
             MissingInputDataForNewUser.setText("Missing input data");
         }
 
-        boolean sucess = UserRespository.addUser(username,email,password);
+        boolean sucess = UserRepository.addUser(username,email,password);
         if(sucess){
             showAlert("Success", "Account created!");
         }else {
