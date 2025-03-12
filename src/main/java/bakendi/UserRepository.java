@@ -5,11 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserRespository {
+public class UserRepository {
 
     private String userName;
     private String password;
     private String email;
+    private static String currentUser = null;
+
+    public static boolean isUserLoggedIn() {
+        return currentUser != null;
+    }
+
+    public static String getLoggedInUser() {
+        return currentUser;
+    }
+
+    public static void loginUser(String userName) {
+        currentUser = userName;
+        System.out.println("Notandi skráði sig inn: " + userName);
+    }
+
+    public static void logoutUser() {
+        System.out.println("Notandi skráði sig út: " + currentUser);
+        currentUser = null;
+    }
 
     public String getUserName(){
         return userName;
@@ -69,11 +88,15 @@ public class UserRespository {
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next();
+
+            if (resultSet.next()) {
+                loginUser(userName);
+                return true;
+            }
         } catch (SQLException e) {
             System.err.println("login failed" + e.getMessage());
-            return false;
         }
+        return false;
     }
 
 }
