@@ -52,6 +52,7 @@ public class ViewSwitcher {
             currentView = view;
             scene.setRoot(root);
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +80,4 @@ public class ViewSwitcher {
     public static View getLastView() {
         return lastView;
     }
-
-
-
 }

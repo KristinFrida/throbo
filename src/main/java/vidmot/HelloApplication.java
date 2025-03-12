@@ -16,6 +16,7 @@ public class HelloApplication extends Application {
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.START);
+
         // Set preferred and minimum size for the window
         stage.setWidth(1000);
         stage.setHeight(800);
