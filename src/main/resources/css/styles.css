@@ -382,8 +382,9 @@ TextField#ccv {
     -fx-background-color: #2196F3;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-padding: 5px;
     -fx-background-radius: 5px;
+    -fx-padding:5;
+    -fx-translate-y: 30px;
 }
 
 #MissingInputDataForNewUser {
@@ -392,5 +393,10 @@ TextField#ccv {
     -fx-font-weight: bold;
 }
 
+#loginButtonRow, #signUpButtonRow {
+    -fx-padding: 10px 0 0 0;
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
 
 
