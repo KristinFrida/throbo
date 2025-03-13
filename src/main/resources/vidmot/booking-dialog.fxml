@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 
 <AnchorPane prefWidth="550.0" prefHeight="600.0"
             xmlns="http://javafx.com/javafx/23.0.1"
@@ -38,6 +39,11 @@
 
                 <HBox spacing="10" alignment="CENTER">
                     <CheckBox fx:id="hotelPickupCheckBox" text="Hotel Pickup" />
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Label text="Select Date:" />
+                    <DatePicker fx:id="datePicker" promptText="Choose a date" />
                 </HBox>
             </VBox>
 

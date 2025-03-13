@@ -5,6 +5,8 @@ import bakendi.Tour;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import java.time.LocalDate;
+import java.util.List;
 
 public class BookingDialogController {
 
@@ -26,6 +28,8 @@ public class BookingDialogController {
     private TextField ccv;
     @FXML
     private Label errorLabel;
+    @FXML
+    private DatePicker datePicker;
 
     private Tour selectedTour;
 
@@ -37,6 +41,7 @@ public class BookingDialogController {
         peopleSpinner.valueProperty().addListener((obs, oldValue, newValue) -> updatePrice());
 
         updatePrice();
+        setupDatePicker();
     }
 
     @FXML
@@ -47,13 +52,23 @@ public class BookingDialogController {
         priceLabel.setText("Total Price: " + totalPrice + " ISK");
     }
 
+    private void setupDatePicker() {
+        List<LocalDate> availableDates = selectedTour.getAvailableDates();
+
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(!availableDates.contains(date) || date.isBefore(LocalDate.now()));
+            }
+        });
+    }
+
     @FXML
     private void validateCardNumber() {
         String cardNum = cardNumber.getText().replaceAll("\\s", "");
 
         if (!cardNum.matches("\\d{16}")) {
-            errorLabel.setText("Card number must be 16 digits");
-            errorLabel.setVisible(true);
+            showError("Card number must be 16 digits");
         } else {
             errorLabel.setVisible(false);
         }
@@ -67,12 +82,19 @@ public class BookingDialogController {
 
         int people = peopleSpinner.getValue();
         boolean hotelPickup = hotelPickupCheckBox.isSelected();
+        LocalDate selectedDate = datePicker.getValue();
+
+        if (selectedDate == null) {
+            showError("Please select a date for the booking.");
+            return;
+        }
 
         System.out.println("Booking confirmed for: " + selectedTour.getName());
         System.out.println("People: " + people);
+        System.out.println("Date: " + selectedDate);
         System.out.println("Hotel Pickup: " + (hotelPickup ? "Yes" : "No"));
 
-        BookingManager.addBooking(selectedTour, people, hotelPickup);
+        BookingManager.addBooking(selectedTour, people, selectedDate, hotelPickup);
 
         closeDialog();
     }
