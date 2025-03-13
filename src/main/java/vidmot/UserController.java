@@ -1,16 +1,11 @@
 package vidmot;
 
-import bakendi.UserRespository;
+import bakendi.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class UserController {
 
@@ -38,7 +33,10 @@ public class UserController {
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
-        if(UserRespository.validateLogin(username,password)){
+        if(UserRepository.validateLogin(username,password)){
+            UserRepository.loginUser(username);
+            System.out.println("Notandi " + username + " skráði sig inn.");
+
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         }else{
@@ -68,13 +66,13 @@ public class UserController {
     private void sendUsernameToHelloController(){
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
 
-        if(helloController!=null){
+        if (helloController != null) {
             String text = fxUsername.getText();
-            //Ekki viss hvort á að gera lowercase restinn því sumir heit t.d. McDonald
-            String upperCaseText = text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
+            String upperCaseText = text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
             helloController.updateLabel(upperCaseText);
-        }else {
-            System.err.println(" ");
+            helloController.refreshLoginState();
+        } else {
+            System.err.println("HelloController not found when trying to send username.");
         }
     }
 
@@ -89,7 +87,7 @@ public class UserController {
             MissingInputDataForNewUser.setText("Missing input data");
         }
 
-        boolean sucess = UserRespository.addUser(username,email,password);
+        boolean sucess = UserRepository.addUser(username,email,password);
         if(sucess){
             showAlert("Success", "Account created!");
         }else {

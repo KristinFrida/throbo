@@ -52,7 +52,8 @@ Button {
     -fx-border-color: #bbb;
     -fx-border-radius: 20px;
     -fx-text-fill: #333;
-    -fx-padding: 5px;
+    -fx-padding: 7px 15px;
+    -fx-alignment: center;
 }
 
 /*
@@ -171,7 +172,7 @@ SplitPane {
     -fx-background-color: #ffffff;
     -fx-border-color: #ddd;
     -fx-border-radius: 10px;
-    -fx-padding: 20px;
+    -fx-padding: 20px 20px 60px 20px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.3, 0, 4);
 }
 
@@ -275,4 +276,134 @@ SplitPane {
     -fx-font-weight: bold;
     -fx-text-fill: #028090;
 }
+
+/* Greiðsluform útlit */
+.payment-form {
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-background-color: #f8f9fa;
+}
+
+/* Villuboð */
+.payment-error {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* Ensures consistent text field width */
+TextField {
+    -fx-pref-width: 200px;
+    -fx-padding: 5px;
+}
+
+/* Labels inside GridPane are right-aligned */
+GridPane Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-right;
+}
+
+/* Aligns text fields inside the GridPane */
+GridPane TextField {
+    -fx-pref-width: 220px;
+}
+
+/* Makes CCV text field smaller */
+TextField#ccv {
+    -fx-pref-width: 60px;
+}
+
+/* Style for section title */
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444;
+    -fx-padding: 5px 0;
+}
+
+#signUpBox {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 4);
+}
+#loginBox{
+    -fx-background-color: #ffffff;
+    -fx-padding: 40 20 0 20;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 4);
+}
+
+#loginTitle, #signUpTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+
+#usernameLabel, #passwordLabel, #emailLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+    -fx-font-weight: bold;
+}
+
+#fxUsername, #fxPassword, #newUsername, #newPassword, #newEmail {
+    -fx-pref-width: 220px;
+    -fx-padding: 6px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#fxLoginButton, #fxSignUpButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+#fxCancelButton, #fxSignUpCancelButton {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+#fxCancelButton:hover, #fxSignUpCancelButton:hover {
+    -fx-background-color: #d32f2f;
+}
+#fxLoginButton:hover, #fxSignUpButton:hover {
+    -fx-background-color: #45a049;
+}
+#fxSignUpLink:hover {
+    -fx-background-color: #1976D2;
+}
+
+#fxSignUpLink {
+    -fx-cursor: hand;
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5px;
+    -fx-padding:5;
+    -fx-translate-y: 30px;
+}
+
+#MissingInputDataForNewUser {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+#loginButtonRow, #signUpButtonRow {
+    -fx-padding: 10px 0 0 0;
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
 
