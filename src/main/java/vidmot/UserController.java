@@ -66,13 +66,13 @@ public class UserController {
     private void sendUsernameToHelloController(){
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
 
-        if(helloController!=null){
+        if (helloController != null) {
             String text = fxUsername.getText();
-            //Ekki viss hvort á að gera lowercase restinn því sumir heit t.d. McDonald
-            String upperCaseText = text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
+            String upperCaseText = text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
             helloController.updateLabel(upperCaseText);
-        }else {
-            System.err.println(" ");
+            helloController.refreshLoginState();
+        } else {
+            System.err.println("HelloController not found when trying to send username.");
         }
     }
 
