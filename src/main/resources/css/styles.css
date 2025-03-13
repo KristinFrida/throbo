@@ -322,6 +322,77 @@ TextField#ccv {
     -fx-text-fill: #444;
     -fx-padding: 5px 0;
 }
+/* === GLOBAL ROOT STYLES === */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #F2F2F2;
+}
+
+/* === FORM CONTAINER SHARED STYLING (loginBox & signUpBox) === */
+#loginBox, #signUpBox {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 4);
+}
+
+/* === FORM TITLES (Login/SignUp) === */
+#loginTitle, #signUpTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* === FORM LABELS === */
+#usernameLabel, #passwordLabel, #emailLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+    -fx-font-weight: bold;
+}
+
+/* === FORM INPUT FIELDS === */
+#fxUsername, #fxPassword, #newUsername, #newPassword, #newEmail {
+    -fx-pref-width: 220px;
+    -fx-padding: 6px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* === PRIMARY BUTTONS (Login / Sign Up) === */
+#fxLoginButton, #fxSignUpButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+/* === SECONDARY BUTTONS (Cancel) === */
+#fxCancelButton, #fxSignUpCancelButton {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+/* === LINK-LIKE BUTTON (Sign up link on login view) === */
+#fxSignUpLink {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2196F3;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+/* === ERROR LABEL === */
+#MissingInputDataForNewUser {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
 
 
 
