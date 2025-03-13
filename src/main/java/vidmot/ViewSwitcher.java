@@ -3,29 +3,31 @@ package vidmot;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javafx.stage.Stage;
 
 public class ViewSwitcher {
     private static final Map<View, Parent> cache = new HashMap<>();
     private static final Map<View, Object> controllers = new HashMap<>();
+    private static final Map<View, FXMLLoader> loaders = new HashMap<>();
+
     private static Scene scene;
     private static View lastView;
     private static View currentView;
-
-    private static final Map<View, FXMLLoader> loaders = new HashMap<>();
     private static Stage mainStage;
 
-    public static void setScene(Scene scene){
+    public static void setScene(Scene scene) {
         ViewSwitcher.scene = scene;
     }
+
     public static void setMainStage(Stage stage) {
         mainStage = stage;
     }
+
     /**
-     * Færir notandann á milli mismunandi valmynda/fxml skráa
+     * Switches the application view by loading the appropriate FXML and optionally resizing the window.
      */
     public static void switchTo(View view) {
         if (scene == null) {
@@ -39,6 +41,7 @@ public class ViewSwitcher {
             } else {
                 var resource = ViewSwitcher.class.getResource(view.getFileName());
                 if (resource == null) {
+                    System.err.println("FXML resource not found: " + view.getFileName());
                     return;
                 }
                 FXMLLoader loader = new FXMLLoader(resource);
@@ -52,6 +55,20 @@ public class ViewSwitcher {
             currentView = view;
             scene.setRoot(root);
 
+            if (mainStage != null) {
+                if (view == View.LOGIN || view == View.SIGNUP) {
+                    mainStage.setWidth(350);
+                    mainStage.setHeight(400);
+                    mainStage.setMinWidth(200);
+                    mainStage.setMinHeight(200);
+                } else {
+                    mainStage.setWidth(1000);
+                    mainStage.setHeight(800);
+                    mainStage.setMinWidth(900);
+                    mainStage.setMinHeight(700);
+                }
+                mainStage.centerOnScreen();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,23 +76,22 @@ public class ViewSwitcher {
     }
 
     /**
-     * Sækir controllerinn sem er tengdur við gefið view
-     * @param view view sem ákveðinn controller þarf
-     * @return controller instance fyrir tiltekið view
+     * Returns the controller for the given view.
      */
     public static Object getController(View view) {
         FXMLLoader loader = loaders.get(view);
         return (loader != null) ? loader.getController() : null;
     }
+
     /**
-     * Flettir upp hvaða fxml skrá notandinn er á
+     * Returns the cached controller for a view if already loaded.
      */
-    public static Object lookup(View v) {
-        return controllers.get(v);
+    public static Object lookup(View view) {
+        return controllers.get(view);
     }
+
     /**
-     * Flettir upp hvaða fxml skrá notandinn var síðast á
-     * @return síðasta fxml skráin
+     * Returns the last view visited before the current view.
      */
     public static View getLastView() {
         return lastView;
