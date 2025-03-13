@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="492.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.MyPageController" prefHeight="386.0" prefWidth="492.0">
    <children>
-      <VBox layoutX="58.0" layoutY="64.0" prefHeight="238.0" prefWidth="375.0">
+      <VBox layoutX="58.0" layoutY="64.0" spacing="10.0" prefHeight="238.0" prefWidth="375.0">
          <children>
             <Label text="My page" />
             <ListView prefHeight="200.0" prefWidth="200.0" />
+            <Button text="Back to Home" onAction="#goToHome"/>
+            <Button text="Log Out" onAction="#handleLogout"/>
          </children>
       </VBox>
    </children>
