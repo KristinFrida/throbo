@@ -59,8 +59,8 @@ public class ViewSwitcher {
                 if (view == View.LOGIN || view == View.SIGNUP) {
                     mainStage.setWidth(350);
                     mainStage.setHeight(400);
-                    mainStage.setMinWidth(200);
-                    mainStage.setMinHeight(200);
+                    mainStage.setMinWidth(350);
+                    mainStage.setMinHeight(400);
                 } else {
                     mainStage.setWidth(1000);
                     mainStage.setHeight(800);
