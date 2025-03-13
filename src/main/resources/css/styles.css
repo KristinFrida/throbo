@@ -323,9 +323,15 @@ TextField#ccv {
     -fx-padding: 5px 0;
 }
 
-#loginBox, #signUpBox {
+#signUpBox {
     -fx-background-color: #ffffff;
     -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 4);
+}
+#loginBox{
+    -fx-background-color: #ffffff;
+    -fx-padding: 40 20 0 20;
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 4);
 }
@@ -335,6 +341,7 @@ TextField#ccv {
     -fx-font-weight: bold;
     -fx-text-fill: #333;
 }
+
 
 #usernameLabel, #passwordLabel, #emailLabel {
     -fx-font-size: 14px;
