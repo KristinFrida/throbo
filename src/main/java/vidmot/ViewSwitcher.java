@@ -3,6 +3,7 @@ package vidmot;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,59 +11,87 @@ import java.util.Map;
 public class ViewSwitcher {
     private static final Map<View, Parent> cache = new HashMap<>();
     private static final Map<View, Object> controllers = new HashMap<>();
+    private static final Map<View, FXMLLoader> loaders = new HashMap<>();
+
     private static Scene scene;
     private static View lastView;
     private static View currentView;
+    private static Stage mainStage;
 
-    public static void setScene(Scene scene){
+    public static void setScene(Scene scene) {
         ViewSwitcher.scene = scene;
     }
 
+    public static void setMainStage(Stage stage) {
+        mainStage = stage;
+    }
+
     /**
-     * Færir notandann á milli mismunandi valmynda/fxml skráa
+     * Switches the application view by loading the appropriate FXML and optionally resizing the window.
      */
-    public static void switchTo(View view){
-        if (scene == null){
-            System.out.println("No scene set");
+    public static void switchTo(View view) {
+        if (scene == null) {
             return;
         }
 
-        try{
+        try {
             Parent root;
-            if (cache.containsKey(view)){
-                System.out.println("Loading from cache");
+            if (cache.containsKey(view)) {
                 root = cache.get(view);
             } else {
-                System.out.println("Loading from FXML: " + view.getFileName());
-                // Check if the resource is null before loading
                 var resource = ViewSwitcher.class.getResource(view.getFileName());
                 if (resource == null) {
-                    System.err.println("Resource not found: " + view.getFileName());
+                    System.err.println("FXML resource not found: " + view.getFileName());
                     return;
                 }
                 FXMLLoader loader = new FXMLLoader(resource);
                 root = loader.load();
                 cache.put(view, root);
                 controllers.put(view, loader.getController());
-                System.out.println("Loaded view: " + view);
+                loaders.put(view, loader);
             }
+
             lastView = currentView;
             currentView = view;
             scene.setRoot(root);
-        } catch (IOException e){
+
+            if (mainStage != null) {
+                if (view == View.LOGIN || view == View.SIGNUP) {
+                    mainStage.setWidth(450);
+                    mainStage.setHeight(450);
+                    mainStage.setMinWidth(450);
+                    mainStage.setMinHeight(450);
+                } else {
+                    mainStage.setWidth(1000);
+                    mainStage.setHeight(800);
+                    mainStage.setMinWidth(900);
+                    mainStage.setMinHeight(700);
+                }
+                mainStage.centerOnScreen();
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Flettir upp hvaða fxml skrá notandinn er á
+     * Returns the controller for the given view.
      */
-    public static Object lookup(View v) {
-        return controllers.get(v);
+    public static Object getController(View view) {
+        FXMLLoader loader = loaders.get(view);
+        return (loader != null) ? loader.getController() : null;
     }
+
     /**
-     * Flettir upp hvaða fxml skrá notandinn var síðast á
-     * @return síðasta fxml skráin
+     * Returns the cached controller for a view if already loaded.
+     */
+    public static Object lookup(View view) {
+        return controllers.get(view);
+    }
+
+    /**
+     * Returns the last view visited before the current view.
      */
     public static View getLastView() {
         return lastView;
