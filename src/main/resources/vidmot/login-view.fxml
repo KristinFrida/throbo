@@ -26,7 +26,7 @@
         <Label fx:id="passwordLabel" text="Password:"/>
         <PasswordField fx:id="fxPassword" promptText="Enter password"/>
         <HBox fx:id="loginButtonRow" spacing="10" alignment="CENTER">
-            <Button fx:id="fxLoginButton" onAction="#skraSigInn" text="Login"/>
+            <Button fx:id="fxLoginButton" onAction="#onLogin" text="Login"/>
             <Button fx:id="fxCancelButton" onAction="#goToHome" text="Cancel"/>
         </HBox>
         <Button fx:id="fxSignUpLink" onAction="#goToSignUp" text="Don't have an account? Sign up here"/>

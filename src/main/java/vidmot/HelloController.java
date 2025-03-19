@@ -41,6 +41,8 @@ public class HelloController {
     private void initialize() {
         assert datePicker != null : "Datepicker is not injected";
         assert fxLeitarvelTexti != null : "LeitarvelTexti is not injected";
+        assert fxLoginTakki != null : "LoginTakki is not injected";
+        refreshLoginState();
 
         searchEngineController = new SearchEngineController();
         fxLeitarvelTexti.setOnKeyPressed(event -> {
@@ -57,6 +59,9 @@ public class HelloController {
     }
 
     public void refreshLoginState() {
+        System.out.println("Checking login state...");
+        System.out.println("User logged in? " + UserRepository.isUserLoggedIn());
+
         if (UserRepository.isUserLoggedIn()) {
             fxLoginTakki.setText("My Page");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.MYPAGE));

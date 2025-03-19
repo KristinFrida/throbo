@@ -28,20 +28,19 @@ public class UserController {
 
 
     @FXML
-    private void skraSigInn(ActionEvent event){
+    private void onLogin(ActionEvent event){
 
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
-        if(UserRepository.validateLogin(username,password)){
-            UserRepository.loginUser(username);
-            System.out.println("Notandi " + username + " skráði sig inn.");
-
+        if(UserRepository.validateLogin(username, password)){  // Now correctly calls the fixed method
+            System.out.println("User " + username + " logged in.");
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
-        }else{
-            showAlert("Login failed", "Incorrect username or password try again");
+        } else {
+            showAlert("Login failed", "Incorrect username or password. Try again.");
         }
+
 
     }
 

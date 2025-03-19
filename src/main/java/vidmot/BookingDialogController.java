@@ -94,7 +94,17 @@ public class BookingDialogController {
         System.out.println("Date: " + selectedDate);
         System.out.println("Hotel Pickup: " + (hotelPickup ? "Yes" : "No"));
 
-        BookingManager.addBooking(selectedTour, people, selectedDate, hotelPickup);
+        if (BookingManager.addBooking(selectedTour, people, selectedDate, hotelPickup)) {
+            System.out.println("Booking successful for: " + selectedTour.getName());
+
+            MyPageController myPageController = (MyPageController) ViewSwitcher.lookup(View.MYPAGE);
+            if (myPageController != null) {
+                myPageController.refreshBookings();
+                System.out.println("My Pages updated after new booking");
+            } else {
+                System.out.println("My Pages not found, Page will update when reopened");
+            }
+        }
 
         closeDialog();
     }

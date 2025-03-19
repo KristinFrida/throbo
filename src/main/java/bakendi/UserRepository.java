@@ -11,6 +11,7 @@ public class UserRepository {
     private String password;
     private String email;
     private static String currentUser = null;
+    private static int currentUserId = -1;
 
     public static boolean isUserLoggedIn() {
         return currentUser != null;
@@ -20,14 +21,20 @@ public class UserRepository {
         return currentUser;
     }
 
-    public static void loginUser(String userName) {
+    public static int getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public static void loginUser(String userName, int userId) {  // ✅ Accepts int instead of String
         currentUser = userName;
-        System.out.println("Notandi skráði sig inn: " + userName);
+        currentUserId = userId;
+        System.out.println("User logged in: " + userName + " (ID: " + currentUserId + ")");
     }
 
     public static void logoutUser() {
-        System.out.println("Notandi skráði sig út: " + currentUser);
+        System.out.println("User logged out: " + currentUser);
         currentUser = null;
+        currentUserId = -1;
     }
 
     public String getUserName(){
@@ -38,30 +45,28 @@ public class UserRepository {
         return email;
     }
 
-    public static boolean doesEmailExist(String email){
+    public static boolean doesEmailExist(String email) {
         String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
 
-        try(Connection connection = DatabaseConnector.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1,email);
+        try (Connection connection = DatabaseConnector.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                return  resultSet.getInt(1)>0;
-            }
-        }catch (SQLException e){
-            System.err.println("Error checking email existence" + e.getMessage());
+            return resultSet.next() && resultSet.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.err.println("Error checking email existence: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     public static boolean addUser(String userName, String email, String password){
         if(doesEmailExist(email)){
-            System.err.println("this email has already been used");
+            System.err.println("this email has already been used.");
             return false;
         }
 
         if(userName.isBlank() || email.isBlank() || password.isBlank()){
-            System.err.println("Vantar upplýsingar");
+            System.err.println("Missing user information.");
             return false;
         }
         String sql = "INSERT INTO Users (username, email, password_hash) VALUES (?,?,?)";
@@ -73,9 +78,10 @@ public class UserRepository {
             preparedStatement.setString(2,email);
             preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
+            System.out.println("User created: " + userName);
             return true;
         }catch (SQLException e){
-            System.err.println("Búa til nýjan notandi failed" + e.getMessage());
+            System.err.println("Error creating new user: " + e.getMessage());
             return false;
         }
     }
@@ -90,13 +96,16 @@ public class UserRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                loginUser(userName);
+                int userId = resultSet.getInt("id");
+                loginUser(userName, userId);
                 return true;
+            } else {
+                System.out.println("Login failed: Incorrect username or password.");
+                return false;
             }
         } catch (SQLException e) {
             System.err.println("login failed" + e.getMessage());
         }
         return false;
     }
-
 }

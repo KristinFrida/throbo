@@ -11,7 +11,7 @@
       <VBox layoutX="58.0" layoutY="64.0" spacing="10.0" prefHeight="238.0" prefWidth="375.0">
          <children>
             <Label text="My page" />
-            <ListView prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="bookingListView" prefHeight="200.0" prefWidth="200.0" />
             <Button text="Back to Home" onAction="#goToHome"/>
             <Button text="Log Out" onAction="#handleLogout"/>
          </children>

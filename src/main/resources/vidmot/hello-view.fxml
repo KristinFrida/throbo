@@ -24,7 +24,7 @@
         </HBox>
         <!-- Top Login Section -->
         <HBox alignment="CENTER_RIGHT">
-            <Button fx:id="fxLoginTakki" mnemonicParsing="false" onAction="#goToLogin" prefHeight="30.0" prefWidth="152.0" text="Login" />
+            <Button fx:id="fxLoginTakki" mnemonicParsing="false" prefHeight="30.0" prefWidth="152.0" text="Login" />
         </HBox>
         <!-- Search Area -->
         <HBox fx:id="fxLeitarvel" alignment="CENTER_LEFT" spacing="10">
