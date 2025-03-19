@@ -14,21 +14,35 @@ public class MyPageController {
     @FXML
     private void initialize() {
         loadBookings();  // Load bookings when the page opens
+
     }
 
+    @FXML
     private void loadBookings() {
-        bookingListView.getItems().clear();  // Clear previous items
-        List<String> bookings = BookingManager.getBookings();
+        if (bookingListView == null) {
+            System.err.println("ERROR: bookingListView is null! Check FXML.");
+            return;
+        }
+
+        bookingListView.getItems().clear();
+        List<String> bookings = BookingManager.getBookingsForUser();
+
+        System.out.println("Displaying " + bookings.size() + " bookings in My Pages.");
 
         if (bookings.isEmpty()) {
             bookingListView.getItems().add("No bookings found.");
         } else {
-            bookingListView.getItems().setAll(bookings);
+            for (String booking : bookings) {
+                bookingListView.getItems().add(booking);
+                System.out.println("Added to ListView: " + booking);
+            }
         }
     }
 
+
     @FXML
-    private void refreshBookings() {
+    public void refreshBookings() {
+        System.out.println("Refreshing bookings...");
         loadBookings();  // Reload bookings dynamically
     }
 
