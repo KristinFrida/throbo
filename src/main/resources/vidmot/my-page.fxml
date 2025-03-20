@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="vidmot.MyPageController"
-            stylesheets="@../css/styles.css"
-            prefHeight="450.0" prefWidth="650.0">
-
+            fx:controller="vidmot.MyPageController" prefHeight="500.0" prefWidth="700.0">
    <children>
-      <TableView fx:id="bookingTable" layoutX="50" layoutY="50" prefHeight="280.0" prefWidth="550.0">
+      <!-- Header -->
+      <Label layoutX="20" layoutY="20" text="My Bookings" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+      <!-- User Info -->
+      <Label layoutX="20" layoutY="60" text="Name:" style="-fx-font-weight: bold;"/>
+      <Label layoutX="80" layoutY="60" fx:id="userNameLabel"/>
+      <Label layoutX="20" layoutY="80" text="Email:" style="-fx-font-weight: bold;"/>
+      <Label layoutX="80" layoutY="80" fx:id="userEmailLabel"/>
+
+      <!-- Table -->
+      <TableView fx:id="bookingTable" layoutY="120" prefHeight="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <columns>
-            <TableColumn fx:id="tourNameColumn" text="Tour Name" prefWidth="180.0"/>
-            <TableColumn fx:id="peopleColumn" text="People" prefWidth="80.0"/>
+            <TableColumn fx:id="tourNameColumn" text="Tour Name" prefWidth="200.0"/>
+            <TableColumn fx:id="peopleColumn" text="People" prefWidth="90.0"/>
             <TableColumn fx:id="dateColumn" text="Date" prefWidth="120.0"/>
-            <TableColumn fx:id="pickupColumn" text="Pickup" prefWidth="80.0"/>
-            <TableColumn fx:id="cancelColumn" text="Cancel" prefWidth="90.0"/>
+            <TableColumn fx:id="pickupColumn" text="Pickup" prefWidth="100.0"/>
+            <TableColumn fx:id="cancelColumn" text="Cancel" prefWidth="120.0"/>
          </columns>
       </TableView>
 
-      <Button layoutX="160" layoutY="360" text="Back to Home" onAction="#goToHome"/>
-      <Button layoutX="310" layoutY="360" text="Log Out" onAction="#handleLogout"/>
+      <!-- Buttons -->
+      <Button layoutX="20" layoutY="400" text="Back to Home" onAction="#goToHome" style="-fx-background-color: #007bff; -fx-text-fill: white;"/>
+      <Button layoutX="150" layoutY="400" text="Log Out" onAction="#handleLogout" style="-fx-background-color: #007bff; -fx-text-fill: white;"/>
    </children>
 </AnchorPane>

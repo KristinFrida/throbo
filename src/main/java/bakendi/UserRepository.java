@@ -108,4 +108,25 @@ public class UserRepository {
         }
         return false;
     }
+
+    public static String getLoggedInUserEmail() {
+        if (currentUser == null) {
+            return null; // Enginn skráður inn
+        }
+
+        String sql = "SELECT email FROM Users WHERE username = ?";
+        try (Connection connection = DatabaseConnector.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, currentUser);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("email");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching user email: " + e.getMessage());
+        }
+        return "Unknown";
+    }
+
 }

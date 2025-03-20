@@ -434,4 +434,13 @@ TextField#ccv {
     -fx-background-color: #0053A0;
 }
 
+.user-info {
+    font-size: 14px;
+    font-weight: bold;
+    text-fill: #333;
+}
+
+.table-view {
+    -fx-max-width: 550px;
+}
 
