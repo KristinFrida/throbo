@@ -5,11 +5,9 @@ import javafx.fxml.FXML;
 import bakendi.BookingManager;
 import bakendi.UserRepository;
 import java.util.List;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
+
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 
 public class MyPageController {
 
@@ -19,9 +17,16 @@ public class MyPageController {
     @FXML private TableColumn<Booking, String> dateColumn;
     @FXML private TableColumn<Booking, String> pickupColumn;
     @FXML private TableColumn<Booking, Button> cancelColumn;
+    @FXML private Label userNameLabel;
+    @FXML private Label userEmailLabel;
 
     @FXML
     private void initialize() {
+        String userName = UserRepository.getLoggedInUser();
+        String userEmail = UserRepository.getLoggedInUserEmail();
+
+        userNameLabel.setText(userName != null ? userName : "Guest");
+        userEmailLabel.setText(userEmail != null ? userEmail : "No Email");
         tourNameColumn.setCellValueFactory(new PropertyValueFactory<>("tourName"));
         peopleColumn.setCellValueFactory(new PropertyValueFactory<>("people"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -71,9 +76,25 @@ public class MyPageController {
         loadBookings();  // Reload bookings dynamically
     }
     private void cancelBooking(Booking booking) {
-        BookingManager.removeBooking(booking.getId());
-        loadBookings();  // Refresh table after canceling
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Cancellation");
+        alert.setHeaderText("Are you sure you want to cancel this booking?");
+        alert.setContentText("Tour: " + booking.getTourName() + "\nDate: " + booking.getDate());
+
+        // Valmöguleikar
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Birtir gluggann og vistar niðurstöðu
+        alert.showAndWait().ifPresent(response -> {
+            if (response == yesButton) {
+                BookingManager.removeBooking(booking.getId());
+                loadBookings(); // Endurnýja töflu
+            }
+        });
     }
+
 
     @FXML
     private void goToHome() {
