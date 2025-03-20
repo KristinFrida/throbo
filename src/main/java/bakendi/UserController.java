@@ -1,11 +1,13 @@
-package vidmot;
+package bakendi;
 
-import bakendi.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import vidmot.HelloController;
+import vidmot.View;
+import vidmot.ViewSwitcher;
 
 public class UserController {
 
