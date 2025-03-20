@@ -6,4 +6,5 @@ module is.hi.hbv401g.throunnhugbunadar {
     opens bakendi to javafx.base, javafx.fxml;
     opens vidmot to javafx.fxml;
     exports vidmot;
+    exports bakendi;
 }

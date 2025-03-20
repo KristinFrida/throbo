@@ -10,7 +10,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="vidmot.UserController"
+            fx:controller="bakendi.UserController"
             fx:id="signUpRoot"
             prefWidth="300" prefHeight="400">
 
