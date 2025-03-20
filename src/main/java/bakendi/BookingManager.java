@@ -36,9 +36,9 @@ public class BookingManager {
         }
     }
 
-    public static List<String> getBookingsForUser() {
-        List<String> bookings = new ArrayList<>();
-        String sql = "SELECT tour_name, amount_people, date, hotel_pickup FROM Bookings WHERE user_id = ?";
+    public static List<Booking> getBookingsForUser() {
+        List<Booking> bookings = new ArrayList<>();
+        String sql = "SELECT id, tour_name, amount_people, date, hotel_pickup FROM Bookings WHERE user_id = ?";
 
         try (Connection connection = DatabaseConnector.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -46,12 +46,13 @@ public class BookingManager {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String tour = resultSet.getString("tour_name");
                 int people = resultSet.getInt("amount_people");
                 String date = resultSet.getString("date");
                 boolean pickup = resultSet.getBoolean("hotel_pickup");
 
-                String bookingInfo = tour + " | " + people + " People | " + date + " | Pickup: " + (pickup ? "Yes" : "No");
+                Booking bookingInfo = new Booking(id, tour, people, date, pickup);
                 bookings.add(bookingInfo);
                 System.out.println("Loaded Booking: " + bookingInfo);
             }
@@ -62,4 +63,18 @@ public class BookingManager {
 
         return bookings;
     }
+
+    public static void removeBooking(int bookingId) {
+        String sql = "DELETE FROM Bookings WHERE id = ?";
+
+        try (Connection connection = DatabaseConnector.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, bookingId);
+            preparedStatement.executeUpdate();
+            System.out.println("Booking ID " + bookingId + " canceled.");
+        } catch (SQLException e) {
+            System.err.println("Error canceling booking: " + e.getMessage());
+        }
+    }
+
 }

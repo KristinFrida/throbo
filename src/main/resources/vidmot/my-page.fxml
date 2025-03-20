@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.MyPageController" prefHeight="386.0" prefWidth="492.0">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vidmot.MyPageController"
+            stylesheets="@../css/styles.css"
+            prefHeight="450.0" prefWidth="650.0">
+
    <children>
-      <VBox layoutX="58.0" layoutY="64.0" spacing="10.0" prefHeight="238.0" prefWidth="375.0">
-         <children>
-            <Label text="My page" />
-            <ListView fx:id="bookingListView" prefHeight="200.0" prefWidth="200.0" />
-            <Button text="Back to Home" onAction="#goToHome"/>
-            <Button text="Log Out" onAction="#handleLogout"/>
-         </children>
-      </VBox>
+      <TableView fx:id="bookingTable" layoutX="50" layoutY="50" prefHeight="280.0" prefWidth="550.0">
+         <columns>
+            <TableColumn fx:id="tourNameColumn" text="Tour Name" prefWidth="180.0"/>
+            <TableColumn fx:id="peopleColumn" text="People" prefWidth="80.0"/>
+            <TableColumn fx:id="dateColumn" text="Date" prefWidth="120.0"/>
+            <TableColumn fx:id="pickupColumn" text="Pickup" prefWidth="80.0"/>
+            <TableColumn fx:id="cancelColumn" text="Cancel" prefWidth="90.0"/>
+         </columns>
+      </TableView>
+
+      <Button layoutX="160" layoutY="360" text="Back to Home" onAction="#goToHome"/>
+      <Button layoutX="310" layoutY="360" text="Log Out" onAction="#handleLogout"/>
    </children>
 </AnchorPane>
