@@ -38,7 +38,7 @@
                 <!-- Left Pane: Filters -->
                 <AnchorPane fx:id="fxAdalsvaedid" prefWidth="100.0">
                     <children>
-                        <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" styleClass="filter-label" text="Verðhugmynd" />
+                        <Label fx:id="fxTextiFyrirOfanVerdHakbox" layoutX="14.0" layoutY="72.0" styleClass="filter-label" text="Price range" />
                         <VBox layoutX="14.0" layoutY="114.0" spacing="10">
                             <CheckBox fx:id="fxVerdbil1" onAction="#handleFilterChange" text="0 - 4999 ISK" />
                             <CheckBox fx:id="fxVerdbil2" onAction="#handleFilterChange" text="5000 - 9 999 ISK" />

@@ -183,12 +183,11 @@ public class HelloController {
         ViewSwitcher.switchTo(View.START);
     }
 
-    @FXML
-    private void goToLogin(ActionEvent event) {
-        ViewSwitcher.switchTo(View.LOGIN);
-    }
-
     public void updateLabel(String text) {
         outputUsername.setText("Welcome " + text);
+    }
+
+    public void clearLabel() {
+        outputUsername.setText("Welcome");
     }
 }
