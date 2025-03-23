@@ -111,6 +111,7 @@ public class MyPageController {
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
         if (helloController != null) {
             helloController.refreshLoginState();
+            helloController.clearLabel();
         }
 
         UserController userController = (UserController) ViewSwitcher.lookup(View.LOGIN);

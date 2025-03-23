@@ -186,4 +186,8 @@ public class HelloController {
     public void updateLabel(String text) {
         outputUsername.setText("Welcome " + text);
     }
+
+    public void clearLabel() {
+        outputUsername.setText("Welcome");
+    }
 }
