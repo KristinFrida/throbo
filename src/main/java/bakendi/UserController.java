@@ -77,6 +77,11 @@ public class UserController {
         }
     }
 
+    public void clearLoginFields() {
+        if (fxUsername != null) fxUsername.clear();
+        if (fxPassword != null) fxPassword.clear();
+    }
+
 
     // verið að ná í upplýsingar frá nýskráðum og setja það yfir í töflu fyrir gagnagrunninn
     public void newSignUp(ActionEvent event) {

@@ -1,6 +1,7 @@
 package vidmot;
 
 import bakendi.Booking;
+import bakendi.UserController;
 import javafx.fxml.FXML;
 import bakendi.BookingManager;
 import bakendi.UserRepository;
@@ -106,9 +107,15 @@ public class MyPageController {
         System.out.println("Logging out user...");
         UserRepository.logoutUser();
         ViewSwitcher.switchTo(View.START);
+
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
         if (helloController != null) {
             helloController.refreshLoginState();
+        }
+
+        UserController userController = (UserController) ViewSwitcher.lookup(View.LOGIN);
+        if (userController != null) {
+            userController.clearLoginFields();
         }
     }
 }
