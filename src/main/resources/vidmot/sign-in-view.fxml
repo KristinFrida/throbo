@@ -28,12 +28,15 @@
             <TextField fx:id="newPassword" promptText="Enter password" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
             <Label fx:id="emailLabel" text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="newEmail" promptText="Enter email" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <TextField fx:id="newEmail" promptText="Enter email" onKeyReleased="#validateEmail" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
         </GridPane>
+
         <Label fx:id="MissingInputDataForNewUser"/>
+
         <HBox fx:id="signUpButtonRow" spacing="10" alignment="CENTER">
             <Button fx:id="fxSignUpButton" text="Sign Up" onAction="#newSignUp"/>
             <Button fx:id="fxSignUpCancelButton" text="Cancel" onAction="#goToLoginFromSignUP"/>
         </HBox>
+
     </VBox>
 </AnchorPane>

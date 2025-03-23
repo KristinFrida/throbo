@@ -11,14 +11,13 @@ import vidmot.ViewSwitcher;
 
 public class UserController {
 
-
-    //From Login-view
+    // From Login-view
     @FXML
     private TextField fxUsername;
     @FXML
     private TextField fxPassword;
 
-    //From Sign-in-view
+    // From Sign-in-view
     @FXML
     private TextField newUsername;
     @FXML
@@ -28,22 +27,19 @@ public class UserController {
     @FXML
     private Label MissingInputDataForNewUser;
 
-
+    // LOGIN
     @FXML
-    private void onLogin(ActionEvent event){
-
+    private void onLogin(ActionEvent event) {
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
-        if(UserRepository.validateLogin(username, password)){  // Now correctly calls the fixed method
+        if (UserRepository.validateLogin(username, password)) {
             System.out.println("User " + username + " logged in.");
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         } else {
             showAlert("Login failed", "Incorrect username or password. Try again.");
         }
-
-
     }
 
     @FXML
@@ -51,20 +47,16 @@ public class UserController {
         ViewSwitcher.switchTo(View.START);
     }
 
-
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-
     }
 
-
-    //Er að senda username yfir á forsíðuna svo hægt sé að segja velkominn username
     @FXML
-    private void sendUsernameToHelloController(){
+    private void sendUsernameToHelloController() {
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
 
         if (helloController != null) {
@@ -82,32 +74,76 @@ public class UserController {
         if (fxPassword != null) fxPassword.clear();
     }
 
-
-    // verið að ná í upplýsingar frá nýskráðum og setja það yfir í töflu fyrir gagnagrunninn
+    // SIGN-UP
     public void newSignUp(ActionEvent event) {
         String username = newUsername.getText();
         String password = newPassword.getText();
         String email = newEmail.getText();
 
-        if (newUsername.getText().isBlank() || newPassword.getText().isBlank() || newEmail.getText().isBlank()){
-            MissingInputDataForNewUser.setText("Missing input data");
+        // Clear previous error
+        MissingInputDataForNewUser.setVisible(false);
+        MissingInputDataForNewUser.setText("");
+
+        if (username.isBlank() || password.isBlank() || email.isBlank()) {
+            showError("Please fill in all fields.");
+            return;
         }
 
-        boolean sucess = UserRepository.addUser(username,email,password);
-        if(sucess){
+        if (!isValidEmail(email)) {
+            showError("Invalid email format (e.g., name@example.com)");
+            return;
+        }
+
+        boolean success = UserRepository.addUser(username, email, password);
+        if (success) {
             showAlert("Success", "Account created!");
-        }else {
-            showAlert("Sign up failed", "Input missing || Username or email already exists");
+        } else {
+            showError("Username or email already exists");
         }
     }
 
-    //Skipta yfir í fxml skrá þar sem hægt er að búa til aðgang
+    private boolean isValidEmail(String email) {
+        return email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    @FXML
+    private void validateEmail() {
+        String email = newEmail.getText().trim();
+        if (!isValidEmail(email)) {
+            showError("Invalid email format (e.g., name@example.com)");
+        } else {
+            MissingInputDataForNewUser.setVisible(false);
+        }
+    }
+
+    private void showError(String message) {
+        MissingInputDataForNewUser.setText(message);
+        MissingInputDataForNewUser.setVisible(true);
+    }
+
+    // NAVIGATION
     public void goToSignUp(ActionEvent event) {
         ViewSwitcher.switchTo(View.SIGNUP);
     }
 
-    //Takki til að fara til baka án þess að skrá sig endilega inn, alveg eins method í helloController
     public void goToLoginFromSignUP(ActionEvent event) {
+        MissingInputDataForNewUser.setText("");
+        MissingInputDataForNewUser.setVisible(false);
+        if (newUsername != null) newUsername.clear();
+        if (newPassword != null) newPassword.clear();
+        if (newEmail != null) newEmail.clear();
         ViewSwitcher.switchTo(View.LOGIN);
+    }
+    @FXML
+    private void initialize() {
+        if (newEmail != null) {
+            newEmail.textProperty().addListener((obs, oldVal, newVal) -> MissingInputDataForNewUser.setVisible(false));
+        }
+        if (newUsername != null) {
+            newUsername.textProperty().addListener((obs, oldVal, newVal) -> MissingInputDataForNewUser.setVisible(false));
+        }
+        if (newPassword != null) {
+            newPassword.textProperty().addListener((obs, oldVal, newVal) -> MissingInputDataForNewUser.setVisible(false));
+        }
     }
 }
