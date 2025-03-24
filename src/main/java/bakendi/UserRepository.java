@@ -25,7 +25,7 @@ public class UserRepository {
         return currentUserId;
     }
 
-    public static void loginUser(String userName, int userId) {  // ✅ Accepts int instead of String
+    public static void loginUser(String userName, int userId) {
         currentUser = userName;
         currentUserId = userId;
         System.out.println("User logged in: " + userName + " (ID: " + currentUserId + ")");
@@ -59,14 +59,11 @@ public class UserRepository {
         }
     }
 
-    public static boolean addUser(String userName, String email, String password){
-        if(doesEmailExist(email)){
-            System.err.println("this email has already been used.");
-            return false;
-        }
 
-        if(userName.isBlank() || email.isBlank() || password.isBlank()){
-            System.err.println("Missing user information.");
+    public static boolean addUser(String userName, String email, String password){
+
+        if(doesEmailExist(email)){
+            System.err.println("this email has already exists.");
             return false;
         }
         String sql = "INSERT INTO Users (username, email, password_hash) VALUES (?,?,?)";
@@ -85,6 +82,7 @@ public class UserRepository {
             return false;
         }
     }
+
 
     public static boolean validateLogin(String userName, String password) {
         String sql = "SELECT * FROM Users WHERE username = ? AND password_hash = ?";

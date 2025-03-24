@@ -12,6 +12,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="bakendi.UserController"
             fx:id="loginRoot"
+            stylesheets="@../css/styles.css"
             prefWidth="600" prefHeight="400">
 
     <VBox fx:id="loginBox" spacing="15" alignment="CENTER"

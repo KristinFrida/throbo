@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import vidmot.HelloController;
 import vidmot.View;
@@ -16,13 +17,13 @@ public class UserController {
     @FXML
     private TextField fxUsername;
     @FXML
-    private TextField fxPassword;
+    private PasswordField fxPassword;
 
     //From Sign-in-view
     @FXML
     private TextField newUsername;
     @FXML
-    private TextField newPassword;
+    private PasswordField newPassword;
     @FXML
     private TextField newEmail;
     @FXML
@@ -42,15 +43,21 @@ public class UserController {
         } else {
             showAlert("Login failed", "Incorrect username or password. Try again.");
         }
-
-
     }
-
     @FXML
     private void goToHome(ActionEvent event) {
         ViewSwitcher.switchTo(View.START);
     }
 
+    //Skipta yfir í fxml skrá þar sem hægt er að búa til aðgang
+    public void goToSignUp(ActionEvent event) {
+        ViewSwitcher.switchTo(View.SIGNUP);
+    }
+
+    //Takki til að fara til baka án þess að skrá sig endilega inn, alveg eins method í helloController
+    public void goToLoginFromSignUP(ActionEvent event) {
+        ViewSwitcher.switchTo(View.LOGIN);
+    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -60,7 +67,6 @@ public class UserController {
         alert.showAndWait();
 
     }
-
 
     //Er að senda username yfir á forsíðuna svo hægt sé að segja velkominn username
     @FXML
@@ -84,25 +90,76 @@ public class UserController {
         String password = newPassword.getText();
         String email = newEmail.getText();
 
-        if (newUsername.getText().isBlank() || newPassword.getText().isBlank() || newEmail.getText().isBlank()){
-            MissingInputDataForNewUser.setText("Missing input data");
+        if(!validateInput(username,email,password)){
+            return;
         }
 
         boolean sucess = UserRepository.addUser(username,email,password);
         if(sucess){
             showAlert("Success", "Account created!");
+
         }else {
             showAlert("Sign up failed", "Input missing || Username or email already exists");
         }
     }
 
-    //Skipta yfir í fxml skrá þar sem hægt er að búa til aðgang
-    public void goToSignUp(ActionEvent event) {
-        ViewSwitcher.switchTo(View.SIGNUP);
+    private boolean validateInput(String username, String email, String password){
+        boolean isValid = true;
+        String errorMessage ="";
+        int errorCount = 0;
+
+        if (username.isBlank()){
+            if(errorMessage.isEmpty()) errorMessage = "Missing username input";
+            setFieldInvalid(newUsername);
+            errorCount++;
+            isValid =false;
+        }else {
+            setFieldValid(newUsername);
+        }
+
+        if(password.isBlank()){
+            setFieldInvalid(newPassword);
+            errorCount++;
+            if(errorMessage.isEmpty()) errorMessage = "Missing password input";
+            isValid =false;
+        } else if (password.length() < 4) {
+            setFieldInvalid(newPassword);
+            errorCount++;
+            if(errorMessage.isEmpty()) errorMessage = "Your password must be longer then 3 characters";
+            isValid = false;
+        } else{
+            setFieldValid(newPassword);
+        }
+
+        if(email.isBlank()){
+            setFieldInvalid(newEmail);
+            errorCount++;
+            if(errorMessage.isEmpty()) errorMessage = "Missing email input";
+            isValid=false;
+        }else if (!email.contains("@")){
+            setFieldInvalid(newEmail);
+            errorCount++;
+            if(errorMessage.isEmpty()) errorMessage ="Email must contain @";
+
+            isValid =false;
+        } else if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,6}$")) {
+            setFieldInvalid(newEmail);
+            errorCount++;
+            if(errorMessage.isEmpty()) errorMessage ="Email must be in the format 'name@example.com'";
+            isValid = false;
+        }else{
+            setFieldValid(newEmail);
+        }
+        MissingInputDataForNewUser.setText(errorMessage + " +" + errorCount + " more errors");
+        return isValid;
     }
 
-    //Takki til að fara til baka án þess að skrá sig endilega inn, alveg eins method í helloController
-    public void goToLoginFromSignUP(ActionEvent event) {
-        ViewSwitcher.switchTo(View.LOGIN);
+    private void setFieldInvalid(TextField field) {
+        field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+    }
+
+    private void setFieldValid(TextField field) {
+        field.setStyle("-fx-border-color: gray; ");
     }
 }
+
