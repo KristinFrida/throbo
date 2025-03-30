@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import vidmot.HelloController;
 import vidmot.View;
 import vidmot.ViewSwitcher;
@@ -184,6 +185,54 @@ public class UserController {
         if (newPassword != null) newPassword.clear();
         if (newEmail != null) newEmail.clear();
         ViewSwitcher.switchTo(View.LOGIN);
+    }
+
+
+    @FXML
+    private void initialize() {
+        //hægt er að ýta á enter til að logga sig inn
+
+        if (fxUsername != null) {
+            fxUsername.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    onLogin(null);
+                }
+            });
+        }
+
+        if (fxPassword != null) {
+            fxPassword.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    onLogin(null);
+                }
+            });
+        }
+
+
+        //hægt er að ýta á enter til að nýskrá sig
+        if (newUsername != null) {
+            newUsername.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    newSignUp(null);
+                }
+            });
+        }
+
+        if (newPassword != null) {
+            newPassword.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    newSignUp(null);
+                }
+            });
+        }
+
+        if (newEmail != null) {
+            newEmail.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    newSignUp(null);
+                }
+            });
+        }
     }
 }
 
