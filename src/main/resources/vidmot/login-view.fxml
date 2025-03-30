@@ -13,7 +13,6 @@
             fx:controller="bakendi.UserController"
             stylesheets="@../css/styles.css"
             fx:id="loginRoot"
-            stylesheets="@../css/styles.css"
             prefWidth="600" prefHeight="400">
 
     <VBox fx:id="loginBox" spacing="15" alignment="CENTER"
