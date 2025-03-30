@@ -12,14 +12,13 @@ import vidmot.ViewSwitcher;
 
 public class UserController {
 
-
-    //From Login-view
+    // From Login-view
     @FXML
     private TextField fxUsername;
     @FXML
     private PasswordField fxPassword;
 
-    //From Sign-in-view
+    // From Sign-in-view
     @FXML
     private TextField newUsername;
     @FXML
@@ -29,14 +28,13 @@ public class UserController {
     @FXML
     private Label MissingInputDataForNewUser;
 
-
+    // LOGIN
     @FXML
-    private void onLogin(ActionEvent event){
-
+    private void onLogin(ActionEvent event) {
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
-        if(UserRepository.validateLogin(username, password)){  // Now correctly calls the fixed method
+        if (UserRepository.validateLogin(username, password)) {
             System.out.println("User " + username + " logged in.");
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
@@ -44,19 +42,10 @@ public class UserController {
             showAlert("Login failed", "Incorrect username or password. Try again.");
         }
     }
+
     @FXML
     private void goToHome(ActionEvent event) {
         ViewSwitcher.switchTo(View.START);
-    }
-
-    //Skipta yfir í fxml skrá þar sem hægt er að búa til aðgang
-    public void goToSignUp(ActionEvent event) {
-        ViewSwitcher.switchTo(View.SIGNUP);
-    }
-
-    //Takki til að fara til baka án þess að skrá sig endilega inn, alveg eins method í helloController
-    public void goToLoginFromSignUP(ActionEvent event) {
-        ViewSwitcher.switchTo(View.LOGIN);
     }
 
     private void showAlert(String title, String message) {
@@ -65,12 +54,10 @@ public class UserController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-
     }
 
-    //Er að senda username yfir á forsíðuna svo hægt sé að segja velkominn username
     @FXML
-    private void sendUsernameToHelloController(){
+    private void sendUsernameToHelloController() {
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
 
         if (helloController != null) {
@@ -83,83 +70,120 @@ public class UserController {
         }
     }
 
+    public void clearLoginFields() {
+        if (fxUsername != null) fxUsername.clear();
+        if (fxPassword != null) fxPassword.clear();
+    }
 
-    // verið að ná í upplýsingar frá nýskráðum og setja það yfir í töflu fyrir gagnagrunninn
+    // SIGN-UP
     public void newSignUp(ActionEvent event) {
         String username = newUsername.getText();
         String password = newPassword.getText();
         String email = newEmail.getText();
 
-        if(!validateInput(username,email,password)){
+        // Clear previous error
+        MissingInputDataForNewUser.setVisible(false);
+        MissingInputDataForNewUser.setText("");
+
+        if(!validateInput(username, email, password)){
             return;
         }
 
-        boolean sucess = UserRepository.addUser(username,email,password);
-        if(sucess){
+        boolean success = UserRepository.addUser(username, email, password);
+        if (success) {
             showAlert("Success", "Account created!");
-
-        }else {
-            showAlert("Sign up failed", "Input missing || Username or email already exists");
+            ViewSwitcher.switchTo(View.START);
+        } else {
+            showError("Username or email already exists");
         }
     }
 
-    private boolean validateInput(String username, String email, String password){
+    private boolean validateInput(String username, String email, String password) {
         boolean isValid = true;
-        String errorMessage ="";
         int errorCount = 0;
+        String errorMessage = "";
 
-        if (username.isBlank()){
-            if(errorMessage.isEmpty()) errorMessage = "Missing username input";
+        // === Username ===
+        if (username.isBlank()) {
             setFieldInvalid(newUsername);
             errorCount++;
-            isValid =false;
-        }else {
+            if (errorMessage.isEmpty()) errorMessage = "Missing username input";
+            isValid = false;
+        } else {
             setFieldValid(newUsername);
         }
 
-        if(password.isBlank()){
+        // === Password ===
+        if (password.isBlank()) {
             setFieldInvalid(newPassword);
             errorCount++;
-            if(errorMessage.isEmpty()) errorMessage = "Missing password input";
-            isValid =false;
+            if (errorMessage.isEmpty()) errorMessage = "Missing password input";
+            isValid = false;
         } else if (password.length() < 4) {
             setFieldInvalid(newPassword);
             errorCount++;
-            if(errorMessage.isEmpty()) errorMessage = "Your password must be longer then 3 characters";
+            if (errorMessage.isEmpty()) errorMessage = "Password must be longer than 3 characters";
             isValid = false;
-        } else{
+        } else {
             setFieldValid(newPassword);
         }
 
-        if(email.isBlank()){
+        // === Email ===
+        if (email.isBlank()) {
             setFieldInvalid(newEmail);
             errorCount++;
-            if(errorMessage.isEmpty()) errorMessage = "Missing email input";
-            isValid=false;
-        }else if (!email.contains("@")){
+            if (errorMessage.isEmpty()) errorMessage = "Missing email input";
+            isValid = false;
+        } else if (!email.contains("@")) {
             setFieldInvalid(newEmail);
             errorCount++;
-            if(errorMessage.isEmpty()) errorMessage ="Email must contain @";
-
-            isValid =false;
+            if (errorMessage.isEmpty()) errorMessage = "Email must contain @";
+            isValid = false;
         } else if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,6}$")) {
             setFieldInvalid(newEmail);
             errorCount++;
-            if(errorMessage.isEmpty()) errorMessage ="Email must be in the format 'name@example.com'";
+            if (errorMessage.isEmpty()) errorMessage = "Email must be in format 'name@example.com'";
             isValid = false;
-        }else{
+        } else {
             setFieldValid(newEmail);
         }
-        MissingInputDataForNewUser.setText(errorMessage + " +" + errorCount + " more errors");
+
+        if (!isValid) {
+            String moreErrors = (errorCount > 1) ? " (+ " + (errorCount - 1) + " more error(s))" : "";
+            MissingInputDataForNewUser.setText(errorMessage + moreErrors);
+            MissingInputDataForNewUser.setVisible(true);
+        } else {
+            MissingInputDataForNewUser.setText("");
+            MissingInputDataForNewUser.setVisible(false);
+        }
         return isValid;
+    }
+
+    private void setFieldValid(TextField field) {
+        field.setStyle("-fx-border-color: gray;");
     }
 
     private void setFieldInvalid(TextField field) {
         field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
     }
 
-    private void setFieldValid(TextField field) {
-        field.setStyle("-fx-border-color: gray; ");
+    private void showError(String message) {
+        MissingInputDataForNewUser.setText(message);
+        MissingInputDataForNewUser.setVisible(true);
+    }
+
+    // NAVIGATION
+    public void goToSignUp(ActionEvent event) {
+        ViewSwitcher.switchTo(View.SIGNUP);
+    }
+
+    public void goToLoginFromSignUP(ActionEvent event) {
+        MissingInputDataForNewUser.setText("");
+        MissingInputDataForNewUser.setVisible(false);
+        if (newUsername != null) newUsername.clear();
+        if (newPassword != null) newPassword.clear();
+        if (newEmail != null) newEmail.clear();
+        ViewSwitcher.switchTo(View.LOGIN);
     }
 }
 

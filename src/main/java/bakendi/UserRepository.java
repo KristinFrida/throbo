@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 public class UserRepository {
 
-    private String userName;
-    private String password;
-    private String email;
     private static String currentUser = null;
     private static int currentUserId = -1;
 
@@ -37,14 +34,6 @@ public class UserRepository {
         currentUserId = -1;
     }
 
-    public String getUserName(){
-        return userName;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
     public static boolean doesEmailExist(String email) {
         String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
 
@@ -59,15 +48,13 @@ public class UserRepository {
         }
     }
 
-
     public static boolean addUser(String userName, String email, String password){
-
         if(doesEmailExist(email)){
-            System.err.println("this email has already exists.");
+            System.err.println("this email already exists");
             return false;
         }
-        String sql = "INSERT INTO Users (username, email, password_hash) VALUES (?,?,?)";
 
+        String sql = "INSERT INTO Users (username, email, password_hash) VALUES (?,?,?)";
 
         try(Connection connection = DatabaseConnector.connect();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -83,7 +70,6 @@ public class UserRepository {
         }
     }
 
-
     public static boolean validateLogin(String userName, String password) {
         String sql = "SELECT * FROM Users WHERE username = ? AND password_hash = ?";
 
@@ -96,6 +82,8 @@ public class UserRepository {
             if (resultSet.next()) {
                 int userId = resultSet.getInt("id");
                 loginUser(userName, userId);
+                System.out.println("Logged in user ID: " + userId);
+
                 return true;
             } else {
                 System.out.println("Login failed: Incorrect username or password.");
@@ -126,5 +114,4 @@ public class UserRepository {
         }
         return "Unknown";
     }
-
 }

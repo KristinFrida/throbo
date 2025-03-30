@@ -40,6 +40,9 @@ public class BookingManager {
         List<Booking> bookings = new ArrayList<>();
         String sql = "SELECT id, tour_name, amount_people, date, hotel_pickup FROM Bookings WHERE user_id = ?";
 
+
+        System.out.println("Getting bookings for user ID: " + UserRepository.getCurrentUserId());
+
         try (Connection connection = DatabaseConnector.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, UserRepository.getCurrentUserId());
@@ -76,5 +79,6 @@ public class BookingManager {
             System.err.println("Error canceling booking: " + e.getMessage());
         }
     }
+
 
 }
