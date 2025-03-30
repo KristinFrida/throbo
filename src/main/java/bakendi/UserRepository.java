@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 public class UserRepository {
 
-    private String userName;
-    private String password;
-    private String email;
     private static String currentUser = null;
     private static int currentUserId = -1;
 
@@ -25,7 +22,7 @@ public class UserRepository {
         return currentUserId;
     }
 
-    public static void loginUser(String userName, int userId) {  // ✅ Accepts int instead of String
+    public static void loginUser(String userName, int userId) {
         currentUser = userName;
         currentUserId = userId;
         System.out.println("User logged in: " + userName + " (ID: " + currentUserId + ")");
@@ -35,14 +32,6 @@ public class UserRepository {
         System.out.println("User logged out: " + currentUser);
         currentUser = null;
         currentUserId = -1;
-    }
-
-    public String getUserName(){
-        return userName;
-    }
-
-    public String getEmail(){
-        return email;
     }
 
     public static boolean doesEmailExist(String email) {
@@ -61,16 +50,11 @@ public class UserRepository {
 
     public static boolean addUser(String userName, String email, String password){
         if(doesEmailExist(email)){
-            System.err.println("this email has already been used.");
+            System.err.println("this email already exists");
             return false;
         }
 
-        if(userName.isBlank() || email.isBlank() || password.isBlank()){
-            System.err.println("Missing user information.");
-            return false;
-        }
         String sql = "INSERT INTO Users (username, email, password_hash) VALUES (?,?,?)";
-
 
         try(Connection connection = DatabaseConnector.connect();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -98,6 +82,8 @@ public class UserRepository {
             if (resultSet.next()) {
                 int userId = resultSet.getInt("id");
                 loginUser(userName, userId);
+                System.out.println("Logged in user ID: " + userId);
+
                 return true;
             } else {
                 System.out.println("Login failed: Incorrect username or password.");
@@ -128,5 +114,4 @@ public class UserRepository {
         }
         return "Unknown";
     }
-
 }

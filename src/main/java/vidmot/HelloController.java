@@ -65,6 +65,12 @@ public class HelloController {
         if (UserRepository.isUserLoggedIn()) {
             fxLoginTakki.setText("My Page");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.MYPAGE));
+            Platform.runLater(() -> {
+                MyPageController myPage = (MyPageController) ViewSwitcher.lookup(View.MYPAGE);
+                if(myPage != null){
+                    myPage.refreshPage();
+                }
+            });
         } else {
             fxLoginTakki.setText("Login");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.LOGIN));

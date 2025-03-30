@@ -119,4 +119,11 @@ public class MyPageController {
             userController.clearLoginFields();
         }
     }
+
+    public void refreshPage() {
+        userNameLabel.setText(UserRepository.getLoggedInUser());
+        userEmailLabel.setText(UserRepository.getLoggedInUserEmail());
+        loadBookings();
+    }
+
 }
