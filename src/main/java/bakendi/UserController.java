@@ -93,7 +93,7 @@ public class UserController {
         boolean success = UserRepository.addUser(username, email, password);
         if (success) {
             showAlert("Success", "Account created!");
-            ViewSwitcher.switchTo(View.START);
+            ViewSwitcher.switchTo(View.LOGIN);
         } else {
             showError("Username or email already exists");
         }
