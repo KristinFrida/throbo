@@ -97,6 +97,13 @@ public class BookingDialogController {
         if (BookingManager.addBooking(selectedTour, people, selectedDate, hotelPickup)) {
             System.out.println("Booking successful for: " + selectedTour.getName());
 
+            // ✅ Show alert here
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Booking Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your booking was successful!");
+            alert.showAndWait();
+
             MyPageController myPageController = (MyPageController) ViewSwitcher.lookup(View.MYPAGE);
             if (myPageController != null) {
                 myPageController.refreshPage();
@@ -105,6 +112,7 @@ public class BookingDialogController {
                 System.out.println("My Pages not found, Page will update when reopened");
             }
         }
+
 
         closeDialog();
     }
