@@ -1,5 +1,6 @@
 package bakendi;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,34 +15,45 @@ public class UserControllerTest {
         mockUserRepository = new UserRepositoryMock();
     }
 
+    @AfterEach
+    void tearDown() {
+        mockUserRepository.logoutUser(); // Reset login state after each test
+    }
+
     @Test
     void testSuccessfulLogin() {
         boolean result = mockUserRepository.validateLogin("testUser", "password123");
-        assertTrue(result, "Innskráning átti að virka fyrir rétt notandanafn og lykilorð");
+        assertTrue(result, "Login should succeed with correct username and password");
     }
 
     @Test
     void testFailedLogin_WrongPassword() {
         boolean result = mockUserRepository.validateLogin("testUser", "wrongPass");
-        assertFalse(result, "Innskráning ætti að mistakast með vitlaust lykilorð");
+        assertFalse(result, "Login should fail with incorrect password");
     }
 
     @Test
     void testRegisterNewUser() {
         boolean result = mockUserRepository.addUser("newUser", "newUser@test.com", "securePass");
-        assertTrue(result, "Skráning átti að heppnast fyrir nýjan notanda");
+        assertTrue(result, "Registration should succeed for a new user");
     }
 
     @Test
-    void testRegisterExistingUser() {
-        boolean result = mockUserRepository.addUser("testUser", "test@test.com", "password123");
-        assertFalse(result, "Ekki á að vera hægt að skrá notanda sem er þegar til");
+    void testRegisterExistingUsername() {
+        boolean result = mockUserRepository.addUser("testUser", "newEmail@test.com", "password123");
+        assertFalse(result, "Should not allow registration with an existing username");
+    }
+
+    @Test
+    void testRegisterExistingEmail() {
+        boolean result = mockUserRepository.addUser("newUser2", "test@example.com", "newPass");
+        assertFalse(result, "Should not allow registration with an already registered email");
     }
 
     @Test
     void testLogout() {
         mockUserRepository.loginUser("testUser", 1);
         mockUserRepository.logoutUser();
-        assertNull(mockUserRepository.getLoggedInUser(), "Notandi ætti að vera útskráður");
+        assertNull(mockUserRepository.getLoggedInUser(), "User should be logged out");
     }
 }
