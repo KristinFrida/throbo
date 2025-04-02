@@ -236,11 +236,11 @@
     -fx-font-weight: bold;
 }
 /* Red border ef upplýsingar vantar */
-.input-error {
+.text-field.input-error {
     -fx-border-color: red;
     -fx-border-width: 2px;
-    -fx-border-radius: 4px;
 }
+
 
 /* Booking title */
 .booking-title {

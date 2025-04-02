@@ -86,7 +86,10 @@ public class BookingDialogController {
 
         if (selectedDate == null) {
             showError("Please select a date for the booking.");
+            datePicker.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             return;
+        } else {
+            datePicker.setStyle(""); // reset style if valid
         }
 
         System.out.println("Booking confirmed for: " + selectedTour.getName());
@@ -116,34 +119,69 @@ public class BookingDialogController {
 
         closeDialog();
     }
-
     private boolean validatePaymentInfo() {
+        boolean valid = true;
+
+        // Reset all borders first
+        clearInputStyles();
+
         String cardNum = cardNumber.getText().replaceAll("\\s", "");
         String expiry = cardExpiry.getText();
         String cvcCode = ccv.getText();
 
         if (cardHolderName.getText().isBlank()) {
             showError("Cardholder name cannot be empty");
-            return false;
+            cardHolderName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            valid = false;
         }
 
         if (!cardNum.matches("\\d{16}")) {
             showError("Card number must be 16 digits");
-            return false;
+            cardNumber.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            valid = false;
         }
 
         if (!expiry.matches("\\d{2}/\\d{2}")) {
             showError("Expiration date must be in MM/YY format");
-            return false;
+            cardExpiry.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            valid = false;
         }
 
         if (!cvcCode.matches("\\d{3}")) {
             showError("CVC must be 3 digits");
-            return false;
+            ccv.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            valid = false;
         }
 
-        return true;
+        return valid;
     }
+    private void clearInputStyles() {
+        cardHolderName.setStyle("");
+        cardNumber.setStyle("");
+        cardExpiry.setStyle("");
+        ccv.setStyle("");
+    }
+
+    private void setupInputListeners() {
+        cardHolderName.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.isBlank()) cardHolderName.setStyle("");
+        });
+
+        cardNumber.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.matches("\\d{0,16}")) cardNumber.setStyle("");
+        });
+
+        cardExpiry.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.isBlank()) cardExpiry.setStyle("");
+        });
+
+        ccv.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.isBlank()) ccv.setStyle("");
+        });
+
+    }
+
+
 
     private void showError(String message) {
         errorLabel.setText(message);
@@ -165,6 +203,12 @@ public class BookingDialogController {
                     stage.setMinWidth(500);
                     stage.setMinHeight(600);
                 }
+            }
+        });
+        setupInputListeners();
+        datePicker.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                datePicker.setStyle(""); // remove red border when valid
             }
         });
     }
