@@ -37,7 +37,8 @@ public class HelloController {
     @FXML private CheckBox fxVerdbil3;
     @FXML private CheckBox fxVerdbil4;
     @FXML private Button fxLoginTakki;
-
+    @FXML
+    private Label fxNoResultsLabel;
     @FXML
     private void initialize() {
         assert datePicker != null : "Datepicker is not injected";
@@ -68,15 +69,19 @@ public class HelloController {
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.MYPAGE));
             Platform.runLater(() -> {
                 MyPageController myPage = (MyPageController) ViewSwitcher.lookup(View.MYPAGE);
-                if(myPage != null){
+                if (myPage != null) {
                     myPage.refreshPage();
                 }
             });
         } else {
             fxLoginTakki.setText("Login");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.LOGIN));
+
+            // 👇 Reset welcome message on logout
+            outputUsername.setText("Welcome");
         }
     }
+
 
     @FXML
     private void onSearchClicked() {
@@ -119,8 +124,22 @@ public class HelloController {
 
     private void updateGridPane(List<Tour> tours) {
         fxTourGridPane.getChildren().clear();
-        int row = 0, col = 0;
 
+        if (tours.isEmpty()) {
+            fxTourGridPane.setVisible(false);
+            fxTourGridPane.setManaged(false);
+
+            fxNoResultsLabel.setVisible(true);
+            fxNoResultsLabel.setManaged(true);
+            return;
+        }
+
+        fxTourGridPane.setVisible(true);
+        fxTourGridPane.setManaged(true);
+        fxNoResultsLabel.setVisible(false);
+        fxNoResultsLabel.setManaged(false);
+
+        int row = 0, col = 0;
         for (Tour tour : tours) {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
@@ -131,6 +150,7 @@ public class HelloController {
             }
         }
     }
+
 
     private VBox createTourBox(Tour tour) {
         VBox vbox = new VBox();

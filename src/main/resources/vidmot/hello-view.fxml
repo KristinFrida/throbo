@@ -47,19 +47,36 @@
         </VBox>
 
         <!-- Tour Grid -->
-        <GridPane fx:id="fxTourGridPane" hgap="15" vgap="15" alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints minWidth="180"/>
-                <ColumnConstraints minWidth="180"/>
-                <ColumnConstraints minWidth="180"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="120"/>
-                <RowConstraints minHeight="120"/>
-                <RowConstraints minHeight="120"/>
-                <RowConstraints minHeight="120"/>
-            </rowConstraints>
-        </GridPane>
+        <!-- Tour Grid and Message -->
+        <StackPane fx:id="tourStack" alignment="TOP_CENTER">
+
+            <VBox alignment="TOP_CENTER" spacing="20">
+                <Label fx:id="fxNoResultsLabel"
+                       text="No tours match your search conditions."
+                       styleClass="no-results-label"
+                       visible="false"
+                       wrapText="true"
+                       maxWidth="300"
+                />
+
+                <GridPane fx:id="fxTourGridPane" hgap="15" vgap="15" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="180"/>
+                        <ColumnConstraints minWidth="180"/>
+                        <ColumnConstraints minWidth="180"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="120"/>
+                        <RowConstraints minHeight="120"/>
+                        <RowConstraints minHeight="120"/>
+                        <RowConstraints minHeight="120"/>
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
+
+        </StackPane>
+
+
     </HBox>
 
 </AnchorPane>
