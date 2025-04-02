@@ -6,9 +6,9 @@
 
 /* === Titles === */
 .page-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #005a2e;
+    -fx-text-fill: #111;
 }
 
 .page-name {
@@ -18,7 +18,7 @@
 }
 
 /* === Labels === */
-.label {
+.label, .info-label {
     -fx-font-size: 14px;
     -fx-text-fill: #111;
 }
@@ -28,52 +28,35 @@
 }
 
 /* === Buttons === */
-.button {
+.button, .form-button {
     -fx-background-color: #005a2e;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
     -fx-padding: 8px 16px;
+    -fx-cursor: hand;
 }
 
-.button:hover {
+.button:hover, .form-button:hover {
     -fx-background-color: #003d20;
 }
 
-/* === Inputs === */
-.text-field {
-    -fx-pref-height: 34px;
+/* === Inputs (Text, Password, Date) === */
+.text-field, .password-field, .date-picker {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 36px;
     -fx-font-size: 14px;
     -fx-background-color: white;
     -fx-border-color: #ccc;
     -fx-border-width: 1px;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
-    -fx-padding: 0px 8px;
+    -fx-padding: 6px 8px;
 }
 
-.date-picker {
-    -fx-pref-height: 34px;
-    -fx-font-size: 14px;
-    -fx-background-color: white;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-    -fx-border-radius: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0px 8px;
-}
-
+/* === DatePicker Internal Elements === */
 .date-picker .text-field {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-background-radius: 0;
-    -fx-border-radius: 6px;
-    -fx-padding: 0px 8px;
-}
-
-
-.date-picker .arrow-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-border-radius: 0;
@@ -81,6 +64,11 @@
     -fx-padding: 0 8px;
 }
 
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0 8px;
+}
 
 /* === Filters === */
 .filter-box {
@@ -91,11 +79,11 @@
 
 .filter-title {
     -fx-font-size: 16px;
-    -fx-text-fill: #111;
     -fx-font-weight: bold;
+    -fx-text-fill: #111;
 }
 
-/* === Grid Cell (Tours) === */
+/* === Tour Grid Cell === */
 .grid-cell {
     -fx-background-color: white;
     -fx-border-color: #005a2e;
@@ -103,16 +91,45 @@
     -fx-border-radius: 0;
     -fx-background-radius: 0;
     -fx-padding: 10px;
+    -fx-transition: all 0.2s ease-in-out;
 }
 
-/* === Info Labels & Dialogs === */
-.info-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #111;
+.grid-cell:hover {
+    -fx-translate-y: -3px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 6, 0.2, 0, 2);
+    -fx-cursor: hand;
 }
 
+/* === Dialogs === */
 .dialog-background {
     -fx-background-color: white;
     -fx-padding: 20px;
+}
+
+/* === Login Page === */
+#loginBox {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+#loginTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* === Signup Link Button === */
+.signup-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #005a2e;
+    -fx-font-weight: bold;
+    -fx-underline: false;
+    -fx-cursor: hand;
+    -fx-padding: 6px;
+    -fx-border-width: 0;
+}
+
+.signup-button:hover {
+    -fx-background-color: transparent;
+    -fx-underline: true;
+    -fx-text-fill: #003d20;
 }
