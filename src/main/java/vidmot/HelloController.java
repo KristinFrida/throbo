@@ -69,15 +69,19 @@ public class HelloController {
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.MYPAGE));
             Platform.runLater(() -> {
                 MyPageController myPage = (MyPageController) ViewSwitcher.lookup(View.MYPAGE);
-                if(myPage != null){
+                if (myPage != null) {
                     myPage.refreshPage();
                 }
             });
         } else {
             fxLoginTakki.setText("Login");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.LOGIN));
+
+            // 👇 Reset welcome message on logout
+            outputUsername.setText("Welcome");
         }
     }
+
 
     @FXML
     private void onSearchClicked() {
