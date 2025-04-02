@@ -6,9 +6,9 @@
 
 /* === Titles === */
 .page-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #005a2e;
+    -fx-text-fill: #111;
 }
 
 .page-name {
@@ -17,8 +17,13 @@
     -fx-text-fill: #005a2e;
 }
 
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
 /* === Labels === */
-.label {
+.label, .info-label {
     -fx-font-size: 14px;
     -fx-text-fill: #111;
 }
@@ -28,52 +33,37 @@
 }
 
 /* === Buttons === */
-.button {
+.button, .form-button {
     -fx-background-color: #005a2e;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
     -fx-padding: 8px 16px;
+    -fx-cursor: hand;
 }
 
-.button:hover {
+.button:hover, .form-button:hover {
     -fx-background-color: #003d20;
 }
 
-/* === Inputs === */
-.text-field {
-    -fx-pref-height: 34px;
-    -fx-font-size: 14px;
-    -fx-background-color: white;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-    -fx-border-radius: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0px 8px;
-}
-
+/* === Global Input Fields (default pages) === */
+.text-field,
+.password-field,
 .date-picker {
-    -fx-pref-height: 34px;
+    -fx-pref-width: 300px;
+    -fx-pref-height: 36px;
     -fx-font-size: 14px;
     -fx-background-color: white;
     -fx-border-color: #ccc;
     -fx-border-width: 1px;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
-    -fx-padding: 0px 8px;
+    -fx-padding: 6px 8px;
 }
 
+/* === DatePicker Specific Elements === */
 .date-picker .text-field {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-background-radius: 0;
-    -fx-border-radius: 6px;
-    -fx-padding: 0px 8px;
-}
-
-
-.date-picker .arrow-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-border-radius: 0;
@@ -81,6 +71,11 @@
     -fx-padding: 0 8px;
 }
 
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0 8px;
+}
 
 /* === Filters === */
 .filter-box {
@@ -91,11 +86,11 @@
 
 .filter-title {
     -fx-font-size: 16px;
-    -fx-text-fill: #111;
     -fx-font-weight: bold;
+    -fx-text-fill: #111;
 }
 
-/* === Grid Cell (Tours) === */
+/* === Tour Grid Cell === */
 .grid-cell {
     -fx-background-color: white;
     -fx-border-color: #005a2e;
@@ -103,16 +98,160 @@
     -fx-border-radius: 0;
     -fx-background-radius: 0;
     -fx-padding: 10px;
+    -fx-transition: all 0.2s ease-in-out;
 }
 
-/* === Info Labels & Dialogs === */
-.info-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #111;
+.grid-cell:hover {
+    -fx-translate-y: -3px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 6, 0.2, 0, 2);
+    -fx-cursor: hand;
 }
 
+/* === Dialogs === */
 .dialog-background {
     -fx-background-color: white;
     -fx-padding: 20px;
 }
+
+/* === Login Page === */
+#loginBox {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+#loginTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* === Signup Page === */
+#signUpBox {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+#signUpTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+#signUpForm {
+    -fx-hgap: 10;
+    -fx-vgap: 15;
+    -fx-alignment: center-left;
+}
+
+#signUpForm .label {
+    -fx-alignment: CENTER_LEFT;
+}
+
+#signUpForm .text-field,
+#signUpForm .password-field {
+    -fx-pref-width: 250px; /* Sérstaklega fyrir sign-up */
+}
+
+#signUpButtonRow {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+/* === Signup Link Button (e.g. in login view) === */
+.signup-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #005a2e;
+    -fx-font-weight: bold;
+    -fx-underline: false;
+    -fx-cursor: hand;
+    -fx-padding: 6px;
+    -fx-border-width: 0;
+}
+
+.signup-button:hover {
+    -fx-background-color: transparent;
+    -fx-underline: true;
+    -fx-text-fill: #003d20;
+}
+
+.booking-card {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #005a2e;
+    -fx-border-width: 1;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+}
+
+.booking-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #005a2e;
+}
+
+.booking-detail {
+    -fx-font-size: 14px;
+    -fx-text-fill: #111;
+}
+
+.booking-box {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #005a2e;
+    -fx-border-width: 2;
+    -fx-padding: 15;
+    -fx-border-radius: 4;
+    -fx-spacing: 6;
+}
+
+/* Container for all booking cards */
+.bookings-container {
+    -fx-padding: 10px;
+    -fx-spacing: 12px;
+}
+
+/* Each booking card */
+.booking-item {
+    -fx-background-color: #fafafa;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 18px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.1, 0, 1);
+}
+
+/* Text styling inside each booking */
+.booking-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #222;
+}
+
+.booking-label .bold {
+    -fx-font-weight: bold;
+}
+
+/* Booking title */
+.booking-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111;
+}
+
+/* Cancel button for booking */
+.cancel-button {
+    -fx-background-color: #005a2e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 14px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #003d20;
+}
+
+
+
+
+

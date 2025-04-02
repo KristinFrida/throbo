@@ -99,7 +99,7 @@ public class BookingDialogController {
 
             MyPageController myPageController = (MyPageController) ViewSwitcher.lookup(View.MYPAGE);
             if (myPageController != null) {
-                myPageController.refreshBookings();
+                myPageController.refreshPage();
                 System.out.println("My Pages updated after new booking");
             } else {
                 System.out.println("My Pages not found, Page will update when reopened");

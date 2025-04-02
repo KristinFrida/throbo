@@ -1,101 +1,87 @@
 package vidmot;
 
 import bakendi.Booking;
-import bakendi.UserController;
-import javafx.fxml.FXML;
 import bakendi.BookingManager;
 import bakendi.UserRepository;
-import java.util.List;
-
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class MyPageController {
 
-    @FXML private TableView<Booking> bookingTable;
-    @FXML private TableColumn<Booking, String> tourNameColumn;
-    @FXML private TableColumn<Booking, Integer> peopleColumn;
-    @FXML private TableColumn<Booking, String> dateColumn;
-    @FXML private TableColumn<Booking, String> pickupColumn;
-    @FXML private TableColumn<Booking, Button> cancelColumn;
     @FXML private Label userNameLabel;
     @FXML private Label userEmailLabel;
+    @FXML private VBox bookingsContainer;
 
     @FXML
     private void initialize() {
-        String userName = UserRepository.getLoggedInUser();
-        String userEmail = UserRepository.getLoggedInUserEmail();
-
-        userNameLabel.setText(userName != null ? userName : "Guest");
-        userEmailLabel.setText(userEmail != null ? userEmail : "No Email");
-        tourNameColumn.setCellValueFactory(new PropertyValueFactory<>("tourName"));
-        peopleColumn.setCellValueFactory(new PropertyValueFactory<>("people"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        pickupColumn.setCellValueFactory(new PropertyValueFactory<>("pickup"));
-
-        cancelColumn.setCellFactory(col -> new TableCell<>() {
-            private final Button cancelButton = new Button("Cancel");
-
-            {
-                cancelButton.setOnAction(e -> {
-                    Booking booking = getTableView().getItems().get(getIndex());
-                    cancelBooking(booking);
-                });
-            }
-
-            @Override
-            protected void updateItem(Button item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(cancelButton);
-                }
-            }
-        });
-
-        loadBookings();  // Load bookings when the page opens
-
+        userNameLabel.setText(UserRepository.getLoggedInUser());
+        userEmailLabel.setText(UserRepository.getLoggedInUserEmail());
+        loadBookings();
     }
 
     @FXML
     private void loadBookings() {
-        bookingTable.getItems().clear();
+        bookingsContainer.getChildren().clear();
         List<Booking> bookings = BookingManager.getBookingsForUser();
 
         for (Booking booking : bookings) {
+            HBox bookingItem = new HBox();
+            bookingItem.getStyleClass().add("booking-item");
+            bookingItem.setAlignment(Pos.CENTER_LEFT);
+            bookingItem.setSpacing(15);
+
+            // Titill (t.d. "Northern Lights")
+            Label titleLabel = new Label(booking.getTourName());
+            titleLabel.getStyleClass().add("booking-title");
+
+            // Annað info
+            String pickupText = booking.getPickup().equalsIgnoreCase("true") ? "Yes" : "No";
+            Label infoLabel = new Label("Date: " + booking.getDate()
+                    + "    People: " + booking.getPeople()
+                    + "    Pickup: " + pickupText);
+            infoLabel.getStyleClass().add("booking-label");
+
+            VBox textBox = new VBox(titleLabel, infoLabel);
+            textBox.setSpacing(4);
+
+            // Cancel takki
             Button cancelButton = new Button("Cancel");
+            cancelButton.getStyleClass().add("cancel-button");
             cancelButton.setOnAction(e -> cancelBooking(booking));
 
-            bookingTable.getItems().add(booking);
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            bookingItem.getChildren().addAll(textBox, spacer, cancelButton);
+            bookingsContainer.getChildren().add(bookingItem);
         }
     }
 
-    @FXML
-    public void refreshBookings() {
-        System.out.println("Refreshing bookings...");
-        loadBookings();  // Reload bookings dynamically
-    }
+
     private void cancelBooking(Booking booking) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Cancellation");
         alert.setHeaderText("Are you sure you want to cancel this booking?");
         alert.setContentText("Tour: " + booking.getTourName() + "\nDate: " + booking.getDate());
 
-        // Valmöguleikar
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(yesButton, noButton);
+        ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(yes, no);
 
-        // Birtir gluggann og vistar niðurstöðu
-        alert.showAndWait().ifPresent(response -> {
-            if (response == yesButton) {
+        alert.showAndWait().ifPresent(result -> {
+            if (result == yes) {
                 BookingManager.removeBooking(booking.getId());
-                loadBookings(); // Endurnýja töflu
+                loadBookings();
             }
         });
     }
-
 
     @FXML
     private void goToHome() {
@@ -104,20 +90,10 @@ public class MyPageController {
 
     @FXML
     private void handleLogout() {
-        System.out.println("Logging out user...");
         UserRepository.logoutUser();
         ViewSwitcher.switchTo(View.START);
-
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
-        if (helloController != null) {
-            helloController.refreshLoginState();
-            helloController.clearLabel();
-        }
-
-        UserController userController = (UserController) ViewSwitcher.lookup(View.LOGIN);
-        if (userController != null) {
-            userController.clearLoginFields();
-        }
+        if (helloController != null) helloController.refreshLoginState();
     }
 
     public void refreshPage() {
@@ -125,5 +101,4 @@ public class MyPageController {
         userEmailLabel.setText(UserRepository.getLoggedInUserEmail());
         loadBookings();
     }
-
 }

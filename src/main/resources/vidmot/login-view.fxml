@@ -13,23 +13,33 @@
             fx:controller="bakendi.UserController"
             stylesheets="@../css/styles.css"
             fx:id="loginRoot"
-            prefWidth="600" prefHeight="400">
+            prefWidth="600" prefHeight="450">
 
     <VBox fx:id="loginBox" spacing="15" alignment="CENTER"
           AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50"
           AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
 
-        <Label fx:id="loginTitle" text="Login"/>
+        <Label fx:id="loginTitle" text="Login" styleClass="page-title"/>
 
-        <Label fx:id="usernameLabel" text="Username:"/>
-        <TextField fx:id="fxUsername" promptText="Enter username"/>
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="usernameLabel" text="Username:"/>
+            <TextField fx:id="fxUsername" promptText="Enter username" prefWidth="400"/>
+        </VBox>
 
-        <Label fx:id="passwordLabel" text="Password:"/>
-        <PasswordField fx:id="fxPassword" promptText="Enter password"/>
-        <HBox fx:id="loginButtonRow" spacing="10" alignment="CENTER">
-            <Button fx:id="fxLoginButton" onAction="#onLogin" text="Login"/>
-            <Button fx:id="fxCancelButton" onAction="#goToHome" text="Cancel"/>
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="passwordLabel" text="Password:"/>
+            <PasswordField fx:id="fxPassword" promptText="Enter password" prefWidth="400"/>
+        </VBox>
+
+        <HBox fx:id="loginButtonRow" spacing="20" alignment="CENTER">
+            <Button fx:id="fxLoginButton" onAction="#onLogin" text="Login" styleClass="form-button"/>
+            <Button fx:id="fxCancelButton" onAction="#goToHome" text="Cancel" styleClass="form-button"/>
         </HBox>
-        <Button fx:id="fxSignUpLink" onAction="#goToSignUp" text="Don't have an account? Sign up here"/>
+
+        <Button fx:id="fxSignUpLink"
+                onAction="#goToSignUp"
+                text="Don't have an account? Sign up here"
+                styleClass="signup-button"
+                prefWidth="400"/>
     </VBox>
 </AnchorPane>
