@@ -17,6 +17,11 @@
     -fx-text-fill: #005a2e;
 }
 
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
 /* === Labels === */
 .label, .info-label {
     -fx-font-size: 14px;
@@ -42,8 +47,10 @@
     -fx-background-color: #003d20;
 }
 
-/* === Inputs (Text, Password, Date) === */
-.text-field, .password-field, .date-picker {
+/* === Global Input Fields (default pages) === */
+.text-field,
+.password-field,
+.date-picker {
     -fx-pref-width: 300px;
     -fx-pref-height: 36px;
     -fx-font-size: 14px;
@@ -55,7 +62,7 @@
     -fx-padding: 6px 8px;
 }
 
-/* === DatePicker Internal Elements === */
+/* === DatePicker Specific Elements === */
 .date-picker .text-field {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -117,7 +124,38 @@
     -fx-font-weight: bold;
 }
 
-/* === Signup Link Button === */
+/* === Signup Page === */
+#signUpBox {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+#signUpTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+#signUpForm {
+    -fx-hgap: 10;
+    -fx-vgap: 15;
+    -fx-alignment: center-left;
+}
+
+#signUpForm .label {
+    -fx-alignment: CENTER_LEFT;
+}
+
+#signUpForm .text-field,
+#signUpForm .password-field {
+    -fx-pref-width: 250px; /* Sérstaklega fyrir sign-up */
+}
+
+#signUpButtonRow {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+/* === Signup Link Button (e.g. in login view) === */
 .signup-button {
     -fx-background-color: transparent;
     -fx-text-fill: #005a2e;
