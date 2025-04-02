@@ -37,7 +37,8 @@ public class HelloController {
     @FXML private CheckBox fxVerdbil3;
     @FXML private CheckBox fxVerdbil4;
     @FXML private Button fxLoginTakki;
-
+    @FXML
+    private Label fxNoResultsLabel;
     @FXML
     private void initialize() {
         assert datePicker != null : "Datepicker is not injected";
@@ -119,8 +120,22 @@ public class HelloController {
 
     private void updateGridPane(List<Tour> tours) {
         fxTourGridPane.getChildren().clear();
-        int row = 0, col = 0;
 
+        if (tours.isEmpty()) {
+            fxTourGridPane.setVisible(false);
+            fxTourGridPane.setManaged(false);
+
+            fxNoResultsLabel.setVisible(true);
+            fxNoResultsLabel.setManaged(true);
+            return;
+        }
+
+        fxTourGridPane.setVisible(true);
+        fxTourGridPane.setManaged(true);
+        fxNoResultsLabel.setVisible(false);
+        fxNoResultsLabel.setManaged(false);
+
+        int row = 0, col = 0;
         for (Tour tour : tours) {
             VBox tourBox = createTourBox(tour);
             fxTourGridPane.add(tourBox, col, row);
@@ -131,6 +146,7 @@ public class HelloController {
             }
         }
     }
+
 
     private VBox createTourBox(Tour tour) {
         VBox vbox = new VBox();
