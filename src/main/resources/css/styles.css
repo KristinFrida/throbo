@@ -171,3 +171,87 @@
     -fx-underline: true;
     -fx-text-fill: #003d20;
 }
+
+.booking-card {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #005a2e;
+    -fx-border-width: 1;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+}
+
+.booking-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #005a2e;
+}
+
+.booking-detail {
+    -fx-font-size: 14px;
+    -fx-text-fill: #111;
+}
+
+.booking-box {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #005a2e;
+    -fx-border-width: 2;
+    -fx-padding: 15;
+    -fx-border-radius: 4;
+    -fx-spacing: 6;
+}
+
+/* Container for all booking cards */
+.bookings-container {
+    -fx-padding: 10px;
+    -fx-spacing: 12px;
+}
+
+/* Each booking card */
+.booking-item {
+    -fx-background-color: #fafafa;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 18px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.1, 0, 1);
+}
+
+/* Text styling inside each booking */
+.booking-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #222;
+}
+
+.booking-label .bold {
+    -fx-font-weight: bold;
+}
+
+/* Booking title */
+.booking-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111;
+}
+
+/* Cancel button for booking */
+.cancel-button {
+    -fx-background-color: #005a2e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 14px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #003d20;
+}
+
+
+
+
+
