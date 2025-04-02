@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class HelloController {
     @FXML private GridPane fxTourGridPane;
     @FXML private DatePicker datePicker;
     @FXML private VBox searchResultsContainer;
-    @FXML private Label outputUsername;
+    @FXML private Text outputUsername;
     @FXML private CheckBox fxVerdbil1;
     @FXML private CheckBox fxVerdbil2;
     @FXML private CheckBox fxVerdbil3;

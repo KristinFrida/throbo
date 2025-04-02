@@ -21,14 +21,6 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setTitle("Bókunarsíða");
         stage.show();
-
-        // Optional image check
-        URL imageUrl = getClass().getResource("/images/sample1.png");
-        if (imageUrl == null) {
-            System.err.println("Resource not found: /images/sample1.png");
-        } else {
-            System.out.println("Found resource: " + imageUrl);
-        }
     }
 
     public static void main(String[] args) {

@@ -67,7 +67,7 @@ public class ViewSwitcher {
                     mainStage.setMinWidth(700);
                     mainStage.setMinHeight(500);
                 } else {
-                    mainStage.setWidth(1000);
+                    mainStage.setWidth(700);
                     mainStage.setHeight(800);
                     mainStage.setMinWidth(900);
                     mainStage.setMinHeight(700);
