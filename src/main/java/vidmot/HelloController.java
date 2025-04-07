@@ -87,7 +87,6 @@ public class HelloController {
             fxLoginTakki.setText("Login");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.LOGIN));
 
-            // 👇 Reset welcome message on logout
             outputUsername.setText("Welcome");
         }
     }

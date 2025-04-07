@@ -14,20 +14,14 @@ import vidmot.ViewSwitcher;
 public class UserController {
 
     // From Login-view
-    @FXML
-    private TextField fxUsername;
-    @FXML
-    private PasswordField fxPassword;
+    @FXML private TextField fxUsername;
+    @FXML private PasswordField fxPassword;
 
     // From Sign-in-view
-    @FXML
-    private TextField newUsername;
-    @FXML
-    private PasswordField newPassword;
-    @FXML
-    private TextField newEmail;
-    @FXML
-    private Label MissingInputDataForNewUser;
+    @FXML private TextField newUsername;
+    @FXML private PasswordField newPassword;
+    @FXML private TextField newEmail;
+    @FXML private Label MissingInputDataForNewUser;
 
     // LOGIN
     @FXML
@@ -37,6 +31,7 @@ public class UserController {
 
         if (UserRepository.validateLogin(username, password)) {
             System.out.println("User " + username + " logged in.");
+            clearLoginFields();
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         } else {
@@ -45,9 +40,7 @@ public class UserController {
     }
 
     @FXML
-    private void goToHome(ActionEvent event) {
-        ViewSwitcher.switchTo(View.START);
-    }
+    private void goToHome(ActionEvent event) { ViewSwitcher.switchTo(View.START); }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -63,8 +56,14 @@ public class UserController {
 
         if (helloController != null) {
             String text = fxUsername.getText();
-            String upperCaseText = text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
-            helloController.updateLabel(upperCaseText);
+
+            if(text != null && !text.isBlank()) {
+                String upperCaseText = text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+                helloController.updateLabel(upperCaseText);
+            }else{
+                helloController.clearLabel();
+            }
+
             helloController.refreshLoginState();
         } else {
             System.err.println("HelloController not found when trying to send username.");
