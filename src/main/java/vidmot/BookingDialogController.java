@@ -139,19 +139,28 @@ public class BookingDialogController {
             valid = false;
         }
 
-        if (!expiry.matches("\\d{2}/\\d{2}")) {
-            showError("Expiration date must be in MM/YY format");
+        if (!expiry.matches("\\d{2}/\\d{2}") || !isValidMonth(expiry)) {
+            showError("Expiration must be valid MM/YY");
             cardExpiry.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             valid = false;
         }
 
         if (!cvcCode.matches("\\d{3}")) {
-            showError("CVC must be 3 digits");
+            showError("CVC must be exactly 3 digits");
             ccv.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             valid = false;
         }
 
         return valid;
+    }
+
+    private boolean isValidMonth(String expiry) {
+        try {
+            int month = Integer.parseInt(expiry.substring(0, 2));
+            return month >= 1 && month <= 12;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void clearInputStyles() {
@@ -162,19 +171,22 @@ public class BookingDialogController {
     }
 
     private void setupInputListeners() {
-        cardHolderName.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) {
-                cardHolderName.setStyle("");
-                errorLabel.setVisible(false);
-            }
-        });
-
         cardNumber.textProperty().addListener((obs, oldVal, newVal) -> {
+
             if (!newVal.matches("\\d*")) {
-                cardNumber.setText(oldVal); // Prevent non-digit input
+                cardNumber.setText(oldVal);
+                return;
+            }
+            if (newVal.length() > 16) {
+                cardNumber.setText(oldVal);
                 return;
             }
 
+            if (newVal.isBlank()) {
+                cardNumber.setStyle("");
+                errorLabel.setVisible(false);
+                return;
+            }
             if (newVal.length() == 16) {
                 cardNumber.setStyle("");
                 errorLabel.setVisible(false);
@@ -184,17 +196,51 @@ public class BookingDialogController {
             }
         });
 
-        cardExpiry.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) {
+        cardExpiry.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText().replaceAll("[^\\d]", "");
+            if (newText.length() > 4) {
+                newText = newText.substring(0, 4);
+            }
+
+            StringBuilder formatted = new StringBuilder();
+            for (int i = 0; i < newText.length(); i++) {
+                if (i == 2) formatted.append('/');
+                formatted.append(newText.charAt(i));
+            }
+
+            change.setText(formatted.toString());
+            change.setRange(0, change.getControlText().length());
+
+            if (formatted.length() == 0) {
                 cardExpiry.setStyle("");
                 errorLabel.setVisible(false);
+            } else if (formatted.length() == 5 && isValidMonth(formatted.toString())) {
+                cardExpiry.setStyle("");
+                errorLabel.setVisible(false);
+            } else {
+                cardExpiry.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("Expiration must be valid MM/YY");
             }
-        });
 
+            return change;
+        }));
+
+        // CVC VALIDATION ONLY IF NOT EMPTY
         ccv.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) {
+            if (!newVal.matches("\\d*")) {
+                ccv.setText(oldVal);
+                return;
+            }
+
+            if (newVal.isBlank()) {
                 ccv.setStyle("");
                 errorLabel.setVisible(false);
+            } else if (newVal.length() == 3) {
+                ccv.setStyle("");
+                errorLabel.setVisible(false);
+            } else {
+                ccv.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("CVC must be exactly 3 digits");
             }
         });
     }
