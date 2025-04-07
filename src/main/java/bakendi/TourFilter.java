@@ -30,4 +30,31 @@ public class TourFilter {
                 .filter(tour -> priceConditions.isEmpty() || priceConditions.stream().anyMatch(cond -> cond.test(tour)))
                 .collect(Collectors.toList());
     }
+
+
+    public static List<Predicate<Tour>> buildLocationConditions(boolean reykjavik, boolean vik, boolean akureyri, boolean hvolsvollur, boolean skaftafell, boolean jokulsarlon, boolean blueLagoon) {
+        List<Predicate<Tour>> conditions = new ArrayList<>();
+
+        if (reykjavik) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Reykjavik"));
+        if (vik) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Vík"));
+        if (akureyri) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Akureyri"));
+        if (hvolsvollur) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Hvolsvöllur"));
+        if (skaftafell) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Skaftafell"));
+        if (jokulsarlon) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Jökulsárlón"));
+        if (blueLagoon) conditions.add(t -> t.getStartLocation().equalsIgnoreCase("Blue Lagoon"));
+
+
+        if (conditions.isEmpty()) {
+            conditions.add(t -> true); // Ef ekkert er valið, sýna allt
+        }
+
+        return conditions;
+    }
+
+
+    public static List<Tour> filterByLocation(List<Tour> tours, List<Predicate<Tour>> locationConditions) {
+        return tours.stream()
+                .filter(tour -> locationConditions.isEmpty() || locationConditions.stream().anyMatch(cond -> cond.test(tour)))
+                .collect(Collectors.toList());
+    }
 }

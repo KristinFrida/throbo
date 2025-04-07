@@ -37,8 +37,18 @@ public class HelloController {
     @FXML private CheckBox fxVerdbil3;
     @FXML private CheckBox fxVerdbil4;
     @FXML private Button fxLoginTakki;
-    @FXML
-    private Label fxNoResultsLabel;
+    @FXML private Label fxNoResultsLabel;
+
+    //Fyrir location checkbox
+    @FXML private CheckBox fxLocationReykjavik;
+    @FXML private CheckBox fxLocationVik;
+    @FXML private CheckBox fxLocationAkureyri;
+    @FXML private CheckBox fxLocationHvolsvollur;
+    @FXML private CheckBox fxLocationSkaftafell;
+    @FXML private CheckBox fxLocationJokulsarlon;
+    @FXML private CheckBox fxLocationBlueLagoon;
+
+
     @FXML
     private void initialize() {
         assert datePicker != null : "Datepicker is not injected";
@@ -118,7 +128,18 @@ public class HelloController {
                 fxVerdbil4.isSelected()
         );
 
-        List<Tour> finalFiltered = TourFilter.filterByPrice(searchFiltered, priceConditions);
+        List<java.util.function.Predicate<Tour>>  locationConditions = TourFilter.buildLocationConditions(
+                fxLocationReykjavik.isSelected(),
+                fxLocationVik.isSelected(),
+                fxLocationAkureyri.isSelected(),
+                fxLocationHvolsvollur.isSelected(),
+                fxLocationSkaftafell.isSelected(),
+                fxLocationJokulsarlon.isSelected(),
+                fxLocationBlueLagoon.isSelected()
+        );
+
+
+        List<Tour> finalFiltered = TourFilter.filterByLocation(TourFilter.filterByPrice(searchFiltered, priceConditions), locationConditions);
         updateGridPane(finalFiltered);
     }
 

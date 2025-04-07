@@ -44,6 +44,15 @@
             <CheckBox fx:id="fxVerdbil2" text="5.000 - 9.999 ISK" onAction="#handleFilterChange"/>
             <CheckBox fx:id="fxVerdbil3" text="10.000 - 19.999 ISK" onAction="#handleFilterChange"/>
             <CheckBox fx:id="fxVerdbil4" text="+20.000 ISK" onAction="#handleFilterChange"/>
+
+            <Label text="Location Filter" styleClass="filter-title"/>
+            <CheckBox fx:id="fxLocationReykjavik" text="Reykjavík" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationVik" text="Vík" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationAkureyri" text="Akureyri" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationHvolsvollur" text="Hvolsvöllur" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationSkaftafell" text="Skaftafell" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationJokulsarlon" text="Jökulsárlón" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationBlueLagoon" text="Blue Lagoon" onAction="#handleFilterChange"/>
         </VBox>
 
         <!-- Tour Grid -->
