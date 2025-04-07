@@ -40,10 +40,10 @@
         <!-- Filters -->
         <VBox fx:id="filterPane" prefWidth="180" minWidth="160" maxWidth="200" spacing="10" styleClass="filter-box">
             <Label text="Price Filter" styleClass="filter-title"/>
-            <CheckBox fx:id="fxVerdbil1" text="0 - 4.999 ISK"/>
-            <CheckBox fx:id="fxVerdbil2" text="5.000 - 9.999 ISK"/>
-            <CheckBox fx:id="fxVerdbil3" text="10.000 - 19.999 ISK"/>
-            <CheckBox fx:id="fxVerdbil4" text="+20.000 ISK"/>
+            <CheckBox fx:id="fxVerdbil1" onAction="#handleFilterChange" text="0 - 4.999 ISK"/>
+            <CheckBox fx:id="fxVerdbil2" onAction="#handleFilterChange" text="5.000 - 9.999 ISK"/>
+            <CheckBox fx:id="fxVerdbil3" onAction="#handleFilterChange" text="10.000 - 19.999 ISK"/>
+            <CheckBox fx:id="fxVerdbil4" onAction="#handleFilterChange" text="+20.000 ISK"/>
         </VBox>
 
         <!-- Tour Grid -->
