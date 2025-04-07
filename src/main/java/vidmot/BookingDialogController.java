@@ -89,7 +89,7 @@ public class BookingDialogController {
             datePicker.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             return;
         } else {
-            datePicker.setStyle(""); // reset style if valid
+            datePicker.setStyle("");
         }
 
         System.out.println("Booking confirmed for: " + selectedTour.getName());
@@ -123,12 +123,13 @@ public class BookingDialogController {
 
         clearInputStyles();
 
+        String name = cardHolderName.getText();
         String cardNum = cardNumber.getText().replaceAll("\\s", "");
         String expiry = cardExpiry.getText();
         String cvcCode = ccv.getText();
 
-        if (cardHolderName.getText().isBlank()) {
-            showError("Cardholder name cannot be empty");
+        if (name.isBlank() || name.length() < 2 || !name.matches("[a-zA-ZæöÆÖáéíóúýÁÉÍÓÚÝðÐþÞ\\- '\\s]+")) {
+            showError("Cardholder name must be at least 2 letters and contain only letters and spaces");
             cardHolderName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             valid = false;
         }
@@ -171,8 +172,26 @@ public class BookingDialogController {
     }
 
     private void setupInputListeners() {
-        cardNumber.textProperty().addListener((obs, oldVal, newVal) -> {
+        cardHolderName.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("[a-zA-ZæöÆÖáéíóúýÁÉÍÓÚÝðÐþÞ\\- '\\s]*")) {
+                cardHolderName.setText(oldVal); // Reject the input
+                return;
+            }
 
+            if (newVal.isBlank()) {
+                cardHolderName.setStyle("");
+                errorLabel.setVisible(false);
+            } else if (newVal.length() < 2) {
+                cardHolderName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("Name must be at least 2 characters");
+            } else {
+                cardHolderName.setStyle("");
+                errorLabel.setVisible(false);
+            }
+        });
+
+
+        cardNumber.textProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 cardNumber.setText(oldVal);
                 return;
@@ -185,9 +204,7 @@ public class BookingDialogController {
             if (newVal.isBlank()) {
                 cardNumber.setStyle("");
                 errorLabel.setVisible(false);
-                return;
-            }
-            if (newVal.length() == 16) {
+            } else if (newVal.length() == 16) {
                 cardNumber.setStyle("");
                 errorLabel.setVisible(false);
             } else {
@@ -198,9 +215,7 @@ public class BookingDialogController {
 
         cardExpiry.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText().replaceAll("[^\\d]", "");
-            if (newText.length() > 4) {
-                newText = newText.substring(0, 4);
-            }
+            if (newText.length() > 4) newText = newText.substring(0, 4);
 
             StringBuilder formatted = new StringBuilder();
             for (int i = 0; i < newText.length(); i++) {
@@ -225,9 +240,13 @@ public class BookingDialogController {
             return change;
         }));
 
-        // CVC VALIDATION ONLY IF NOT EMPTY
         ccv.textProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
+                ccv.setText(oldVal);
+                return;
+            }
+
+            if (newVal.length() > 3) {
                 ccv.setText(oldVal);
                 return;
             }
@@ -244,7 +263,6 @@ public class BookingDialogController {
             }
         });
     }
-
 
     private void showError(String message) {
         errorLabel.setText(message);
