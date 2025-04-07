@@ -30,7 +30,6 @@ public class HelloController {
     @FXML private TextField fxLeitarvelTexti;
     @FXML private GridPane fxTourGridPane;
     @FXML private DatePicker datePicker;
-    @FXML private VBox searchResultsContainer;
     @FXML private Text outputUsername;
     @FXML private CheckBox fxVerdbil1;
     @FXML private CheckBox fxVerdbil2;
@@ -112,6 +111,8 @@ public class HelloController {
                 : allTours.stream()
                 .filter(tour -> tour.isAvailableOn(selectedDate))
                 .collect(Collectors.toList());
+
+
 
         String query = fxLeitarvelTexti.getText().trim().toLowerCase();
         List<Tour> searchFiltered = query.isEmpty()
@@ -208,6 +209,8 @@ public class HelloController {
         }
     }
 
+
+    /**
     @FXML
     private void handleCellClick(MouseEvent event) {
         VBox cell = (VBox) event.getSource();
@@ -224,6 +227,12 @@ public class HelloController {
             System.err.println("No view available for cell: " + cellIndex);
         }
     }
+     */
+
+
+
+
+
 
     @FXML
     private void goToHome(ActionEvent event) {

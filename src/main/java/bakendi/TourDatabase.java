@@ -98,12 +98,20 @@ public class TourDatabase {
         return tours;
     }
 
+
+
+    /**
     public static Tour getTourByName(String name) {
         return tours.stream()
                 .filter(tour -> tour.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
     }
+
+     */
+
+
+
 
     /**
      * Býr til lista af dagsetningum fyrir tiltekna vikudaga út árið 2025
