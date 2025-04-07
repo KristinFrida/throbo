@@ -210,30 +210,6 @@ public class HelloController {
     }
 
 
-    /**
-    @FXML
-    private void handleCellClick(MouseEvent event) {
-        VBox cell = (VBox) event.getSource();
-        Integer row = GridPane.getRowIndex(cell);
-        Integer col = GridPane.getColumnIndex(cell);
-        if (row == null) row = 0;
-        if (col == null) col = 0;
-        int cellIndex = row * 3 + col + 1;
-        System.out.println("Cell clicked: " + cellIndex);
-        try {
-            View view = View.valueOf("GRID" + cellIndex);
-            ViewSwitcher.switchTo(view);
-        } catch (IllegalArgumentException e) {
-            System.err.println("No view available for cell: " + cellIndex);
-        }
-    }
-     */
-
-
-
-
-
-
     @FXML
     private void goToHome(ActionEvent event) {
         ViewSwitcher.switchTo(View.START);

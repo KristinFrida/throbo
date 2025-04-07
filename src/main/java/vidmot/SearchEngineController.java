@@ -21,17 +21,6 @@ public class SearchEngineController {
                 .collect(Collectors.toList());
     }
 
-
-    /**
-    public List<Tour> filterToursByDate(LocalDate selectedDate) {
-        if (selectedDate == null) return TourDatabase.getAllTours();
-
-        return TourDatabase.getAllTours().stream()
-                .filter(tour -> tour.isAvailableOn(selectedDate))
-                .collect(Collectors.toList());
-    }
-     */
-
     private String removeAccents(String input) {
         if (input == null) return "";
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);

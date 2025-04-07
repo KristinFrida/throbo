@@ -142,25 +142,4 @@ public class TourDetailsController {
         ViewSwitcher.switchTo(View.START);
     }
 
-
-
-
-
-
-
-
-
-
-    /**
-     * Setur valinn túr fyrir bókun.
-     */
-
-    /**
-    public void setSelectedTour(Tour tour) {
-        this.selectedTour = tour;
-        System.out.println("Valdi túr: " + tour.getName());
-    }
-
-
-    **/
 }
