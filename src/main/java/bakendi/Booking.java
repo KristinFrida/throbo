@@ -1,6 +1,5 @@
 package bakendi;
 
-import javafx.scene.control.Button;
 
 public class Booking {
     private int id;

@@ -95,10 +95,4 @@ public class ViewSwitcher {
         return controllers.get(view);
     }
 
-    /**
-     * Returns the last view visited before the current view.
-     */
-    public static View getLastView() {
-        return lastView;
-    }
 }

@@ -14,20 +14,15 @@ import vidmot.ViewSwitcher;
 public class UserController {
 
     // From Login-view
-    @FXML
-    private TextField fxUsername;
-    @FXML
-    private PasswordField fxPassword;
+    @FXML private TextField fxUsername;
+    @FXML private PasswordField fxPassword;
+    @FXML private Label MissingInputDataUser;
 
     // From Sign-in-view
-    @FXML
-    private TextField newUsername;
-    @FXML
-    private PasswordField newPassword;
-    @FXML
-    private TextField newEmail;
-    @FXML
-    private Label MissingInputDataForNewUser;
+    @FXML private TextField newUsername;
+    @FXML private PasswordField newPassword;
+    @FXML private TextField newEmail;
+    @FXML private Label MissingInputDataForNewUser;
 
     // LOGIN
     @FXML
@@ -35,18 +30,57 @@ public class UserController {
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
+
         if (UserRepository.validateLogin(username, password)) {
             System.out.println("User " + username + " logged in.");
+            clearLoginFields();
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         } else {
-            showAlert("Login failed", "Incorrect username or password. Try again.");
+            if(username.isBlank() || password.isBlank()){
+                loginValidation(username,password);
+            }else {
+                MissingInputDataUser.setText("");
+                setFieldValid(fxPassword);
+                setFieldValid(fxUsername);
+                showAlert("Login failed", "Incorrect username or password. Try again.");
+            }
         }
     }
 
     @FXML
-    private void goToHome(ActionEvent event) {
-        ViewSwitcher.switchTo(View.START);
+    private void goToHome(ActionEvent event) { ViewSwitcher.switchTo(View.START); }
+
+    private boolean loginValidation(String username, String password){
+
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(username.isBlank()){
+            setFieldInvalid(fxUsername);
+            if(errorMessage.isEmpty()) errorMessage = "Username is missing";
+            isValid =false;
+        }else {
+            setFieldValid(fxUsername);
+        }
+
+        if(password.isBlank()){
+            setFieldInvalid(fxPassword);
+            if(errorMessage.isEmpty()) errorMessage = "Password is missing";
+            isValid = false;
+        }else {
+            setFieldValid(fxPassword);
+        }
+
+        if(!isValid){
+            MissingInputDataUser.setText(errorMessage);
+            MissingInputDataUser.setVisible(true);
+        }else{
+            MissingInputDataUser.setText("");
+            MissingInputDataUser.setVisible(false);
+        }
+        return isValid;
+
     }
 
     private void showAlert(String title, String message) {
@@ -63,8 +97,14 @@ public class UserController {
 
         if (helloController != null) {
             String text = fxUsername.getText();
-            String upperCaseText = text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
-            helloController.updateLabel(upperCaseText);
+
+            if(text != null && !text.isBlank()) {
+                String upperCaseText = text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+                helloController.updateLabel(upperCaseText);
+            }else{
+                helloController.clearLabel();
+            }
+
             helloController.refreshLoginState();
         } else {
             System.err.println("HelloController not found when trying to send username.");

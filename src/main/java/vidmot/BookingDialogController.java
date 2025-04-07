@@ -10,26 +10,16 @@ import java.util.List;
 
 public class BookingDialogController {
 
-    @FXML
-    private Label tourNameLabel;
-    @FXML
-    private Spinner<Integer> peopleSpinner;
-    @FXML
-    private Label priceLabel;
-    @FXML
-    private CheckBox hotelPickupCheckBox;
-    @FXML
-    private TextField cardHolderName;
-    @FXML
-    private TextField cardNumber;
-    @FXML
-    private TextField cardExpiry;
-    @FXML
-    private TextField ccv;
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private DatePicker datePicker;
+    @FXML private Label tourNameLabel;
+    @FXML private Spinner<Integer> peopleSpinner;
+    @FXML private Label priceLabel;
+    @FXML private CheckBox hotelPickupCheckBox;
+    @FXML private TextField cardHolderName;
+    @FXML private TextField cardNumber;
+    @FXML private TextField cardExpiry;
+    @FXML private TextField ccv;
+    @FXML private Label errorLabel;
+    @FXML private DatePicker datePicker;
 
     private Tour selectedTour;
 
@@ -61,17 +51,6 @@ public class BookingDialogController {
                 setDisable(!availableDates.contains(date) || date.isBefore(LocalDate.now()));
             }
         });
-    }
-
-    @FXML
-    private void validateCardNumber() {
-        String cardNum = cardNumber.getText().replaceAll("\\s", "");
-
-        if (!cardNum.matches("\\d{16}")) {
-            showError("Card number must be 16 digits");
-        } else {
-            errorLabel.setVisible(false);
-        }
     }
 
     @FXML
