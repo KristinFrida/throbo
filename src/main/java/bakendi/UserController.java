@@ -16,6 +16,7 @@ public class UserController {
     // From Login-view
     @FXML private TextField fxUsername;
     @FXML private PasswordField fxPassword;
+    @FXML private Label MissingInputDataUser;
 
     // From Sign-in-view
     @FXML private TextField newUsername;
@@ -29,18 +30,58 @@ public class UserController {
         String username = fxUsername.getText();
         String password = fxPassword.getText();
 
+
         if (UserRepository.validateLogin(username, password)) {
             System.out.println("User " + username + " logged in.");
             clearLoginFields();
             ViewSwitcher.switchTo(View.START);
             sendUsernameToHelloController();
         } else {
-            showAlert("Login failed", "Incorrect username or password. Try again.");
+            if(username.isBlank() || password.isBlank()){
+                loginValidation(username,password);
+            }else {
+                MissingInputDataUser.setText("");
+                setFieldValid(fxPassword);
+                setFieldValid(fxUsername);
+                showAlert("Login failed", "Incorrect username or password. Try again.");
+            }
         }
     }
 
     @FXML
     private void goToHome(ActionEvent event) { ViewSwitcher.switchTo(View.START); }
+
+    private boolean loginValidation(String username, String password){
+
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(username.isBlank()){
+            setFieldInvalid(fxUsername);
+            if(errorMessage.isEmpty()) errorMessage = "Username is missing";
+            isValid =false;
+        }else {
+            setFieldValid(fxUsername);
+        }
+
+        if(password.isBlank()){
+            setFieldInvalid(fxPassword);
+            if(errorMessage.isEmpty()) errorMessage = "Password is missing";
+            isValid = false;
+        }else {
+            setFieldValid(fxPassword);
+        }
+
+        if(!isValid){
+            MissingInputDataUser.setText(errorMessage);
+            MissingInputDataUser.setVisible(true);
+        }else{
+            MissingInputDataUser.setText("");
+            MissingInputDataUser.setVisible(false);
+        }
+        return isValid;
+
+    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
