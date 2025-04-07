@@ -53,7 +53,7 @@ public class HelloController {
         assert datePicker != null : "Datepicker is not injected";
         assert fxLeitarvelTexti != null : "LeitarvelTexti is not injected";
         assert fxLoginTakki != null : "LoginTakki is not injected";
-
+        refreshLoginState();
 
         //Taka út liðnar dagsetningar
         datePicker.setDayCellFactory(picker -> new DateCell() {
