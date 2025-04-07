@@ -28,11 +28,16 @@ public class BookingDialogController {
         tourNameLabel.setText("Booking: " + tour.getName());
 
         peopleSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1));
-        peopleSpinner.valueProperty().addListener((obs, oldValue, newValue) -> updatePrice());
+        peopleSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            updatePrice();
+            validatePeopleLimit();
+        });
 
         updatePrice();
         setupDatePicker();
+        validatePeopleLimit();
     }
+
 
     @FXML
     private void updatePrice() {
@@ -278,5 +283,29 @@ public class BookingDialogController {
                 datePicker.setStyle("");
             }
         });
+    }
+
+    private void validatePeopleLimit() {
+        if (selectedTour == null) return;
+
+        LocalDate selectedDate = datePicker.getValue();
+        Integer people = peopleSpinner.getValue();
+
+        if (selectedDate == null || people == null) {
+            errorLabel.setVisible(false);
+            peopleSpinner.setStyle("");
+            return;
+        }
+
+        int alreadyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), selectedDate);
+        int remainingSpots = 20 - alreadyBooked;
+
+        if (people > remainingSpots) {
+            peopleSpinner.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            showError("Only " + remainingSpots + " spots left for " + selectedDate + ".");
+        } else {
+            peopleSpinner.setStyle("");
+            errorLabel.setVisible(false);
+        }
     }
 }
