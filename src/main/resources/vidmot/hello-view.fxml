@@ -31,7 +31,7 @@
         <DatePicker fx:id="datePicker"
                     HBox.hgrow="ALWAYS" />
 
-        <Button fx:id="fxLeitarvelTakki" text="Search" styleClass="primary-button"/>
+        <Button fx:id="fxLeitarvelTakki" text="Search" styleClass="primary-button" onAction="#onSearchClicked"/>
     </HBox>
 
 

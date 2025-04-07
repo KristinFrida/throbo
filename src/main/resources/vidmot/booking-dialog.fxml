@@ -24,7 +24,7 @@
 
         <HBox spacing="10" alignment="CENTER">
             <Label text="Number of people:"/>
-            <Spinner fx:id="peopleSpinner"/>
+            <Spinner fx:id="peopleSpinner" maxWidth="200"/>
         </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
