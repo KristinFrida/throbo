@@ -53,7 +53,19 @@ public class HelloController {
         assert datePicker != null : "Datepicker is not injected";
         assert fxLeitarvelTexti != null : "LeitarvelTexti is not injected";
         assert fxLoginTakki != null : "LoginTakki is not injected";
-        refreshLoginState();
+
+
+        //Taka út liðnar dagsetningar
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #EEEEEE;");
+                }
+            }
+        });
 
         searchEngineController = new SearchEngineController();
         fxLeitarvelTexti.setOnKeyPressed(event -> {
