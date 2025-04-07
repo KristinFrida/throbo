@@ -13,7 +13,6 @@
    <!-- Page Title -->
    <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="30">
       <Text text="Day Tours Booking" styleClass="page-title"/>
-      <Text fx:id="outputUsername" text="Welcome" styleClass="title-label"/>
    </VBox>
 
    <!-- User Info -->
