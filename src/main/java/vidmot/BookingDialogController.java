@@ -89,7 +89,7 @@ public class BookingDialogController {
             datePicker.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             return;
         } else {
-            datePicker.setStyle(""); // reset style if valid
+            datePicker.setStyle("");
         }
 
         System.out.println("Booking confirmed for: " + selectedTour.getName());
@@ -100,7 +100,6 @@ public class BookingDialogController {
         if (BookingManager.addBooking(selectedTour, people, selectedDate, hotelPickup)) {
             System.out.println("Booking successful for: " + selectedTour.getName());
 
-            // ✅ Show alert here
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Booking Successful");
             alert.setHeaderText(null);
@@ -116,21 +115,21 @@ public class BookingDialogController {
             }
         }
 
-
         closeDialog();
     }
+
     private boolean validatePaymentInfo() {
         boolean valid = true;
 
-        // Reset all borders first
         clearInputStyles();
 
+        String name = cardHolderName.getText();
         String cardNum = cardNumber.getText().replaceAll("\\s", "");
         String expiry = cardExpiry.getText();
         String cvcCode = ccv.getText();
 
-        if (cardHolderName.getText().isBlank()) {
-            showError("Cardholder name cannot be empty");
+        if (name.isBlank() || name.length() < 2 || !name.matches("[a-zA-ZæöÆÖáéíóúýÁÉÍÓÚÝðÐþÞ\\- '\\s]+")) {
+            showError("Cardholder name must be at least 2 letters and contain only letters and spaces");
             cardHolderName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             valid = false;
         }
@@ -141,20 +140,30 @@ public class BookingDialogController {
             valid = false;
         }
 
-        if (!expiry.matches("\\d{2}/\\d{2}")) {
-            showError("Expiration date must be in MM/YY format");
+        if (!expiry.matches("\\d{2}/\\d{2}") || !isValidMonth(expiry)) {
+            showError("Expiration must be valid MM/YY");
             cardExpiry.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             valid = false;
         }
 
         if (!cvcCode.matches("\\d{3}")) {
-            showError("CVC must be 3 digits");
+            showError("CVC must be exactly 3 digits");
             ccv.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
             valid = false;
         }
 
         return valid;
     }
+
+    private boolean isValidMonth(String expiry) {
+        try {
+            int month = Integer.parseInt(expiry.substring(0, 2));
+            return month >= 1 && month <= 12;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private void clearInputStyles() {
         cardHolderName.setStyle("");
         cardNumber.setStyle("");
@@ -164,24 +173,96 @@ public class BookingDialogController {
 
     private void setupInputListeners() {
         cardHolderName.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) cardHolderName.setStyle("");
+            if (!newVal.matches("[a-zA-ZæöÆÖáéíóúýÁÉÍÓÚÝðÐþÞ\\- '\\s]*")) {
+                cardHolderName.setText(oldVal); // Reject the input
+                return;
+            }
+
+            if (newVal.isBlank()) {
+                cardHolderName.setStyle("");
+                errorLabel.setVisible(false);
+            } else if (newVal.length() < 2) {
+                cardHolderName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("Name must be at least 2 characters");
+            } else {
+                cardHolderName.setStyle("");
+                errorLabel.setVisible(false);
+            }
         });
+
 
         cardNumber.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.matches("\\d{0,16}")) cardNumber.setStyle("");
+            if (!newVal.matches("\\d*")) {
+                cardNumber.setText(oldVal);
+                return;
+            }
+            if (newVal.length() > 16) {
+                cardNumber.setText(oldVal);
+                return;
+            }
+
+            if (newVal.isBlank()) {
+                cardNumber.setStyle("");
+                errorLabel.setVisible(false);
+            } else if (newVal.length() == 16) {
+                cardNumber.setStyle("");
+                errorLabel.setVisible(false);
+            } else {
+                cardNumber.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("Card number must be 16 digits");
+            }
         });
 
-        cardExpiry.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) cardExpiry.setStyle("");
-        });
+        cardExpiry.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText().replaceAll("[^\\d]", "");
+            if (newText.length() > 4) newText = newText.substring(0, 4);
+
+            StringBuilder formatted = new StringBuilder();
+            for (int i = 0; i < newText.length(); i++) {
+                if (i == 2) formatted.append('/');
+                formatted.append(newText.charAt(i));
+            }
+
+            change.setText(formatted.toString());
+            change.setRange(0, change.getControlText().length());
+
+            if (formatted.length() == 0) {
+                cardExpiry.setStyle("");
+                errorLabel.setVisible(false);
+            } else if (formatted.length() == 5 && isValidMonth(formatted.toString())) {
+                cardExpiry.setStyle("");
+                errorLabel.setVisible(false);
+            } else {
+                cardExpiry.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("Expiration must be valid MM/YY");
+            }
+
+            return change;
+        }));
 
         ccv.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) ccv.setStyle("");
+            if (!newVal.matches("\\d*")) {
+                ccv.setText(oldVal);
+                return;
+            }
+
+            if (newVal.length() > 3) {
+                ccv.setText(oldVal);
+                return;
+            }
+
+            if (newVal.isBlank()) {
+                ccv.setStyle("");
+                errorLabel.setVisible(false);
+            } else if (newVal.length() == 3) {
+                ccv.setStyle("");
+                errorLabel.setVisible(false);
+            } else {
+                ccv.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("CVC must be exactly 3 digits");
+            }
         });
-
     }
-
-
 
     private void showError(String message) {
         errorLabel.setText(message);
@@ -195,7 +276,6 @@ public class BookingDialogController {
 
     @FXML
     private void initialize() {
-        // Gáir hvort það sé hægt að fá aðgang að window áður en við breytum stærð
         tourNameLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 Stage stage = (Stage) newScene.getWindow();
@@ -208,9 +288,8 @@ public class BookingDialogController {
         setupInputListeners();
         datePicker.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                datePicker.setStyle(""); // remove red border when valid
+                datePicker.setStyle("");
             }
         });
     }
-
 }
