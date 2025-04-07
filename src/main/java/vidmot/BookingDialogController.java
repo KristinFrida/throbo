@@ -100,7 +100,6 @@ public class BookingDialogController {
         if (BookingManager.addBooking(selectedTour, people, selectedDate, hotelPickup)) {
             System.out.println("Booking successful for: " + selectedTour.getName());
 
-            // ✅ Show alert here
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Booking Successful");
             alert.setHeaderText(null);
@@ -116,13 +115,12 @@ public class BookingDialogController {
             }
         }
 
-
         closeDialog();
     }
+
     private boolean validatePaymentInfo() {
         boolean valid = true;
 
-        // Reset all borders first
         clearInputStyles();
 
         String cardNum = cardNumber.getText().replaceAll("\\s", "");
@@ -155,6 +153,7 @@ public class BookingDialogController {
 
         return valid;
     }
+
     private void clearInputStyles() {
         cardHolderName.setStyle("");
         cardNumber.setStyle("");
@@ -164,23 +163,41 @@ public class BookingDialogController {
 
     private void setupInputListeners() {
         cardHolderName.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) cardHolderName.setStyle("");
+            if (!newVal.isBlank()) {
+                cardHolderName.setStyle("");
+                errorLabel.setVisible(false);
+            }
         });
 
         cardNumber.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.matches("\\d{0,16}")) cardNumber.setStyle("");
+            if (!newVal.matches("\\d*")) {
+                cardNumber.setText(oldVal); // Prevent non-digit input
+                return;
+            }
+
+            if (newVal.length() == 16) {
+                cardNumber.setStyle("");
+                errorLabel.setVisible(false);
+            } else {
+                cardNumber.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                showError("Card number must be 16 digits");
+            }
         });
 
         cardExpiry.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) cardExpiry.setStyle("");
+            if (!newVal.isBlank()) {
+                cardExpiry.setStyle("");
+                errorLabel.setVisible(false);
+            }
         });
 
         ccv.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isBlank()) ccv.setStyle("");
+            if (!newVal.isBlank()) {
+                ccv.setStyle("");
+                errorLabel.setVisible(false);
+            }
         });
-
     }
-
 
 
     private void showError(String message) {
@@ -195,7 +212,6 @@ public class BookingDialogController {
 
     @FXML
     private void initialize() {
-        // Gáir hvort það sé hægt að fá aðgang að window áður en við breytum stærð
         tourNameLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 Stage stage = (Stage) newScene.getWindow();
@@ -208,9 +224,8 @@ public class BookingDialogController {
         setupInputListeners();
         datePicker.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                datePicker.setStyle(""); // remove red border when valid
+                datePicker.setStyle("");
             }
         });
     }
-
 }
