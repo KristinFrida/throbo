@@ -51,12 +51,28 @@ public class BookingDialogController {
         List<LocalDate> availableDates = selectedTour.getAvailableDates();
 
         datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                setDisable(!availableDates.contains(date) || date.isBefore(LocalDate.now()));
+
+                boolean isPast = date.isBefore(LocalDate.now());
+                boolean isUnavailable = !availableDates.contains(date);
+                boolean isFullyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), date) >= 20;
+
+                if (isPast || isUnavailable || isFullyBooked) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #dddddd; -fx-text-fill: gray;");
+                    if (isFullyBooked) {
+                        setTooltip(new Tooltip("Fully booked"));
+                    }
+                } else {
+                    setOnMouseEntered(e -> setStyle("-fx-background-color: #005a2e; -fx-text-fill: white;"));
+                    setOnMouseExited(e -> setStyle(""));
+                }
             }
         });
     }
+
 
     @FXML
     private void confirmBooking() {
