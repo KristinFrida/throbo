@@ -30,15 +30,24 @@ public class HelloController {
     @FXML private TextField fxLeitarvelTexti;
     @FXML private GridPane fxTourGridPane;
     @FXML private DatePicker datePicker;
-    @FXML private VBox searchResultsContainer;
     @FXML private Text outputUsername;
     @FXML private CheckBox fxVerdbil1;
     @FXML private CheckBox fxVerdbil2;
     @FXML private CheckBox fxVerdbil3;
     @FXML private CheckBox fxVerdbil4;
     @FXML private Button fxLoginTakki;
-    @FXML
-    private Label fxNoResultsLabel;
+    @FXML private Label fxNoResultsLabel;
+
+    //Fyrir location checkbox
+    @FXML private CheckBox fxLocationReykjavik;
+    @FXML private CheckBox fxLocationVik;
+    @FXML private CheckBox fxLocationAkureyri;
+    @FXML private CheckBox fxLocationHvolsvollur;
+    @FXML private CheckBox fxLocationSkaftafell;
+    @FXML private CheckBox fxLocationJokulsarlon;
+    @FXML private CheckBox fxLocationBlueLagoon;
+
+
     @FXML
     private void initialize() {
         assert datePicker != null : "Datepicker is not injected";
@@ -77,7 +86,6 @@ public class HelloController {
             fxLoginTakki.setText("Login");
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.LOGIN));
 
-            // 👇 Reset welcome message on logout
             outputUsername.setText("Welcome");
         }
     }
@@ -104,6 +112,8 @@ public class HelloController {
                 .filter(tour -> tour.isAvailableOn(selectedDate))
                 .collect(Collectors.toList());
 
+
+
         String query = fxLeitarvelTexti.getText().trim().toLowerCase();
         List<Tour> searchFiltered = query.isEmpty()
                 ? dateFiltered
@@ -118,7 +128,18 @@ public class HelloController {
                 fxVerdbil4.isSelected()
         );
 
-        List<Tour> finalFiltered = TourFilter.filterByPrice(searchFiltered, priceConditions);
+        List<java.util.function.Predicate<Tour>>  locationConditions = TourFilter.buildLocationConditions(
+                fxLocationReykjavik.isSelected(),
+                fxLocationVik.isSelected(),
+                fxLocationAkureyri.isSelected(),
+                fxLocationHvolsvollur.isSelected(),
+                fxLocationSkaftafell.isSelected(),
+                fxLocationJokulsarlon.isSelected(),
+                fxLocationBlueLagoon.isSelected()
+        );
+
+
+        List<Tour> finalFiltered = TourFilter.filterByLocation(TourFilter.filterByPrice(searchFiltered, priceConditions), locationConditions);
         updateGridPane(finalFiltered);
     }
 
@@ -188,22 +209,6 @@ public class HelloController {
         }
     }
 
-    @FXML
-    private void handleCellClick(MouseEvent event) {
-        VBox cell = (VBox) event.getSource();
-        Integer row = GridPane.getRowIndex(cell);
-        Integer col = GridPane.getColumnIndex(cell);
-        if (row == null) row = 0;
-        if (col == null) col = 0;
-        int cellIndex = row * 3 + col + 1;
-        System.out.println("Cell clicked: " + cellIndex);
-        try {
-            View view = View.valueOf("GRID" + cellIndex);
-            ViewSwitcher.switchTo(view);
-        } catch (IllegalArgumentException e) {
-            System.err.println("No view available for cell: " + cellIndex);
-        }
-    }
 
     @FXML
     private void goToHome(ActionEvent event) {

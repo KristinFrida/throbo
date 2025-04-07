@@ -35,6 +35,8 @@
             <Button fx:id="fxLoginButton" onAction="#onLogin" text="Login" styleClass="form-button"/>
             <Button fx:id="fxCancelButton" onAction="#goToHome" text="Cancel" styleClass="form-button"/>
         </HBox>
+        <Label fx:id="MissingInputDataUser" styleClass="info-label"/>
+
 
         <Button fx:id="fxSignUpLink"
                 onAction="#goToSignUp"
