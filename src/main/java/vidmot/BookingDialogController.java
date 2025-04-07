@@ -71,6 +71,14 @@ public class BookingDialogController {
             datePicker.setStyle("");
         }
 
+        int alreadyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), selectedDate);
+        int remainingSpots = 20 - alreadyBooked;
+
+        if (people > remainingSpots) {
+            showError("Not enough spots available on " + selectedDate + ". Only " + remainingSpots + " left.");
+            return;
+        }
+
         System.out.println("Booking confirmed for: " + selectedTour.getName());
         System.out.println("People: " + people);
         System.out.println("Date: " + selectedDate);
