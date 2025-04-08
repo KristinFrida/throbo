@@ -103,6 +103,9 @@ public class HelloController {
             fxLoginTakki.setOnAction(e -> ViewSwitcher.switchTo(View.LOGIN));
 
             outputUsername.setText("Welcome");
+            clearAllFilters();
+            updateDisplayedTours(null);
+
         }
     }
 
@@ -187,6 +190,24 @@ public class HelloController {
                 row++;
             }
         }
+    }
+
+    public void clearAllFilters() {
+        fxLeitarvelTexti.clear();
+        datePicker.setValue(null);
+
+        fxVerdbil1.setSelected(false);
+        fxVerdbil2.setSelected(false);
+        fxVerdbil3.setSelected(false);
+        fxVerdbil4.setSelected(false);
+
+        fxLocationReykjavik.setSelected(false);
+        fxLocationVik.setSelected(false);
+        fxLocationAkureyri.setSelected(false);
+        fxLocationHvolsvollur.setSelected(false);
+        fxLocationSkaftafell.setSelected(false);
+        fxLocationJokulsarlon.setSelected(false);
+        fxLocationBlueLagoon.setSelected(false);
     }
 
 
