@@ -55,19 +55,24 @@ public class BookingDialogController {
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
 
+                getStyleClass().removeAll("past-date", "unavailable-date", "available-date");
+
                 boolean isPast = date.isBefore(LocalDate.now());
                 boolean isUnavailable = !availableDates.contains(date);
                 boolean isFullyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), date) >= 20;
 
                 if (isPast || isUnavailable || isFullyBooked) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #dddddd; -fx-text-fill: gray;");
+                    getStyleClass().add("unavailable-date");
+
                     if (isFullyBooked) {
                         setTooltip(new Tooltip("Fully booked"));
+                    } else if (isUnavailable) {
+                        setTooltip(new Tooltip("Not available on this day"));
                     }
                 } else {
-                    setOnMouseEntered(e -> setStyle("-fx-background-color: #005a2e; -fx-text-fill: white;"));
-                    setOnMouseExited(e -> setStyle(""));
+                    getStyleClass().add("available-date");
+                    setTooltip(new Tooltip("Available"));
                 }
             }
         });

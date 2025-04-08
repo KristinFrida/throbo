@@ -399,3 +399,17 @@
 .anchor-root {
     -fx-background-color: #f1f9f6;
 }
+
+/* Style for past (disabled) dates */
+.date-cell.past-date {
+    -fx-background-color: #eeeeee;
+    -fx-text-fill: gray;
+}
+
+.date-cell.available-date:hover {
+    -fx-background-color: #005a2e;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
