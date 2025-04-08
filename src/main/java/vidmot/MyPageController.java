@@ -96,9 +96,9 @@ public class MyPageController {
     @FXML
     private void handleLogout() {
         UserRepository.logoutUser();
-        ViewSwitcher.switchTo(View.START);
         HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
         if (helloController != null) helloController.refreshLoginState();
+        ViewSwitcher.switchTo(View.START);
     }
 
     public void refreshPage() {
