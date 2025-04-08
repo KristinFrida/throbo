@@ -79,6 +79,11 @@ public class MyPageController {
             if (result == yes) {
                 BookingManager.removeBooking(booking.getId());
                 loadBookings();
+
+                HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
+                if (helloController != null) {
+                    helloController.refreshFilteredTours();
+                }
             }
         });
     }
