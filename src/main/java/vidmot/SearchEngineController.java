@@ -1,6 +1,6 @@
 package vidmot;
-import bakendi.Tour;
-import bakendi.TourDatabase;
+import backend.Tour;
+import backend.TourDatabase;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.text.Normalizer;
