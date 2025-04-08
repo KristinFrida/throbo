@@ -1,4 +1,4 @@
-package bakendi;
+package backend;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

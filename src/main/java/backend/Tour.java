@@ -1,4 +1,4 @@
-package bakendi;
+package backend;
 
 import java.time.LocalDate;
 import java.util.List;
