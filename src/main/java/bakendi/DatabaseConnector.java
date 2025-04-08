@@ -11,7 +11,6 @@ public class DatabaseConnector {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL);
-            System.out.println("Connected to SQLite database.");
         } catch (SQLException e) {
             System.err.println("Connection failed: " + e.getMessage());
         }

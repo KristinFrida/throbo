@@ -79,6 +79,20 @@ public class BookingManager {
             System.err.println("Error canceling booking: " + e.getMessage());
         }
     }
-
+    public static int getTotalPeopleForTourOnDate(String tourName, LocalDate date) {
+        String sql = "SELECT SUM(amount_people) AS total FROM Bookings WHERE tour_name = ? AND date = ?";
+        try (Connection connection = DatabaseConnector.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, tourName);
+            preparedStatement.setString(2, date.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error calculating total people: " + e.getMessage());
+        }
+        return 0;
+    }
 
 }

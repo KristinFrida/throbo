@@ -1,4 +1,4 @@
-module is.hi.hbv401g.throunnhugbunadar {
+module vidmot {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

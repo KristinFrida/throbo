@@ -28,11 +28,16 @@ public class BookingDialogController {
         tourNameLabel.setText("Booking: " + tour.getName());
 
         peopleSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1));
-        peopleSpinner.valueProperty().addListener((obs, oldValue, newValue) -> updatePrice());
+        peopleSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            updatePrice();
+            validatePeopleLimit();
+        });
 
         updatePrice();
         setupDatePicker();
+        validatePeopleLimit();
     }
+
 
     @FXML
     private void updatePrice() {
@@ -46,12 +51,28 @@ public class BookingDialogController {
         List<LocalDate> availableDates = selectedTour.getAvailableDates();
 
         datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                setDisable(!availableDates.contains(date) || date.isBefore(LocalDate.now()));
+
+                boolean isPast = date.isBefore(LocalDate.now());
+                boolean isUnavailable = !availableDates.contains(date);
+                boolean isFullyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), date) >= 20;
+
+                if (isPast || isUnavailable || isFullyBooked) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #dddddd; -fx-text-fill: gray;");
+                    if (isFullyBooked) {
+                        setTooltip(new Tooltip("Fully booked"));
+                    }
+                } else {
+                    setOnMouseEntered(e -> setStyle("-fx-background-color: #005a2e; -fx-text-fill: white;"));
+                    setOnMouseExited(e -> setStyle(""));
+                }
             }
         });
     }
+
 
     @FXML
     private void confirmBooking() {
@@ -69,6 +90,14 @@ public class BookingDialogController {
             return;
         } else {
             datePicker.setStyle("");
+        }
+
+        int alreadyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), selectedDate);
+        int remainingSpots = 20 - alreadyBooked;
+
+        if (people > remainingSpots) {
+            showError("Not enough spots available on " + selectedDate + ". Only " + remainingSpots + " left.");
+            return;
         }
 
         System.out.println("Booking confirmed for: " + selectedTour.getName());
@@ -270,5 +299,29 @@ public class BookingDialogController {
                 datePicker.setStyle("");
             }
         });
+    }
+
+    private void validatePeopleLimit() {
+        if (selectedTour == null) return;
+
+        LocalDate selectedDate = datePicker.getValue();
+        Integer people = peopleSpinner.getValue();
+
+        if (selectedDate == null || people == null) {
+            errorLabel.setVisible(false);
+            peopleSpinner.setStyle("");
+            return;
+        }
+
+        int alreadyBooked = BookingManager.getTotalPeopleForTourOnDate(selectedTour.getName(), selectedDate);
+        int remainingSpots = 20 - alreadyBooked;
+
+        if (people > remainingSpots) {
+            peopleSpinner.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            showError("Only " + remainingSpots + " spots left for " + selectedDate + ".");
+        } else {
+            peopleSpinner.setStyle("");
+            errorLabel.setVisible(false);
+        }
     }
 }
