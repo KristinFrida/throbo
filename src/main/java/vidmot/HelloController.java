@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,6 +21,8 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import bakendi.BookingManager;
+
 
 public class HelloController {
 
@@ -38,7 +39,6 @@ public class HelloController {
     @FXML private Button fxLoginTakki;
     @FXML private Label fxNoResultsLabel;
 
-    //Fyrir location checkbox
     @FXML private CheckBox fxLocationReykjavik;
     @FXML private CheckBox fxLocationVik;
     @FXML private CheckBox fxLocationAkureyri;
@@ -55,14 +55,18 @@ public class HelloController {
         assert fxLoginTakki != null : "LoginTakki is not injected";
         refreshLoginState();
 
-        //Taka út liðnar dagsetningar
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
+
+                getStyleClass().removeAll("past-date", "available-date");
+
                 if (date.isBefore(LocalDate.now())) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #EEEEEE;");
+                    getStyleClass().add("past-date");
+                } else {
+                    getStyleClass().add("available-date");
                 }
             }
         });
@@ -122,6 +126,7 @@ public class HelloController {
                 ? allTours
                 : allTours.stream()
                 .filter(tour -> tour.isAvailableOn(selectedDate))
+                .filter(tour -> BookingManager.getTotalPeopleForTourOnDate(tour.getName(), selectedDate) < 20)
                 .collect(Collectors.toList());
 
 
