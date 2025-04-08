@@ -41,6 +41,7 @@ public class ViewSwitcher {
             } else {
                 var resource = ViewSwitcher.class.getResource(view.getFileName());
                 if (resource == null) {
+                    System.err.println("FXML resource not found: " + view.getFileName());
                     return;
                 }
                 FXMLLoader loader = new FXMLLoader(resource);

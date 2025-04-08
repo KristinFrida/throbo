@@ -62,6 +62,7 @@ public class UserRepository {
             System.out.println("User created: " + userName);
             return true;
         }catch (SQLException e){
+            System.err.println("Error creating new user: " + e.getMessage());
             return false;
         }
     }
@@ -78,8 +79,8 @@ public class UserRepository {
             if (resultSet.next()) {
                 int userId = resultSet.getInt("id");
                 loginUser(userName, userId);
-
                 return true;
+
             } else {
                 return false;
             }
@@ -91,7 +92,7 @@ public class UserRepository {
 
     public static String getLoggedInUserEmail() {
         if (currentUser == null) {
-            return null; // Enginn skráður inn
+            return null;
         }
 
         String sql = "SELECT email FROM Users WHERE username = ?";

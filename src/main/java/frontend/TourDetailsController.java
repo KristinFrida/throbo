@@ -117,6 +117,7 @@ public class TourDetailsController {
 
             stage.showAndWait();
         } catch (IOException e) {
+            System.err.println("Gat ekki hlaðið booking-dialog.fxml");
             e.printStackTrace();
         }
     }

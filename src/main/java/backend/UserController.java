@@ -197,11 +197,11 @@ public class UserController {
         return isValid;
     }
 
-    public void setFieldValid(TextField field) {
+    private void setFieldValid(TextField field) {
         field.setStyle("-fx-border-color: gray;");
     }
 
-    public void setFieldInvalid(TextField field) {
+    private void setFieldInvalid(TextField field) {
         field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
     }
 
