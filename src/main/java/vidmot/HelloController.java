@@ -226,6 +226,9 @@ public class HelloController {
         }
     }
 
+    public void refreshFilteredTours() {
+        updateDisplayedTours(datePicker.getValue());
+    }
 
     @FXML
     private void goToHome(ActionEvent event) {

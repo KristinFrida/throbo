@@ -126,6 +126,10 @@ public class BookingDialogController {
             } else {
                 System.out.println("My Pages not found, Page will update when reopened");
             }
+            HelloController helloController = (HelloController) ViewSwitcher.lookup(View.START);
+            if (helloController != null) {
+                helloController.refreshFilteredTours();
+            }
         }
 
         closeDialog();
