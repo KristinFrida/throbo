@@ -1,8 +1,8 @@
 package vidmot;
 
-import bakendi.Booking;
-import bakendi.BookingManager;
-import bakendi.UserRepository;
+import backend.Booking;
+import backend.BookingManager;
+import backend.UserRepository;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

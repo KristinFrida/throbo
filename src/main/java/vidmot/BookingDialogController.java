@@ -1,7 +1,7 @@
 package vidmot;
 
-import bakendi.BookingManager;
-import bakendi.Tour;
+import backend.BookingManager;
+import backend.Tour;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;

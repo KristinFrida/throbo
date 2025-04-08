@@ -1,4 +1,4 @@
-package bakendi;
+package backend;
 
 
 public class Booking {

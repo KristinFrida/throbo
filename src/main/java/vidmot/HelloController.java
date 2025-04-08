@@ -1,9 +1,9 @@
 package vidmot;
 
-import bakendi.Tour;
-import bakendi.TourDatabase;
-import bakendi.TourFilter;
-import bakendi.UserRepository;
+import backend.Tour;
+import backend.TourDatabase;
+import backend.TourFilter;
+import backend.UserRepository;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-import bakendi.BookingManager;
+import backend.BookingManager;
 
 
 public class HelloController {
