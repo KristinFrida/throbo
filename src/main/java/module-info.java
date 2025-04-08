@@ -1,10 +1,10 @@
-module vidmot {
+module frontend {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
 
-    opens bakendi to javafx.base, javafx.fxml;
-    opens vidmot to javafx.fxml;
-    exports vidmot;
-    exports bakendi;
+    opens backend to javafx.base, javafx.fxml;
+    opens frontend to javafx.fxml;
+    exports frontend;
+    exports backend;
 }
