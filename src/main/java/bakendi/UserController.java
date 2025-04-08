@@ -116,6 +116,13 @@ public class UserController {
         if (fxPassword != null) fxPassword.clear();
     }
 
+    public void clearSignUpFields() {
+        if (newUsername != null) newUsername.clear();
+        if (newPassword != null) newPassword.clear();
+        if (newEmail != null) newEmail.clear();
+    }
+
+
     // SIGN-UP
     public void newSignUp(ActionEvent event) {
         String username = newUsername.getText();
@@ -137,6 +144,7 @@ public class UserController {
         } else {
             showError("Username or email already exists");
         }
+        clearSignUpFields();
     }
 
     private boolean validateInput(String username, String email, String password) {
@@ -221,9 +229,7 @@ public class UserController {
     public void goToLoginFromSignUP(ActionEvent event) {
         MissingInputDataForNewUser.setText("");
         MissingInputDataForNewUser.setVisible(false);
-        if (newUsername != null) newUsername.clear();
-        if (newPassword != null) newPassword.clear();
-        if (newEmail != null) newEmail.clear();
+        clearSignUpFields();
         ViewSwitcher.switchTo(View.LOGIN);
     }
 
