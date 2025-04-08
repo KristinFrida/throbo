@@ -61,7 +61,7 @@
         <!-- Tour Grid and Message -->
         <StackPane fx:id="tourStack" alignment="TOP_CENTER">
 
-            <VBox alignment="TOP_CENTER" spacing="20">
+            <VBox alignment="TOP_CENTER" spacing="20" minHeight="700">
                 <Label fx:id="fxNoResultsLabel"
                        text="No tours match your search conditions."
                        styleClass="no-results-label"
