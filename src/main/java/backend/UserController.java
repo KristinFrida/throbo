@@ -7,9 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import vidmot.HelloController;
-import vidmot.View;
-import vidmot.ViewSwitcher;
+import frontend.HelloController;
+import frontend.View;
+import frontend.ViewSwitcher;
 
 public class UserController {
 
@@ -104,7 +104,6 @@ public class UserController {
             }else{
                 helloController.clearLabel();
             }
-
             helloController.refreshLoginState();
         } else {
             System.err.println("HelloController not found when trying to send username.");
@@ -236,8 +235,6 @@ public class UserController {
 
     @FXML
     private void initialize() {
-        //hægt er að ýta á enter til að logga sig inn
-
         if (fxUsername != null) {
             fxUsername.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
@@ -254,8 +251,6 @@ public class UserController {
             });
         }
 
-
-        //hægt er að ýta á enter til að nýskrá sig
         if (newUsername != null) {
             newUsername.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {

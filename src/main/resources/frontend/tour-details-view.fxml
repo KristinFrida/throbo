@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frontend.TourDetailsController"
+            stylesheets="@../css/styles.css"
+            styleClass="anchor-root">
+
+    <VBox spacing="25" layoutX="50" layoutY="20" prefWidth="800" styleClass="tour-section">
+
+        <!-- Title -->
+        <Label fx:id="tourTitleLabel" styleClass="title-label" text="Tour Name" alignment="CENTER"/>
+
+        <!-- Image Section -->
+        <HBox spacing="20" alignment="CENTER">
+            <ImageView fx:id="tourMainImage" fitHeight="320" fitWidth="500"
+                       styleClass="main-image"
+                       pickOnBounds="true" preserveRatio="true" />
+            <VBox spacing="10">
+                <ImageView fx:id="tourImage2" fitHeight="155" fitWidth="200"
+                           styleClass="small-image"
+                           pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tourImage3" fitHeight="155" fitWidth="200"
+                           styleClass="small-image"
+                           pickOnBounds="true" preserveRatio="true" />
+            </VBox>
+        </HBox>
+
+        <!-- Short Description -->
+        <TextFlow>
+            <Text fx:id="tourShortDescription" wrappingWidth="700"
+                  styleClass="description-title"
+                  text="Description goes here" />
+        </TextFlow>
+
+        <!-- Info + Long Description -->
+        <HBox spacing="40" alignment="TOP_LEFT">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <Text text="Start Location:" styleClass="info-label"/>
+                    <Text fx:id="tourStartLocation" styleClass="info-value"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Text text="Duration:" styleClass="info-label"/>
+                    <Text fx:id="tourDuration" styleClass="info-value"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Text text="Minimum age:" styleClass="info-label"/>
+                    <Text fx:id="tourMinAge" styleClass="info-value"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Text text="Price:" styleClass="info-label"/>
+                    <Text fx:id="tourPriceRange" styleClass="info-value"/>
+                </HBox>
+            </VBox>
+
+            <TextFlow prefWidth="400" styleClass="description-box">
+                <Text fx:id="tourLongDescription" wrappingWidth="400" styleClass="body-text"/>
+            </TextFlow>
+        </HBox>
+
+        <!-- Buttons -->
+        <HBox spacing="30" alignment="CENTER" styleClass="action-buttons">
+            <Button fx:id="bookNowButton" text="Book Now" styleClass="book-button" onAction="#onBookNowClicked"/>
+            <Button text="← Go Back" styleClass="back-button" onAction="#goBack"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>
+

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Heldur utan um upplýsingar um tours
+ * Holds information about the tours
  */
 public class Tour {
     private String name;
@@ -17,7 +17,6 @@ public class Tour {
     private List<LocalDate> availableDates;
 
     /**
-     * Smíðir tour hluti
      * @param name
      * @param mainImage
      * @param image2
@@ -57,12 +56,11 @@ public class Tour {
     public List<LocalDate> getAvailableDates() { return availableDates; }
     public boolean isAvailableOn(LocalDate date) { return availableDates.contains(date);}
 
-    // Útreikna verðbil út frá price
-    public int getVerdBilCheck() {
+    public int getPriceRange() {
         if (price >= 0 && price <= 5000) return 1;
         if (price >= 5001 && price <= 10000) return 2;
         if (price >= 10001 && price <= 20000) return 3;
         if (price >= 20001) return 4;
-        return 0; // Óþekkt verð
+        return 0;
     }
 }

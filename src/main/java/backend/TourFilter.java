@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 public class TourFilter {
 
     /**
-     * Býr til lista af Predicate<Tour> út frá verðbili.
+     * Creates a list of Predicate<Tour> from the price range
      */
     public static List<Predicate<Tour>> buildPriceConditions(boolean v1, boolean v2, boolean v3, boolean v4) {
         List<Predicate<Tour>> conditions = new ArrayList<>();
 
-        if (v1) conditions.add(t -> t.getVerdBilCheck() == 1);
-        if (v2) conditions.add(t -> t.getVerdBilCheck() == 2);
-        if (v3) conditions.add(t -> t.getVerdBilCheck() == 3);
-        if (v4) conditions.add(t -> t.getVerdBilCheck() == 4);
+        if (v1) conditions.add(t -> t.getPriceRange() == 1);
+        if (v2) conditions.add(t -> t.getPriceRange() == 2);
+        if (v3) conditions.add(t -> t.getPriceRange() == 3);
+        if (v4) conditions.add(t -> t.getPriceRange() == 4);
 
         if (conditions.isEmpty()) {
-            conditions.add(t -> true); // Ef ekkert er valið, sýna allt
+            conditions.add(t -> true);
         }
 
         return conditions;
@@ -31,7 +31,6 @@ public class TourFilter {
                 .collect(Collectors.toList());
     }
 
-    // alveg eins og price filter en hérna er það location filter
     public static List<Predicate<Tour>> buildLocationConditions(boolean reykjavik, boolean vik, boolean akureyri, boolean hvolsvollur, boolean skaftafell, boolean jokulsarlon, boolean blueLagoon) {
         List<Predicate<Tour>> conditions = new ArrayList<>();
 

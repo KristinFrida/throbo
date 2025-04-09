@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frontend.MyPageController"
+            stylesheets="@../css/styles.css"
+            prefWidth="1000" prefHeight="700">
+
+   <!-- Page Title -->
+   <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="30">
+      <Text text="Day Tours Booking" styleClass="page-title"/>
+   </VBox>
+
+   <!-- User Info -->
+   <VBox spacing="5" AnchorPane.topAnchor="100" AnchorPane.leftAnchor="30">
+      <Label text="Name:" styleClass="info-label"/>
+      <Label fx:id="userNameLabel" styleClass="user-info"/>
+      <Label text="Email:" styleClass="info-label"/>
+      <Label fx:id="userEmailLabel" styleClass="user-info"/>
+   </VBox>
+
+   <ScrollPane fitToWidth="true"
+               AnchorPane.topAnchor="220" AnchorPane.bottomAnchor="100"
+               AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30">
+      <VBox fx:id="bookingsContainer" spacing="12" styleClass="bookings-container"/>
+   </ScrollPane>
+
+   <!-- Bottom Buttons -->
+   <HBox spacing="15" alignment="CENTER_LEFT"
+         AnchorPane.leftAnchor="30" AnchorPane.bottomAnchor="30">
+      <Button fx:id="homeButton" text="Back to Home" onAction="#goToHome" styleClass="button"/>
+      <Button fx:id="logoutButton" text="Log Out" onAction="#handleLogout" styleClass="button"/>
+   </HBox>
+</AnchorPane>
