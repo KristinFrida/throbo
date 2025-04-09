@@ -99,7 +99,7 @@ public class TourDatabase {
     }
 
     /**
-     * Býr til lista af dagsetningum fyrir tiltekna vikudaga út árið 2025
+     * Creates a list of dates for a selected weekdays in 2025
      */
     private static List<LocalDate> generateFixedWeekdays(List<DayOfWeek> allowedDays) {
         List<LocalDate> weekdays = new ArrayList<>();

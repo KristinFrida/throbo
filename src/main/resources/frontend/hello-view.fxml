@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane stylesheets="@../css/styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frontend.HelloController"
+            prefWidth="1000" prefHeight="750">
+
+    <!-- Page Title & Welcome -->
+    <VBox spacing="5" alignment="CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <Text text="Day Tours Booking" styleClass="page-title"/>
+        <Text fx:id="outputUsername" text="Welcome" styleClass="page-name"/>
+    </VBox>
+
+    <!-- Login Button -->
+    <HBox alignment="CENTER_RIGHT" spacing="10" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="20">
+        <Button fx:id="fxLoginButton" text="Login" styleClass="primary-button"/>
+    </HBox>
+
+    <!-- Search Area -->
+    <HBox fx:id="fxSearchEngine" alignment="CENTER" spacing="10"
+          AnchorPane.topAnchor="80" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <TextField fx:id="fxSearchEngineText" promptText="Search..."
+                   HBox.hgrow="ALWAYS" />
+
+        <DatePicker fx:id="datePicker"
+                    HBox.hgrow="ALWAYS" />
+
+        <Button fx:id="fxSearchEngineButton" text="Search" styleClass="primary-button" onAction="#handleFilterChange"/>
+    </HBox>
+
+
+    <!-- Main Layout -->
+    <HBox alignment="CENTER_LEFT" spacing="15" AnchorPane.topAnchor="140" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <!-- Filters -->
+        <VBox fx:id="filterPane" prefWidth="180" minWidth="160" maxWidth="200" spacing="20" styleClass="filter-box">
+            <Label text="Prices" styleClass="filter-title"/>
+            <CheckBox fx:id="fxPriceRange1" text="0 - 4.999 ISK" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxPriceRange2" text="5.000 - 9.999 ISK" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxPriceRange3" text="10.000 - 19.999 ISK" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxPriceRange4" text="+20.000 ISK" onAction="#handleFilterChange"/>
+
+            <Region prefHeight="20"/>
+
+            <Label text="Locations" styleClass="filter-title"/>
+            <CheckBox fx:id="fxLocationReykjavik" text="Reykjavík" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationVik" text="Vík" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationAkureyri" text="Akureyri" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationHvolsvollur" text="Hvolsvöllur" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationSkaftafell" text="Skaftafell" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationJokulsarlon" text="Jökulsárlón" onAction="#handleFilterChange"/>
+            <CheckBox fx:id="fxLocationBlueLagoon" text="Blue Lagoon" onAction="#handleFilterChange"/>
+        </VBox>
+
+        <!-- Tour Grid -->
+        <!-- Tour Grid and Message -->
+        <StackPane fx:id="tourStack" alignment="TOP_CENTER">
+
+            <VBox alignment="TOP_CENTER" spacing="20" minHeight="700">
+                <Label fx:id="fxNoResultsLabel"
+                       text="No tours match your search conditions."
+                       styleClass="no-results-label"
+                       visible="false"
+                       wrapText="true"
+                       maxWidth="300"
+                />
+
+                <GridPane fx:id="fxTourGridPane" hgap="15" vgap="15" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="180"/>
+                        <ColumnConstraints minWidth="180"/>
+                        <ColumnConstraints minWidth="180"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="120"/>
+                        <RowConstraints minHeight="120"/>
+                        <RowConstraints minHeight="120"/>
+                        <RowConstraints minHeight="120"/>
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
+        </StackPane>
+    </HBox>
+</AnchorPane>

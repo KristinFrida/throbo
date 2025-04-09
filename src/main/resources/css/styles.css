@@ -153,7 +153,7 @@
 
 #signUpForm .text-field,
 #signUpForm .password-field {
-    -fx-pref-width: 250px; /* Sérstaklega fyrir sign-up */
+    -fx-pref-width: 250px; /* Special for sign-up */
 }
 
 #signUpButtonRow {

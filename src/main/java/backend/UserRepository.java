@@ -97,7 +97,7 @@ public class UserRepository {
 
     public static String getLoggedInUserEmail() {
         if (currentUser == null) {
-            return null; // Enginn skráður inn
+            return null;
         }
 
         String sql = "SELECT email FROM Users WHERE username = ?";
