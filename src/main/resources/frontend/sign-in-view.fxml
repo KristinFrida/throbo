@@ -12,7 +12,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="backend.UserController"
+            fx:controller="frontend.UserController"
             fx:id="signUpRoot"
             stylesheets="@../css/styles.css"
             prefWidth="600" prefHeight="400">

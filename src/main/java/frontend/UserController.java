@@ -1,5 +1,6 @@
-package backend;
+package frontend;
 
+import backend.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,9 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import frontend.HelloController;
-import frontend.View;
-import frontend.ViewSwitcher;
 
 public class UserController {
 
