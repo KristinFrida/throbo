@@ -10,7 +10,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="backend.UserController"
+            fx:controller="frontend.UserController"
             stylesheets="@../css/styles.css"
             fx:id="loginRoot"
             prefWidth="600" prefHeight="450">
